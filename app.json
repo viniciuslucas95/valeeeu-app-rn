@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "name": "Valeeeu!",
+    "slug": "Valeeeu",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "com.viniciuslucas95.valeeeu",
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.viniciuslucas95.valeeeu"
+    },
+    "android": {
+      "package": "com.viniciuslucas95.valeeeu"
+    }
+  }
+}
