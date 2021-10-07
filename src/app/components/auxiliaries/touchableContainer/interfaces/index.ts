@@ -1,0 +1,1 @@
+export { IHighlightColors } from './IHighlightColors';
