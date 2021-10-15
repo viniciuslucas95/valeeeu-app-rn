@@ -1,9 +1,13 @@
 import { AxiosConfig, HttpServerConfig } from '../../../configs';
 import axios from 'axios';
-import { IAccountDto } from '../../dtos';
+
+interface IAccount {
+  email: string;
+  password: string;
+}
 
 export class AccountApiService {
-  createAsync(data: IAccountDto) {
+  createAsync(data: IAccount) {
     return axios.post(
       `${HttpServerConfig.httpServerUrl}/users`,
       data,
@@ -11,7 +15,7 @@ export class AccountApiService {
     );
   }
 
-  updateAsync(data: IAccountDto, accessToken: string) {
+  updateAsync(data: IAccount, accessToken: string) {
     return axios.patch(
       `${HttpServerConfig.httpServerUrl}/${accessToken}`,
       data,

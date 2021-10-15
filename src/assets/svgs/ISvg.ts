@@ -1,4 +1,4 @@
-import { ViewElementStyle } from '../../app/dataTypes/types/elements';
+import { ViewElementStyle } from '../../app/dataTypes/types';
 
 export interface ISvg {
   color?: string;

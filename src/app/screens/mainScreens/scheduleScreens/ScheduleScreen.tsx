@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScreenContainer } from '../../../styles/components';
+import { ScreenContainer } from '../../../components/screenContainer';
 
 export function ScheduleScreen() {
   return <ScreenContainer></ScreenContainer>;

@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator();
 const iconTopMargin = 6;
 const labelBottomMargin = 4;
 
-export function MainStackNavigator() {
+export function BottomTabNavigator() {
   return (
     <Tab.Navigator
       screenOptions={{

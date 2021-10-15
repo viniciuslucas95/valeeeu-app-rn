@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { accountContext } from '../contexts';
 import { AccountStackNavigator } from './AccountStackNavigator';
-import { MainStackNavigator } from './MainStackNavigator';
+import { BottomTabNavigator } from './BottomTabNavigator';
 
 export function MainNavigator() {
   const { accessToken } = useContext(accountContext);
 
   return (
-    <>{accessToken ? <MainStackNavigator /> : <AccountStackNavigator />}</>
+    <>{accessToken ? <BottomTabNavigator /> : <AccountStackNavigator />}</>
   );
 }

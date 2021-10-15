@@ -2,17 +2,19 @@ import styled from 'styled-components/native';
 import { ColorConstant, SizeConstant } from '../../../configs/constants';
 import { UnitHandler } from '../../helpers';
 
-interface IProps {
+interface IContainerProps {
   width?: string;
+  height?: string;
 }
 
-export const Container = styled.View<IProps>`
+export const Container = styled.View<IContainerProps>`
   width: ${({ width }) => width ?? SizeConstant.maxElementWidth};
-  height: ${SizeConstant.elementHeight};
+  height: ${({ height }) => height ?? SizeConstant.elementHeight};
   background-color: ${ColorConstant.lightGray};
   border-radius: ${SizeConstant.borderRadius};
   flex-direction: row;
-  align-items: center;
+  align-items: ${({ height }) =>
+    height !== SizeConstant.elementHeight ? 'flex-start' : 'center'};
 `;
 
 // prettier-ignore
@@ -27,4 +29,5 @@ export const TouchableIcon = styled.TouchableWithoutFeedback``;
 
 export const TouchableContainer = styled.View`
   margin-right: ${UnitHandler.vwPx(2)};
+  align-self: center;
 `;

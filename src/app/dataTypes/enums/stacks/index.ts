@@ -1,2 +1,2 @@
 export { AccountStack } from './AccountStack';
-export { WorkerProfileCreationStack } from './WorkerProfileCreationStack';
+export { ServiceStack } from './ServiceStack';

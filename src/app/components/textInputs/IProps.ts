@@ -1,4 +1,4 @@
-import { ViewElementStyle } from '../../dataTypes/types/elements';
+import { ViewElementStyle } from '../../dataTypes/types';
 
 export interface IProps {
   text: string;

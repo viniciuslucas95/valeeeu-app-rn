@@ -1,6 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import { ColorConstant } from '../../configs/constants';
 import { AccountStack } from '../dataTypes/enums/stacks';
 import { CreateAccountScreen, LoginScreen } from '../screens/accountScreens';
 import { screenOptions } from './screenOptions';

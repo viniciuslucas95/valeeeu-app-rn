@@ -3,7 +3,11 @@ import { registerRootComponent } from 'expo';
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { MainNavigator } from './navigators';
-import { useFonts, Roboto_500Medium } from '@expo-google-fonts/roboto';
+import {
+  useFonts,
+  Roboto_500Medium,
+  Roboto_400Regular_Italic,
+} from '@expo-google-fonts/roboto';
 import { FugazOne_400Regular } from '@expo-google-fonts/fugaz-one';
 import { View } from 'react-native';
 import {
@@ -17,6 +21,7 @@ export default function App() {
   const [hasFontsLoaded] = useFonts({
     Roboto_500Medium,
     FugazOne_400Regular,
+    Roboto_400Regular_Italic,
   });
 
   setStatusBarBackgroundColor(ColorConstant.purple, false);
