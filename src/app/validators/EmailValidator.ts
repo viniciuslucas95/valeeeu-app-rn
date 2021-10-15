@@ -3,6 +3,7 @@ import { ValidationError } from '../errors';
 
 export class EmailValidator {
   validate(value: string): void {
+    if (!value) throw new ValidationError('NullEmail');
     if (!isEmail(value)) throw new ValidationError('WrongEmailFormat');
   }
 }

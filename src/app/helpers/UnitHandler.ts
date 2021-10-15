@@ -1,23 +1,23 @@
 import { Dimensions, StatusBar } from 'react-native';
 
 export class UnitHandler {
-  private readonly width = Dimensions.get('window').width;
-  private readonly height =
+  private static readonly width = Dimensions.get('window').width;
+  private static readonly height =
     Dimensions.get('window').height + (StatusBar.currentHeight ?? 0);
 
-  vw(value: number) {
+  static vw(value: number) {
     return (this.width / 100) * value;
   }
 
-  vh(value: number) {
+  static vh(value: number) {
     return (this.height / 100) * value;
   }
 
-  vwPx(value: number) {
+  static vwPx(value: number) {
     return (this.width / 100) * value + 'px';
   }
 
-  vhPx(value: number) {
+  static vhPx(value: number) {
     return (this.height / 100) * value + 'px';
   }
 }

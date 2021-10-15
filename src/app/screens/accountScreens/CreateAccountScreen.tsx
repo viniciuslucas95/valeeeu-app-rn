@@ -1,38 +1,35 @@
 import React, { useState } from 'react';
-import { TextInput } from '../../components/textInputs/defaultTextInput';
-import { PasswordTextInput } from '../../components/textInputs/passwordTextInput';
 import { ScreenContainer } from '../../styles/components';
-import { INavigate } from '../interfaces';
-import { AccountApiService } from '../../services/apis';
-import { TextButton } from '../../components/buttons/defaultButton';
-import { CredentialsValidator } from './validators';
-
-const credentialsValidator = new CredentialsValidator();
-const accountApiService = new AccountApiService();
+import { INavigate } from '../INavigate';
+import { Button } from '../../components/buttons';
+import { LogoSvg } from '../../../assets/svgs';
+import { UnitHandler } from '../../helpers';
+import { PasswordInput, TextInput } from '../../components/textInputs';
 
 export function CreateAccountScreen({ navigation }: INavigate) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   async function createAccountAsync() {
-    try {
-      credentialsValidator.validate(email, password);
-      const { status } = await accountApiService.createAsync({
-        email,
-        password,
-      });
-      if (status !== 201) throw new Error('CouldNotCreateAnAccount');
-      navigation.goBack();
-    } catch (err: any) {
-      console.error(err.message);
-    }
+    console.log('CREATE ACCOUNT PRESSED');
   }
 
   return (
     <ScreenContainer>
-      <TextInput text={email} setText={setEmail} />
-      <PasswordTextInput password={password} setPassword={setPassword} />
-      <TextButton onPress={createAccountAsync}>Criar conta</TextButton>
+      <LogoSvg style={{ marginBottom: UnitHandler.vh(4) }} />
+      <TextInput
+        style={{ marginBottom: UnitHandler.vh(1) }}
+        text={email}
+        setText={setEmail}
+        placeholder='Email'
+      />
+      <PasswordInput
+        style={{ marginBottom: UnitHandler.vh(2) }}
+        text={password}
+        setText={setPassword}
+        placeholder='Senha'
+      />
+      <Button onPress={createAccountAsync}>Criar conta</Button>
     </ScreenContainer>
   );
 }

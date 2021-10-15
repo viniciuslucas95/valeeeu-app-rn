@@ -1,1 +1,0 @@
-export { screenOptions } from './screenOptions';
