@@ -7,7 +7,7 @@ export function ScreenContainer({
   contentPosition: startingContent,
 }: PropsWithChildren<IProps>) {
   return (
-    <Container contentPosition={startingContent}>
+    <Container>
       <InsideContainer contentPosition={startingContent}>
         {children}
       </InsideContainer>

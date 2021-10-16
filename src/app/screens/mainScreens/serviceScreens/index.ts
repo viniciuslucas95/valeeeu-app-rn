@@ -1,2 +1,3 @@
 export { CreateWorkerProfileScreen } from './CreateWorkerProfileScreen';
-export { EditWorkerProfileScreen } from './EditWorkerProfileScreen';
+export { EditWorkerProfileScreen1 } from './EditWorkerProfileScreen1';
+export { EditWorkerProfileScreen2 } from './EditWorkerProfileScreen2';

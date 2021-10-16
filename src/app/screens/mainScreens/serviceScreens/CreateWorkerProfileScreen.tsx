@@ -11,7 +11,7 @@ import { UnitHandler } from '../../../helpers';
 
 export function CreateWorkerProfileScreen({ navigation }: INavigate) {
   function createWorkerProfile() {
-    navigation.navigate(ServiceStack.editWorkerProfile);
+    navigation.navigate(ServiceStack.editWorkerProfile1);
   }
 
   return (

@@ -16,6 +16,7 @@ import {
 } from 'expo-status-bar';
 import { ColorConstant } from '../configs/constants';
 import { AccountProvider } from './contexts';
+import { LoadScreen } from './screens/loadScreen';
 
 export default function App() {
   const [hasFontsLoaded] = useFonts({
@@ -27,7 +28,7 @@ export default function App() {
   setStatusBarBackgroundColor(ColorConstant.purple, false);
   setStatusBarStyle('light');
 
-  if (!hasFontsLoaded) return <View></View>;
+  if (!hasFontsLoaded) return <LoadScreen />;
 
   return (
     <AccountProvider>

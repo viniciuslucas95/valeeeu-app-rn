@@ -3,16 +3,17 @@ import { ColorConstant, SizeConstant } from '../../../configs/constants';
 import { UnitHandler } from '../../helpers';
 import { IProps } from './IProps';
 
-export const Container = styled.View<IProps>`
+export const Container = styled.View`
   flex: 1;
-  align-items: center;
-  justify-content: ${({ contentPosition: startingContent }) =>
-    startingContent === 'top' ? 'flex-start' : 'center'};
   background-color: ${ColorConstant.white};
 `;
 
 export const InsideContainer = styled.View<IProps>`
   width: ${SizeConstant.maxElementWidth};
-  margin-top: ${({ contentPosition: startingContent }) =>
-    startingContent === 'top' ? UnitHandler.vhPx(3) : '0px'};
+  margin-top: ${UnitHandler.vhPx(3)};
+  margin-bottom: ${UnitHandler.vhPx(3)};
+  margin-left: ${UnitHandler.vwPx(5)};
+  flex: 1;
+  justify-content: ${({ contentPosition }) =>
+    contentPosition === 'top' ? 'flex-start' : 'center'};
 `;

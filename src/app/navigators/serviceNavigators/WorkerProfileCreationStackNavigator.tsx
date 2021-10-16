@@ -3,7 +3,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { ServiceStack } from '../../dataTypes/enums/stacks';
 import {
   CreateWorkerProfileScreen,
-  EditWorkerProfileScreen,
+  EditWorkerProfileScreen1,
+  EditWorkerProfileScreen2,
 } from '../../screens/mainScreens/serviceScreens';
 import { screenOptions } from '../screenOptions';
 
@@ -21,11 +22,19 @@ export function WorkerProfileCreationStackNavigator() {
         )}
       </Stack.Screen>
       <Stack.Screen
-        name={ServiceStack.editWorkerProfile}
-        options={{ title: 'Criar perfil' }}
+        name={ServiceStack.editWorkerProfile1}
+        options={{ title: 'Criar perfil (1 de 2)' }}
       >
         {({ navigation }) => (
-          <EditWorkerProfileScreen navigation={navigation} />
+          <EditWorkerProfileScreen1 navigation={navigation} />
+        )}
+      </Stack.Screen>
+      <Stack.Screen
+        name={ServiceStack.editWorkerProfile2}
+        options={{ title: 'Criar perfil (2 de 2)' }}
+      >
+        {({ navigation }) => (
+          <EditWorkerProfileScreen2 navigation={navigation} />
         )}
       </Stack.Screen>
     </Stack.Navigator>
