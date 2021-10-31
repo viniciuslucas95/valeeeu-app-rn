@@ -1,2 +1,2 @@
-export { ColorConstant } from './ColorConstant';
-export { SizeConstant } from './SizeConstant';
+export { ColorConstant } from './color-constant';
+export { SizeConstant } from './size-constant';

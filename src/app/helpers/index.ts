@@ -1,1 +1,1 @@
-export { UnitHandler } from './UnitHandler';
+export { UnitHandler } from './unit-handler';
