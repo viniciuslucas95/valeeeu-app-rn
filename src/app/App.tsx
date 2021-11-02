@@ -1,42 +1,35 @@
 import 'react-native-gesture-handler';
 import { registerRootComponent } from 'expo';
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { MainNavigator } from './navigators';
 import {
   useFonts,
+  Roboto_300Light,
+  Roboto_400Regular,
   Roboto_500Medium,
-  Roboto_400Regular_Italic,
+  Roboto_300Light_Italic,
 } from '@expo-google-fonts/roboto';
-import { FugazOne_400Regular } from '@expo-google-fonts/fugaz-one';
-import { View } from 'react-native';
 import {
   setStatusBarBackgroundColor,
   setStatusBarStyle,
 } from 'expo-status-bar';
-import { ColorConstant } from '../configs/constants';
-import { AccountProvider } from './contexts';
-import { LoadScreen } from './screens/loadScreen';
+import AppLoading from 'expo-app-loading';
+import { MainNavigator } from './navigators';
+import { ThemeConfig } from '../configs';
 
 export default function App() {
   const [hasFontsLoaded] = useFonts({
+    Roboto_300Light,
+    Roboto_300Light_Italic,
+    Roboto_400Regular,
     Roboto_500Medium,
-    FugazOne_400Regular,
-    Roboto_400Regular_Italic,
   });
 
-  setStatusBarBackgroundColor(ColorConstant.purple, false);
+  setStatusBarBackgroundColor(ThemeConfig.app, false);
   setStatusBarStyle('light');
 
-  if (!hasFontsLoaded) return <LoadScreen />;
+  if (!hasFontsLoaded) return <AppLoading />;
 
-  return (
-    <AccountProvider>
-      <NavigationContainer>
-        <MainNavigator />
-      </NavigationContainer>
-    </AccountProvider>
-  );
+  return <MainNavigator />;
 }
 
 registerRootComponent(App);
