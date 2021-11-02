@@ -1,2 +1,2 @@
 export { LogoSvg } from './logo-svg';
-export { LogoBackgroundSvg } from './logo-background-svg';
+export { LogoWithBackgroundSvg } from './logo-with-background-svg';

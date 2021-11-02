@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
-import { LogoSvg } from '../../assets/svgs';
+import { LogoWithBackgroundSvg, LogoSvg } from '../../assets/svgs';
 import {
   EyeIcon,
   NoEyeIcon,
@@ -12,16 +12,17 @@ import { SizeConstant } from '../../configs/constants';
 import { IconButton, TextInput, Button } from '../components';
 import { TextButton } from '../components';
 import { FontFamily } from '../data-types/enums';
+import { INavigate } from '../data-types/interfaces';
 import { UnitHandler } from '../helpers';
 import { Text } from '../styled-components';
 
 const hidePasswordIconPositionAdjust = -UnitHandler.vw(0.4);
 const createAccountMarginAdjust = -UnitHandler.rem(4);
-const screenWidth = UnitHandler.vw(100);
+const screenWidth = UnitHandler.vw(101);
+const logoDifferenceFromScreenWidth = 40;
 const maxWidth = 400;
-const logoWidth = UnitHandler.vw(87.5);
 
-export function LoginScreen() {
+export function LoginScreen({ navigation }: INavigate) {
   const [isShowingPassword, setIsShowingPassword] = useState(false);
   const [user, setUser] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -37,17 +38,27 @@ export function LoginScreen() {
         keyboardDismissMode='none'
         keyboardShouldPersistTaps='handled'
       >
-        <FlexSpace style={{ flex: screenWidth > maxWidth ? 30 : 12 }} />
-        <FlexSpace
+        {screenWidth > maxWidth ? <FlexSpace style={{ flex: 25.92 }} /> : null}
+        <LogoContainer
           style={{
-            flex: 4,
+            flex: 4.32,
             marginBottom:
               SizeConstant.inputLabelPositionAdjust + SizeConstant.bigMargin,
           }}
         >
-          <LogoSvg width={logoWidth > maxWidth ? maxWidth : logoWidth} />
-        </FlexSpace>
-        <CredentialsContainer style={{ flex: 1 }}>
+          {screenWidth > maxWidth ? (
+            <LogoSvg width={maxWidth} />
+          ) : (
+            <LogoWithBackgroundSvg
+              width={
+                screenWidth > maxWidth
+                  ? maxWidth + logoDifferenceFromScreenWidth
+                  : screenWidth
+              }
+            />
+          )}
+        </LogoContainer>
+        <CredentialsContainer style={{ flex: 2.16 }}>
           <TextInput
             style={{
               marginBottom:
@@ -99,7 +110,7 @@ export function LoginScreen() {
           </TextButton>
         </CredentialsContainer>
         <SeparatorContainer
-          style={{ flex: 4, marginBottom: SizeConstant.smallMargin }}
+          style={{ flex: 2.16, marginBottom: SizeConstant.smallMargin }}
         >
           <LeftLine />
           <Text
@@ -114,7 +125,7 @@ export function LoginScreen() {
           </Text>
           <RightLine />
         </SeparatorContainer>
-        <PlataformsLoginContainer style={{ flex: 4 }}>
+        <PlataformsLoginContainer style={{ flex: 2.16 }}>
           <IconButton
             extraPressableArea={24}
             onPress={() => console.log('Google login button pressed...')}
@@ -149,13 +160,13 @@ export function LoginScreen() {
                 marginLeft: createAccountMarginAdjust,
                 marginRight: createAccountMarginAdjust * 3,
               }}
-              onPress={() => console.log('Create account button pressed...')}
+              onPress={() => console.log('Account creation button pressed...')}
             >
               Cadastre-se agora!
             </TextButton>
           </AccountCreationContent>
         </AccountCreationContainer>
-        {screenWidth > maxWidth ? <FlexSpace style={{ flex: 30 }} /> : null}
+        {screenWidth > maxWidth ? <FlexSpace style={{ flex: 25.92 }} /> : null}
       </ScrollView>
     </SafeContainer>
   );
@@ -167,6 +178,8 @@ const SafeContainer = styled.SafeAreaView`
   flex: 1;
   background-color: ${ThemeConfig.background};
 `;
+
+const LogoContainer = styled.View``;
 
 const CredentialsContainer = styled.View`
   justify-content: center;

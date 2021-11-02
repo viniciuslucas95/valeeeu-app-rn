@@ -10,11 +10,20 @@ const Stack = createStackNavigator();
 export function MainNavigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
         <Stack.Screen name={MainScreen.main}>
           {({ navigation }) => <TabNavigation navigation={navigation} />}
         </Stack.Screen>
-        <Stack.Screen name={MainScreen.account}>
+        <Stack.Screen
+          name={MainScreen.account}
+          options={{
+            presentation: 'modal',
+          }}
+        >
           {({ navigation }) => (
             <AccountStackNavigation navigation={navigation} />
           )}

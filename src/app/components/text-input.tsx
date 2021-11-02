@@ -76,6 +76,9 @@ const Input = styled.TextInput`
   font-family: ${FontFamily.regular};
   font-size: ${SizeConstant.mediumText + 'px'};
   color: ${ThemeConfig.text};
+  height: ${UnitHandler.rem(
+    SizeConstant.buttonPressableArea + SizeConstant.thinBorderWidth
+  ) + 'px'};
 `;
 
 const IconContainer = styled.View`
@@ -87,9 +90,6 @@ const InputContainer = styled.View<IInputProps>`
   flex-direction: row;
   align-items: center;
   padding: 0 ${SizeConstant.mediumMargin + 'px'};
-  min-height: ${UnitHandler.rem(
-    SizeConstant.buttonPressableArea + SizeConstant.thickBorderWidth
-  ) + 'px'};
   border-radius: ${SizeConstant.borderRadius + 'px'};
   border-width: ${SizeConstant.thickBorderWidth + 'px'};
   border-color: ${({ isFocused }) =>
