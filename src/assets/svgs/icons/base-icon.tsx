@@ -1,9 +1,7 @@
 import React, { PropsWithChildren, useContext, useLayoutEffect } from 'react';
 import Svg from 'react-native-svg';
 import { sizeContext } from '../../../app/components';
-import { IconSize } from '../../../app/data-types/enums';
 import { ViewElementStyle } from '../../../app/data-types/types';
-import { UnitHandler } from '../../../app/helpers';
 import { SizeConstant } from '../../../configs/constants';
 
 interface IBaseSize {
@@ -14,62 +12,55 @@ interface IBaseSize {
 interface IProps extends Omit<IIcon, 'color'> {
   baseSize: IBaseSize;
   children: JSX.Element | JSX.Element[];
-  screenWidthReference?: number;
 }
 
-const baseScreenWidthReference = 360;
+type Size = 'big' | 'medium' | 'small' | 'tiny';
 
 export interface IIcon {
   color?: string;
-  size?: 'big' | 'medium' | 'small' | 'tiny';
+  size?: Size;
   style?: ViewElementStyle;
 }
 
 export function BaseIcon({
   baseSize: { width, height },
-  size,
   style,
   children,
-  screenWidthReference,
+  size,
 }: PropsWithChildren<IProps>) {
   const { setSize } = useContext(sizeContext);
   const viewBox = `0 0 ${width} ${height}`;
-  const screenWidth = UnitHandler.vw(100);
-  const newHeightBasedOnScreenSize =
-    ((height * screenWidth) /
-      (screenWidthReference ?? baseScreenWidthReference)) *
-    adjustSize(size);
-  const widthDifferenceFromHeight = width / height;
-  const newWidthBasedOnDifferenceFromHeight =
-    newHeightBasedOnScreenSize * widthDifferenceFromHeight;
-
-  function adjustSize(size?: string) {
-    switch (size) {
-      case IconSize.big:
-        return SizeConstant.bigSvgAdjuster;
-      case IconSize.medium:
-        return SizeConstant.mediumSvgAdjuster;
-      case IconSize.small:
-        return SizeConstant.smallSvgAdjuster;
-      case IconSize.tiny:
-        return SizeConstant.tinySvgAdjuster;
-      default:
-        return SizeConstant.bigSvgAdjuster;
-    }
-  }
+  const widthDifference = width / height;
+  const newHeight = height * changeSize(size);
+  const newWidth = newHeight * widthDifference;
 
   useLayoutEffect(() => {
     if (setSize)
       setSize({
-        width: newWidthBasedOnDifferenceFromHeight,
-        height: newHeightBasedOnScreenSize,
+        width: newWidth,
+        height: newHeight,
       });
   }, []);
 
+  function changeSize(size?: Size) {
+    switch (size) {
+      case 'big':
+        return SizeConstant.bigIcon;
+      case 'medium':
+        return SizeConstant.mediumIcon;
+      case 'small':
+        return SizeConstant.smallIcon;
+      case 'tiny':
+        return SizeConstant.tinyIcon;
+      case undefined:
+        return SizeConstant.mediumIcon;
+    }
+  }
+
   return (
     <Svg
-      width={newWidthBasedOnDifferenceFromHeight}
-      height={newHeightBasedOnScreenSize}
+      width={newWidth}
+      height={newHeight}
       viewBox={viewBox}
       fill='none'
       style={style}

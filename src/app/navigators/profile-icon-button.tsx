@@ -12,7 +12,7 @@ export function ProfileIconButton({ onPress }: IProps) {
   return (
     <TouchableContainer style={{ flex: 1 }} onPress={onPress}>
       <Container>
-        <ProfileIcon color={ThemeConfig.inactive} />
+        <ProfileIcon size='big' color={ThemeConfig.inactive} />
       </Container>
     </TouchableContainer>
   );

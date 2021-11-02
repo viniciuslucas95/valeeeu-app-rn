@@ -1,4 +1,4 @@
-import { Dimensions, StatusBar } from 'react-native';
+import { Dimensions, PixelRatio, StatusBar } from 'react-native';
 
 export class UnitHandler {
   private static readonly width = Dimensions.get('window').width;
@@ -13,11 +13,7 @@ export class UnitHandler {
     return (this.height / 100) * value;
   }
 
-  static vwPx(value: number) {
-    return (this.width / 100) * value + 'px';
-  }
-
-  static vhPx(value: number) {
-    return (this.height / 100) * value + 'px';
+  static rem(value: number) {
+    return value * PixelRatio.getFontScale();
   }
 }

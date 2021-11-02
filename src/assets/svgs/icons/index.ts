@@ -5,3 +5,5 @@ export { SearchIcon } from './search-icon';
 export { EyeIcon } from './eye-icon';
 export { NoEyeIcon } from './no-eye-icon';
 export { CloseIcon } from './close-icon';
+export { FacebookLoginIcon } from './facebook-login-icon';
+export { GoogleLoginIcon } from './google-login-icon';

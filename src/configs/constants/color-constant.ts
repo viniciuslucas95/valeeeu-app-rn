@@ -1,8 +1,8 @@
 export class ColorConstant {
   static readonly black1 = '#151515';
   static readonly gray5 = '#808080';
-  static readonly gray4 = '#C0C0C0';
-  static readonly gray3 = '#EAEAEA';
+  static readonly gray4 = '#AAAAAA';
+  static readonly gray3 = '#C0C0C0';
   static readonly gray2 = '#F3F3F3';
   static readonly gray1 = '#F8F8F8';
   static readonly white1 = '#FFFFFF';

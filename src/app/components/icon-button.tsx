@@ -1,6 +1,6 @@
 import React, { createContext, PropsWithChildren, useState } from 'react';
 import styled, { css } from 'styled-components/native';
-import { SizeConfig } from '../../configs';
+import { SizeConstant } from '../../configs/constants';
 import { ViewElementStyle } from '../data-types/types';
 import { TouchableContainer } from './touchable-container';
 
@@ -20,6 +20,7 @@ interface IProps {
   side?: Side;
   children: JSX.Element;
   style?: ViewElementStyle;
+  extraPressableArea?: number;
 }
 
 export const SizeContext = createContext<ISizeContext>({} as ISizeContext);
@@ -29,6 +30,7 @@ export function IconButton({
   children,
   side,
   style,
+  extraPressableArea = 0,
 }: PropsWithChildren<IProps>) {
   const [size, setSize] = useState<IIconSize>({
     height: 0,
@@ -38,7 +40,10 @@ export function IconButton({
   return (
     <SizeContext.Provider value={{ setSize: side ? setSize : undefined }}>
       <TouchableContainer onPress={onPress} style={style}>
-        <IconContainer buttonAdjust={side ? { side, size } : undefined}>
+        <IconContainer
+          extraPressableArea={extraPressableArea}
+          buttonAdjust={side ? { side, size } : undefined}
+        >
           {children}
         </IconContainer>
       </TouchableContainer>
@@ -53,14 +58,18 @@ interface IButtonAdjust {
 
 interface IStyleProps {
   buttonAdjust?: IButtonAdjust;
+  extraPressableArea: number;
 }
 
-export const IconContainer = styled.View<IStyleProps>`
+const IconContainer = styled.View<IStyleProps>`
   justify-content: center;
   align-items: center;
-  width: ${SizeConfig.buttonPressableAreaVwPx};
-  height: ${SizeConfig.buttonPressableAreaVwPx};
-  border-radius: ${SizeConfig.buttonPressableBorderRadiusVwPx};
+  width: ${({ extraPressableArea }) =>
+    SizeConstant.buttonPressableArea + extraPressableArea + 'px'};
+  height: ${({ extraPressableArea }) =>
+    SizeConstant.buttonPressableArea + extraPressableArea + 'px'};
+  border-radius: ${({ extraPressableArea }) =>
+    SizeConstant.buttonPressableArea / 2 + extraPressableArea / 2 + 'px'};
   ${({ buttonAdjust }) => {
     if (!buttonAdjust) return;
     const {
@@ -69,11 +78,11 @@ export const IconContainer = styled.View<IStyleProps>`
     } = buttonAdjust;
     if (side === 'left')
       return css`
-        margin-left: -${(SizeConfig.buttonPressableAreaVw - width) / 2 + 'px'};
+        margin-left: -${(SizeConstant.buttonPressableArea - width) / 2 + 'px'};
       `;
     if (side === 'right')
       return css`
-        margin-right: -${(SizeConfig.buttonPressableAreaVw - width) / 2 + 'px'};
+        margin-right: -${(SizeConstant.buttonPressableArea - width) / 2 + 'px'};
       `;
     return null;
   }}

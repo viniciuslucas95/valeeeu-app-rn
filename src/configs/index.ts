@@ -1,2 +1,1 @@
-export { ThemeConfig } from './ThemeConfig';
-export { SizeConfig } from './SizeConfig';
+export { ThemeConfig } from './theme-config';

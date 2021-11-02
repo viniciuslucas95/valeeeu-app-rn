@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useState } from 'react';
 import styled from 'styled-components/native';
-import { SizeConfig, ThemeConfig } from '../../configs';
+import { ThemeConfig } from '../../configs';
 import { SizeConstant } from '../../configs/constants';
 import { FontFamily } from '../data-types/enums';
 import { ViewElementStyle } from '../data-types/types';
@@ -16,9 +16,8 @@ interface IProps {
   text: string;
   setText: React.Dispatch<React.SetStateAction<string>>;
   style?: ViewElementStyle;
+  width?: number;
 }
-
-const iconPositionAdjust = UnitHandler.vwPx(0.5);
 
 export function TextInput({
   button,
@@ -29,10 +28,12 @@ export function TextInput({
   text,
   style,
   setText,
+  width = SizeConstant.maxElementWidth,
 }: PropsWithChildren<IProps>) {
   const [isFocused, setIsFocused] = useState(false);
+
   return (
-    <Container style={style}>
+    <Container width={width} style={style}>
       <InputContainer isFocused={isFocused}>
         {icon ? <IconContainer>{icon}</IconContainer> : null}
         <Input
@@ -49,7 +50,6 @@ export function TextInput({
       <LabelContainer>
         <Text
           fontFamily={FontFamily.medium}
-          fontSize={SizeConfig.defaultTextVwPx}
           color={isFocused ? ThemeConfig.active : ThemeConfig.text}
         >
           {label}
@@ -59,37 +59,39 @@ export function TextInput({
   );
 }
 
-const Container = styled.View`
-  width: ${SizeConfig.maxElementWidthVwPx};
-`;
-
-const Input = styled.TextInput`
-  flex: 1;
-  margin-right: ${SizeConfig.smallMarginVwPx};
-  font-family: ${FontFamily.regular};
-  font-size: ${SizeConfig.defaultTextVwPx};
-  color: ${ThemeConfig.text};
-`;
-
-const IconContainer = styled.View`
-  margin-right: ${SizeConfig.smallMarginVwPx};
-  top: ${iconPositionAdjust};
-`;
+interface IContainerProps {
+  width: number;
+}
 
 interface IInputProps {
   isFocused?: boolean;
 }
 
+const Container = styled.View<IContainerProps>`
+  width: ${({ width }) => width + 'px'};
+`;
+
+const Input = styled.TextInput`
+  flex: 1;
+  font-family: ${FontFamily.regular};
+  font-size: ${SizeConstant.mediumText + 'px'};
+  color: ${ThemeConfig.text};
+`;
+
+const IconContainer = styled.View`
+  margin-right: ${SizeConstant.mediumMargin + 'px'};
+  top: 1px;
+`;
+
 const InputContainer = styled.View<IInputProps>`
   flex-direction: row;
   align-items: center;
-  padding: 0 ${SizeConfig.mediumMarginVwPx};
-  height: ${SizeConfig.bigElementHeightVwPx};
-  border-radius: ${SizeConfig.borderRadiusVwPx};
-  border-width: ${({ isFocused }) =>
-    isFocused
-      ? SizeConfig.hugeBorderWidthVwPx
-      : SizeConfig.mediumBorderWidthVwPx};
+  padding: 0 ${SizeConstant.mediumMargin + 'px'};
+  min-height: ${UnitHandler.rem(
+    SizeConstant.buttonPressableArea + SizeConstant.thickBorderWidth
+  ) + 'px'};
+  border-radius: ${SizeConstant.borderRadius + 'px'};
+  border-width: ${SizeConstant.thickBorderWidth + 'px'};
   border-color: ${({ isFocused }) =>
     isFocused ? ThemeConfig.active : ThemeConfig.inactive};
 `;
@@ -97,7 +99,7 @@ const InputContainer = styled.View<IInputProps>`
 const LabelContainer = styled.View`
   background-color: ${ThemeConfig.background};
   position: absolute;
-  padding: 0 ${SizeConfig.mediumMarginVwPx};
-  left: ${SizeConfig.mediumMarginVwPx};
-  top: -${UnitHandler.vwPx(SizeConstant.mediumText * 0.75)};
+  padding: 0 ${SizeConstant.mediumMargin + 'px'};
+  left: ${SizeConstant.mediumMargin + 'px'};
+  top: -${SizeConstant.inputLabelPositionAdjust + 'px'};
 `;

@@ -24,16 +24,21 @@ import { ProfileIconButton } from './profile-icon-button';
 const Tab = createBottomTabNavigator();
 
 export function TabNavigation({ navigation }: INavigate) {
-  const isLogged = false;
+  const isLogged = false; // Change to account conext
 
   return (
-    <Tab.Navigator screenOptions={{ tabBarShowLabel: false }}>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarShowLabel: false,
+      }}
+    >
       <Tab.Screen
         name={TabScreen.home}
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <HomeIcon
+              size='big'
               color={focused ? ThemeConfig.active : ThemeConfig.inactive}
             />
           ),
@@ -45,6 +50,7 @@ export function TabNavigation({ navigation }: INavigate) {
         options={{
           tabBarIcon: ({ focused }) => (
             <SearchIcon
+              size='big'
               color={focused ? ThemeConfig.active : ThemeConfig.inactive}
             />
           ),
@@ -56,6 +62,7 @@ export function TabNavigation({ navigation }: INavigate) {
         options={{
           tabBarIcon: ({ focused }) => (
             <MessageIcon
+              size='big'
               color={focused ? ThemeConfig.active : ThemeConfig.inactive}
             />
           ),
@@ -69,6 +76,7 @@ export function TabNavigation({ navigation }: INavigate) {
             ? {
                 tabBarIcon: ({ focused }) => (
                   <ProfileIcon
+                    size='big'
                     color={focused ? ThemeConfig.active : ThemeConfig.inactive}
                   />
                 ),
