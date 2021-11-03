@@ -43,7 +43,7 @@ export function BaseTagToggle({
       <JustTextButton
         textAlign='center'
         extraTouchableArea={-pressabledAreaAdjust}
-        color={isToggled ? ColorConstant.blue2 : ColorConstant.gray4}
+        color={isToggled ? ColorConstant.blue2 : ColorConstant.gray5}
         onPress={onPress}
       >
         {label}
