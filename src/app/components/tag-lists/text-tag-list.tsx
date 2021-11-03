@@ -1,36 +1,46 @@
-import React from 'react';
-import { ColorConstant, SizeConstant } from '../../../configs';
-import { ViewElementStyle } from '../../data-types/types';
+import React, { useRef } from 'react';
+import { ColorConstant } from '../../../configs';
 import { JustTextButton } from '../buttons';
-import { pressabledAreaAdjust } from '../tag-toggles';
-import { ITagList, TagList } from './tag-list';
+import {
+  FlatList,
+  FlatListWrapper,
+  getMargins,
+  ITagList,
+} from './shared-tag-list';
+import { FlatList as FlatListNative } from 'react-native';
 
 export function TextTagList({ setActiveIndex, activeIndex, data }: ITagList) {
-  return (
-    <TagList data={data}>
-      {({ item, index }) => {
-        const margin = SizeConstant.bigMargin - pressabledAreaAdjust;
-        const style: ViewElementStyle =
-          index === 0
-            ? {
-                marginLeft: margin,
-              }
-            : index === data.length - 1
-            ? { marginRight: margin }
-            : null;
+  const flatList = useRef<FlatListNative>(null);
 
-        return (
-          <JustTextButton
-            style={style}
-            color={
-              activeIndex === index ? ColorConstant.blue2 : ColorConstant.gray5
-            }
-            onPress={() => setActiveIndex(index)}
-          >
-            {item as string}
-          </JustTextButton>
-        );
-      }}
-    </TagList>
+  function scrollToTag(index: number) {
+    setActiveIndex(index);
+    flatList.current?.scrollToIndex({ index, viewPosition: 0.5 });
+  }
+
+  return (
+    <FlatListWrapper>
+      <FlatList
+        ref={flatList}
+        showsHorizontalScrollIndicator={false}
+        data={data}
+        horizontal
+        renderItem={({ item, index }) => {
+          return (
+            <JustTextButton
+              style={getMargins(index, data.length)}
+              color={
+                activeIndex === index
+                  ? ColorConstant.blue2
+                  : ColorConstant.gray5
+              }
+              onPress={() => scrollToTag(index)}
+            >
+              {item as string}
+            </JustTextButton>
+          );
+        }}
+        keyExtractor={(_, index) => index.toString()}
+      />
+    </FlatListWrapper>
   );
 }

@@ -1,5 +1,10 @@
-import React from 'react';
-import { getMargins, ITagList, TagList } from './tag-list';
+import React, { useRef } from 'react';
+import {
+  FlatList,
+  FlatListWrapper,
+  getMargins,
+  ITagList,
+} from './shared-tag-list';
 import {
   VehiclesTagToggle,
   BeautyAndFashionTagToggle,
@@ -7,8 +12,16 @@ import {
   TechnologyTagToggle,
   WorkAndReformsTagToggle,
 } from '../../components/tag-toggles';
+import { FlatList as FlatListNative } from 'react-native';
 
 export function IconTagList({ setActiveIndex, activeIndex, data }: ITagList) {
+  const flatList = useRef<FlatListNative>(null);
+
+  function scrollToTag(index: number) {
+    setActiveIndex(index);
+    flatList.current?.scrollToIndex({ index, viewPosition: 0.5 });
+  }
+
   function getAreaTag(tag: string, index: number) {
     switch (tag) {
       case 'Tecnologia':
@@ -17,7 +30,7 @@ export function IconTagList({ setActiveIndex, activeIndex, data }: ITagList) {
             style={getMargins(index, data.length)}
             key={index}
             isToggled={activeIndex === index}
-            onPress={() => setActiveIndex(index)}
+            onPress={() => scrollToTag(index)}
           />
         );
       case 'Beleza e Moda':
@@ -26,7 +39,7 @@ export function IconTagList({ setActiveIndex, activeIndex, data }: ITagList) {
             style={getMargins(index, data.length)}
             key={index}
             isToggled={activeIndex === index}
-            onPress={() => setActiveIndex(index)}
+            onPress={() => scrollToTag(index)}
           />
         );
       case 'Saúde':
@@ -35,7 +48,7 @@ export function IconTagList({ setActiveIndex, activeIndex, data }: ITagList) {
             style={getMargins(index, data.length)}
             key={index}
             isToggled={activeIndex === index}
-            onPress={() => setActiveIndex(index)}
+            onPress={() => scrollToTag(index)}
           />
         );
       case 'Veículos':
@@ -44,7 +57,7 @@ export function IconTagList({ setActiveIndex, activeIndex, data }: ITagList) {
             style={getMargins(index, data.length)}
             key={index}
             isToggled={activeIndex === index}
-            onPress={() => setActiveIndex(index)}
+            onPress={() => scrollToTag(index)}
           />
         );
       case 'Obras e Reformas':
@@ -53,7 +66,7 @@ export function IconTagList({ setActiveIndex, activeIndex, data }: ITagList) {
             style={getMargins(index, data.length)}
             key={index}
             isToggled={activeIndex === index}
-            onPress={() => setActiveIndex(index)}
+            onPress={() => scrollToTag(index)}
           />
         );
     }
@@ -69,8 +82,15 @@ export function IconTagList({ setActiveIndex, activeIndex, data }: ITagList) {
   }
 
   return (
-    <TagList data={data}>
-      {({ item, index }) => getAreaTag(item as string, index)}
-    </TagList>
+    <FlatListWrapper>
+      <FlatList
+        ref={flatList}
+        showsHorizontalScrollIndicator={false}
+        data={data}
+        horizontal
+        renderItem={({ item, index }) => getAreaTag(item as string, index)}
+        keyExtractor={(_, index) => index.toString()}
+      />
+    </FlatListWrapper>
   );
 }

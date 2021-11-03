@@ -1,5 +1,4 @@
-import React, { PropsWithChildren } from 'react';
-import { ListRenderItem } from 'react-native';
+import React from 'react';
 import styled from 'styled-components/native';
 import { SizeConstant } from '../../../configs';
 import { ViewElementStyle } from '../../data-types/types';
@@ -9,11 +8,6 @@ export interface ITagList {
   data: string[];
   activeIndex: number;
   setActiveIndex: React.Dispatch<React.SetStateAction<number>>;
-}
-
-interface IProps {
-  data: string[];
-  children: ListRenderItem<unknown>;
 }
 
 export function getMargins(index: number, dataLength: number) {
@@ -29,20 +23,6 @@ export function getMargins(index: number, dataLength: number) {
   return style;
 }
 
-export function TagList({ data, children }: PropsWithChildren<IProps>) {
-  return (
-    <FlatListWrapper>
-      <FlatList
-        showsHorizontalScrollIndicator={false}
-        data={data}
-        horizontal
-        renderItem={children}
-        keyExtractor={(_, index) => index.toString()}
-      />
-    </FlatListWrapper>
-  );
-}
+export const FlatListWrapper = styled.View``;
 
-const FlatListWrapper = styled.View``;
-
-const FlatList = styled.FlatList``;
+export const FlatList = styled.FlatList``;
