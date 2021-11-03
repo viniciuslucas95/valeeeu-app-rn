@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components/native';
-import { ViewElementStyle } from '../data-types/types';
+import { ViewElementStyle } from '../../data-types/types';
 
 interface IProps {
   onPress(): void;

@@ -1,7 +1,6 @@
 import React, { PropsWithChildren, useState } from 'react';
 import styled from 'styled-components/native';
-import { ThemeConfig } from '../../configs';
-import { SizeConstant } from '../../configs/constants';
+import { ColorConstant, SizeConstant } from '../../configs';
 import { FontFamily } from '../data-types/enums';
 import { ViewElementStyle } from '../data-types/types';
 import { UnitHandler } from '../helpers';
@@ -36,9 +35,9 @@ export function TextInput({
     <Container width={width} style={style}>
       <InputContainer isFocused={isFocused}>
         {icon ? <IconContainer>{icon}</IconContainer> : null}
-        <Input
+        <InputText
           placeholder={placeholder}
-          placeholderTextColor={ThemeConfig.placeholder}
+          placeholderTextColor={ColorConstant.gray4}
           secureTextEntry={hasSecureText}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
@@ -50,7 +49,7 @@ export function TextInput({
       <LabelContainer>
         <Text
           fontFamily={FontFamily.medium}
-          color={isFocused ? ThemeConfig.active : ThemeConfig.text}
+          color={isFocused ? ColorConstant.blue2 : ColorConstant.black1}
         >
           {label}
         </Text>
@@ -71,11 +70,11 @@ const Container = styled.View<IContainerProps>`
   width: ${({ width }) => width + 'px'};
 `;
 
-const Input = styled.TextInput`
+const InputText = styled.TextInput`
   flex: 1;
   font-family: ${FontFamily.regular};
   font-size: ${SizeConstant.mediumText + 'px'};
-  color: ${ThemeConfig.text};
+  color: ${ColorConstant.black1};
   height: ${UnitHandler.rem(
     SizeConstant.buttonPressableArea + SizeConstant.thinBorderWidth
   ) + 'px'};
@@ -93,11 +92,11 @@ const InputContainer = styled.View<IInputProps>`
   border-radius: ${SizeConstant.borderRadius + 'px'};
   border-width: ${SizeConstant.thickBorderWidth + 'px'};
   border-color: ${({ isFocused }) =>
-    isFocused ? ThemeConfig.active : ThemeConfig.inactive};
+    isFocused ? ColorConstant.blue2 : ColorConstant.gray3};
 `;
 
 const LabelContainer = styled.View`
-  background-color: ${ThemeConfig.background};
+  background-color: ${ColorConstant.white1};
   position: absolute;
   padding: 0 ${SizeConstant.mediumMargin + 'px'};
   left: ${SizeConstant.mediumMargin + 'px'};

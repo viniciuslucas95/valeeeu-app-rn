@@ -1,8 +1,8 @@
 import React, { PropsWithChildren, useContext, useLayoutEffect } from 'react';
 import Svg from 'react-native-svg';
-import { sizeContext } from '../../../app/components';
+import { SizeContext as sizeContext } from '../../../app/components/buttons/icon-button';
 import { ViewElementStyle } from '../../../app/data-types/types';
-import { SizeConstant } from '../../../configs/constants';
+import { SizeConstant } from '../../../configs';
 
 interface IBaseSize {
   width: number;

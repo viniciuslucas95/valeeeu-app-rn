@@ -12,14 +12,14 @@ import {
   ProfileIcon,
   SearchIcon,
 } from '../../assets/svgs/icons';
-import { ThemeConfig } from '../../configs';
 import { INavigate } from '../data-types/interfaces';
 import {
   AccountScreen,
   MainScreen,
   TabScreen,
 } from '../data-types/enums/screens';
-import { ProfileIconButton } from './profile-icon-button';
+import { ColorConstant } from '../../configs';
+import { ProfileIconButton } from '../components/buttons';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,6 +30,7 @@ export function TabNavigation({ navigation }: INavigate) {
     <Tab.Navigator
       screenOptions={{
         tabBarShowLabel: false,
+        headerShown: false,
       }}
     >
       <Tab.Screen
@@ -39,7 +40,7 @@ export function TabNavigation({ navigation }: INavigate) {
           tabBarIcon: ({ focused }) => (
             <HomeIcon
               size='big'
-              color={focused ? ThemeConfig.active : ThemeConfig.inactive}
+              color={focused ? ColorConstant.blue2 : ColorConstant.gray4}
             />
           ),
         }}
@@ -51,7 +52,7 @@ export function TabNavigation({ navigation }: INavigate) {
           tabBarIcon: ({ focused }) => (
             <SearchIcon
               size='big'
-              color={focused ? ThemeConfig.active : ThemeConfig.inactive}
+              color={focused ? ColorConstant.blue2 : ColorConstant.gray4}
             />
           ),
         }}
@@ -63,7 +64,7 @@ export function TabNavigation({ navigation }: INavigate) {
           tabBarIcon: ({ focused }) => (
             <MessageIcon
               size='big'
-              color={focused ? ThemeConfig.active : ThemeConfig.inactive}
+              color={focused ? ColorConstant.blue2 : ColorConstant.gray4}
             />
           ),
         }}
@@ -77,7 +78,7 @@ export function TabNavigation({ navigation }: INavigate) {
                 tabBarIcon: ({ focused }) => (
                   <ProfileIcon
                     size='big'
-                    color={focused ? ThemeConfig.active : ThemeConfig.inactive}
+                    color={focused ? ColorConstant.blue2 : ColorConstant.gray4}
                   />
                 ),
               }

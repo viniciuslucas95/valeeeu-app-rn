@@ -7,10 +7,9 @@ import {
   GoogleLoginIcon,
   FacebookLoginIcon,
 } from '../../assets/svgs/icons';
-import { ThemeConfig } from '../../configs';
-import { SizeConstant } from '../../configs/constants';
-import { IconButton, TextInput, Button } from '../components';
-import { TextButton } from '../components';
+import { ColorConstant, SizeConstant } from '../../configs';
+import { TextInput } from '../components';
+import { JustTextButton, IconButton, Button } from '../components/buttons';
 import { FontFamily } from '../data-types/enums';
 import { INavigate } from '../data-types/interfaces';
 import { UnitHandler } from '../helpers';
@@ -90,9 +89,9 @@ export function LoginScreen({ navigation }: INavigate) {
                 }
               >
                 {isShowingPassword ? (
-                  <NoEyeIcon color={ThemeConfig.inactive} />
+                  <NoEyeIcon color={ColorConstant.gray4} />
                 ) : (
-                  <EyeIcon color={ThemeConfig.inactive} />
+                  <EyeIcon color={ColorConstant.gray4} />
                 )}
               </IconButton>
             }
@@ -103,11 +102,11 @@ export function LoginScreen({ navigation }: INavigate) {
           >
             Entrar
           </Button>
-          <TextButton
+          <JustTextButton
             onPress={() => console.log('Forgot password button pressed...')}
           >
             Esqueceu a senha?
-          </TextButton>
+          </JustTextButton>
         </CredentialsContainer>
         <SeparatorContainer
           style={{ flex: 2.16, marginBottom: SizeConstant.smallMargin }}
@@ -118,7 +117,7 @@ export function LoginScreen({ navigation }: INavigate) {
               paddingHorizontal: SizeConstant.mediumMargin,
               bottom: UnitHandler.rem(2),
             }}
-            color={ThemeConfig.line}
+            color={ColorConstant.gray4}
             fontFamily={FontFamily.light}
           >
             ou
@@ -149,12 +148,12 @@ export function LoginScreen({ navigation }: INavigate) {
           <AccountCreationContent>
             <Text
               style={{ marginRight: createAccountMarginAdjust }}
-              color={ThemeConfig.secondaryText}
+              color={ColorConstant.gray5}
               fontFamily={FontFamily.light}
             >
               Ainda não possui uma conta?
             </Text>
-            <TextButton
+            <JustTextButton
               removePressableAreaMargin
               style={{
                 marginLeft: createAccountMarginAdjust,
@@ -163,7 +162,7 @@ export function LoginScreen({ navigation }: INavigate) {
               onPress={() => console.log('Account creation button pressed...')}
             >
               Cadastre-se agora!
-            </TextButton>
+            </JustTextButton>
           </AccountCreationContent>
         </AccountCreationContainer>
         {screenWidth > maxWidth ? <FlexSpace style={{ flex: 25.92 }} /> : null}
@@ -176,7 +175,7 @@ const ScrollView = styled.ScrollView``;
 
 const SafeContainer = styled.SafeAreaView`
   flex: 1;
-  background-color: ${ThemeConfig.background};
+  background-color: ${ColorConstant.white1};
 `;
 
 const LogoContainer = styled.View``;
@@ -196,7 +195,7 @@ const SeparatorContainer = styled.View`
 const Line = styled.View`
   height: ${SizeConstant.thinBorderWidth + 'px'};
   flex: 1;
-  background-color: ${ThemeConfig.line};
+  background-color: ${ColorConstant.gray4};
 `;
 
 const LeftLine = styled(Line)`

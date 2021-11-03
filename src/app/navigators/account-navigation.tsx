@@ -1,16 +1,12 @@
 import React from 'react';
-import {
-  CardStyleInterpolators,
-  createStackNavigator,
-} from '@react-navigation/stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen } from '../screens';
 import { AccountScreen } from '../data-types/enums/screens';
 import { INavigate } from '../data-types/interfaces';
-import { ThemeConfig } from '../../configs';
 import { View } from 'react-native';
 import { CloseIcon } from '../../assets/svgs/icons';
-import { IconButton } from '../components';
-import { SizeConstant } from '../../configs/constants';
+import { ColorConstant, SizeConstant } from '../../configs';
+import { IconButton } from '../components/buttons';
 
 const Stack = createStackNavigator();
 
@@ -24,11 +20,11 @@ export function AccountStackNavigation({ navigation }: INavigate) {
       <Stack.Screen
         name={AccountScreen.login}
         options={({ navigation }) => ({
-          headerStyle: { backgroundColor: ThemeConfig.app, elevation: 0 },
+          headerStyle: { backgroundColor: ColorConstant.blue2, elevation: 0 },
           headerLeft: () => (
             <View style={{ flexDirection: 'row' }}>
               <IconButton side='left' onPress={() => navigation.goBack()}>
-                <CloseIcon color={ThemeConfig.neutral} />
+                <CloseIcon color={ColorConstant.white1} />
               </IconButton>
             </View>
           ),

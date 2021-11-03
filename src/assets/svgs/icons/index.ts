@@ -7,3 +7,8 @@ export { NoEyeIcon } from './no-eye-icon';
 export { CloseIcon } from './close-icon';
 export { FacebookLoginIcon } from './facebook-login-icon';
 export { GoogleLoginIcon } from './google-login-icon';
+export { LaptopIcon } from './laptop-icon';
+export { GlassesAndMustacheIcon } from './glasses-and-mustache-icon';
+export { CarIcon } from './car-icon';
+export { HeartIcon } from './heart-icon';
+export { ToolsIcon } from './tools-icon';

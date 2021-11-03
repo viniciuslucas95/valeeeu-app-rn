@@ -1,11 +1,11 @@
 import React, { PropsWithChildren } from 'react';
-import { TouchableContainer } from './touchable-container';
-import { Text } from '../styled-components';
-import { ViewElementStyle } from '../data-types/types';
+import { FontFamily } from '../../data-types/enums';
+import { TextAlign, ViewElementStyle } from '../../data-types/types';
+import { TouchableContainer } from '../auxiliaries';
 import styled, { css } from 'styled-components/native';
-import { FontFamily } from '../data-types/enums';
-import { ThemeConfig } from '../../configs';
-import { UnitHandler } from '../helpers';
+import { ColorConstant } from '../../../configs';
+import { Text } from '../../styled-components';
+import { UnitHandler } from '../../helpers';
 
 interface IProps {
   onPress(): void;
@@ -13,14 +13,20 @@ interface IProps {
   children: string;
   extraTouchableArea?: number;
   removePressableAreaMargin?: boolean;
+  fontFamily?: string;
+  color?: string;
+  textAlign?: TextAlign;
 }
 
-export function TextButton({
+export function JustTextButton({
   onPress,
   children,
   style,
   extraTouchableArea = 0,
   removePressableAreaMargin = false,
+  fontFamily = FontFamily.light,
+  textAlign = 'left',
+  color = ColorConstant.blue2,
 }: PropsWithChildren<IProps>) {
   return (
     <TouchableContainer onPress={onPress} style={style}>
@@ -28,7 +34,7 @@ export function TextButton({
         removePressableAreaMargin={removePressableAreaMargin}
         extraTouchableArea={extraTouchableArea}
       >
-        <Text fontFamily={FontFamily.light} color={ThemeConfig.app}>
+        <Text textAlign={textAlign} fontFamily={fontFamily} color={color}>
           {children}
         </Text>
       </TouchableTextArea>
