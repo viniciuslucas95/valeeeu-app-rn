@@ -58,15 +58,20 @@ export function TextInput({
   );
 }
 
-interface IContainerProps {
-  width: number;
-}
-
 interface IInputProps {
   isFocused?: boolean;
 }
 
+interface IContainerProps {
+  width: number;
+}
+
 const Container = styled.View<IContainerProps>`
+  justify-content: center;
+  height: ${UnitHandler.rem(1) +
+  SizeConfig.buttonPressableArea +
+  SizeConfig.thickBorderWidth +
+  'px'};
   width: ${({ width }) => width + 'px'};
 `;
 
@@ -90,7 +95,9 @@ const InputContainer = styled.View<IInputProps>`
   align-items: center;
   padding: 0 ${SizeConfig.mediumMargin + 'px'};
   border-radius: ${SizeConfig.borderRadius + 'px'};
-  border-width: ${SizeConfig.thickBorderWidth + 'px'};
+  border-width: ${({ isFocused }) =>
+    (isFocused ? SizeConfig.thickBorderWidth : SizeConfig.thinBorderWidth) +
+    'px'};
   border-color: ${({ isFocused }) =>
     isFocused ? ColorConfig.blue2 : ColorConfig.gray3};
 `;

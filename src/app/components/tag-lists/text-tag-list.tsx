@@ -34,6 +34,7 @@ export function TextTagList({ setActiveIndex, activeIndex, data }: ITagList) {
             <ButtonContainer>
               <JustTextButton
                 textAlign='center'
+                extraTouchableArea={isActive ? -0.5 : 0}
                 fontFamily={isActive ? FontFamily.regular : FontFamily.light}
                 style={[getMargins(index, data.length)]}
                 color={isActive ? ColorConfig.blue2 : ColorConfig.gray5}

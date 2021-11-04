@@ -46,8 +46,6 @@ export function FakeTextInputButton({
   );
 }
 
-const Test = styled.View``;
-
 interface IContainerProps {
   width: number;
 }
@@ -55,16 +53,14 @@ interface IContainerProps {
 const Container = styled.View<IContainerProps>`
   margin: ${SizeConfig.mediumMargin + 'px'} 0;
   width: ${({ width }) => width + 'px'};
-  height: ${UnitHandler.rem(
-    SizeConfig.buttonPressableArea + SizeConfig.thinBorderWidth
-  ) + 'px'};
+  height: ${SizeConfig.buttonPressableArea + UnitHandler.rem(1) + 'px'};
   align-self: center;
   flex-direction: row;
   align-items: center;
   padding: 0 ${SizeConfig.mediumMargin + 'px'};
   background-color: ${ColorConfig.white1};
   border-radius: ${SizeConfig.borderRadius + 'px'};
-  border-width: ${SizeConfig.thickBorderWidth + 'px'};
+  border-width: ${SizeConfig.thinBorderWidth + 'px'};
   border-color: ${ColorConfig.gray3};
 `;
 

@@ -21,7 +21,7 @@ export class SizeConfig {
 
   // Borders
   static readonly borderRadius = 4;
-  static readonly thickBorderWidth = 0.9;
+  static readonly thickBorderWidth = 1.2;
   static readonly thinBorderWidth = 0.6;
 
   // Icons
