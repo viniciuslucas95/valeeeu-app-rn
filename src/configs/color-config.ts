@@ -1,4 +1,4 @@
-export class ColorConstant {
+export class ColorConfig {
   static readonly black1 = '#151515';
   static readonly gray5 = '#808080';
   static readonly gray4 = '#AAAAAA';

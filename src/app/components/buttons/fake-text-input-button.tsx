@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components/native';
-import { ColorConstant, SizeConstant } from '../../../configs';
+import { ColorConfig, SizeConfig } from '../../../configs';
 import { FontFamily } from '../../data-types/enums';
 import { UnitHandler } from '../../helpers';
 import { TouchableContainer } from '../auxiliaries';
@@ -28,15 +28,15 @@ export function FakeTextInputButton({
     <TouchableContainer onPress={onPress}>
       <Container
         style={[style, { elevation: 2.5 }]}
-        width={width ?? SizeConstant.maxElementWidth}
+        width={width ?? SizeConfig.maxElementWidth}
       >
         {icon ? <IconContainer>{icon}</IconContainer> : null}
-        <Text fontFamily={FontFamily.regular} color={ColorConstant.gray4}>
+        <Text fontFamily={FontFamily.regular} color={ColorConfig.gray4}>
           {children}
         </Text>
         {label ? (
           <LabelContainer>
-            <Text fontFamily={FontFamily.medium} color={ColorConstant.black1}>
+            <Text fontFamily={FontFamily.medium} color={ColorConfig.black1}>
               {label}
             </Text>
           </LabelContainer>
@@ -53,30 +53,30 @@ interface IContainerProps {
 }
 
 const Container = styled.View<IContainerProps>`
-  margin: ${SizeConstant.mediumMargin + 'px'} 0;
+  margin: ${SizeConfig.mediumMargin + 'px'} 0;
   width: ${({ width }) => width + 'px'};
   height: ${UnitHandler.rem(
-    SizeConstant.buttonPressableArea + SizeConstant.thinBorderWidth
+    SizeConfig.buttonPressableArea + SizeConfig.thinBorderWidth
   ) + 'px'};
   align-self: center;
   flex-direction: row;
   align-items: center;
-  padding: 0 ${SizeConstant.mediumMargin + 'px'};
-  background-color: ${ColorConstant.white1};
-  border-radius: ${SizeConstant.borderRadius + 'px'};
-  border-width: ${SizeConstant.thickBorderWidth + 'px'};
-  border-color: ${ColorConstant.gray3};
+  padding: 0 ${SizeConfig.mediumMargin + 'px'};
+  background-color: ${ColorConfig.white1};
+  border-radius: ${SizeConfig.borderRadius + 'px'};
+  border-width: ${SizeConfig.thickBorderWidth + 'px'};
+  border-color: ${ColorConfig.gray3};
 `;
 
 const IconContainer = styled.View`
-  margin-right: ${SizeConstant.mediumMargin + 'px'};
+  margin-right: ${SizeConfig.mediumMargin + 'px'};
   top: 1px;
 `;
 
 const LabelContainer = styled.View`
-  background-color: ${ColorConstant.white1};
+  background-color: ${ColorConfig.white1};
   position: absolute;
-  padding: 0 ${SizeConstant.mediumMargin + 'px'};
-  left: ${SizeConstant.mediumMargin + 'px'};
-  top: -${SizeConstant.inputLabelPositionAdjust + 'px'};
+  padding: 0 ${SizeConfig.mediumMargin + 'px'};
+  left: ${SizeConfig.mediumMargin + 'px'};
+  top: -${SizeConfig.inputLabelPositionAdjust + 'px'};
 `;

@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components/native';
-import { ColorConstant, SizeConstant } from '../../../configs';
+import { ColorConfig, SizeConfig } from '../../../configs';
 import { FontFamily } from '../../data-types/enums';
 import { ViewElementStyle } from '../../data-types/types';
 import { Text } from '../../styled-components';
@@ -17,15 +17,15 @@ export function Button({
   onPress,
   children,
   style,
-  width = SizeConstant.maxElementWidth,
+  width = SizeConfig.maxElementWidth,
 }: PropsWithChildren<IProps>) {
   return (
     <TouchableContainer onPress={onPress} style={style}>
       <Container width={width}>
         <Text
           fontFamily={FontFamily.medium}
-          color={ColorConstant.white1}
-          fontSize={SizeConstant.bigText + 'px'}
+          color={ColorConfig.white1}
+          fontSize={SizeConfig.bigText + 'px'}
         >
           {children}
         </Text>
@@ -39,10 +39,10 @@ interface IButtonProps {
 }
 
 const Container = styled.View<IButtonProps>`
-  height: ${SizeConstant.buttonPressableArea + 'px'};
+  height: ${SizeConfig.buttonPressableArea + 'px'};
   width: ${({ width }) => width + 'px'};
   align-items: center;
   justify-content: center;
-  background-color: ${ColorConstant.blue2};
-  border-radius: ${SizeConstant.borderRadius + 'px'};
+  background-color: ${ColorConfig.blue2};
+  border-radius: ${SizeConfig.borderRadius + 'px'};
 `;

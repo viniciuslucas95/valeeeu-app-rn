@@ -18,7 +18,7 @@ import {
   MainScreen,
   TabScreen,
 } from '../data-types/enums/screens';
-import { ColorConstant } from '../../configs';
+import { ColorConfig } from '../../configs';
 import { ProfileIconButton } from '../components/buttons';
 
 const Tab = createBottomTabNavigator();
@@ -40,7 +40,7 @@ export function TabNavigation({ navigation }: INavigate) {
           tabBarIcon: ({ focused }) => (
             <HomeIcon
               size='big'
-              color={focused ? ColorConstant.blue2 : ColorConstant.gray4}
+              color={focused ? ColorConfig.blue2 : ColorConfig.gray4}
             />
           ),
         }}
@@ -52,7 +52,7 @@ export function TabNavigation({ navigation }: INavigate) {
           tabBarIcon: ({ focused }) => (
             <SearchIcon
               size='big'
-              color={focused ? ColorConstant.blue2 : ColorConstant.gray4}
+              color={focused ? ColorConfig.blue2 : ColorConfig.gray4}
             />
           ),
         }}
@@ -64,7 +64,7 @@ export function TabNavigation({ navigation }: INavigate) {
           tabBarIcon: ({ focused }) => (
             <MessageIcon
               size='big'
-              color={focused ? ColorConstant.blue2 : ColorConstant.gray4}
+              color={focused ? ColorConfig.blue2 : ColorConfig.gray4}
             />
           ),
         }}
@@ -78,7 +78,7 @@ export function TabNavigation({ navigation }: INavigate) {
                 tabBarIcon: ({ focused }) => (
                   <ProfileIcon
                     size='big'
-                    color={focused ? ColorConstant.blue2 : ColorConstant.gray4}
+                    color={focused ? ColorConfig.blue2 : ColorConfig.gray4}
                   />
                 ),
               }

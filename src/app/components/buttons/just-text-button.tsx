@@ -3,7 +3,7 @@ import { FontFamily } from '../../data-types/enums';
 import { TextAlign, ViewElementStyle } from '../../data-types/types';
 import { TouchableContainer } from '../auxiliaries';
 import styled, { css } from 'styled-components/native';
-import { ColorConstant } from '../../../configs';
+import { ColorConfig } from '../../../configs';
 import { Text } from '../../styled-components';
 import { UnitHandler } from '../../helpers';
 
@@ -26,7 +26,7 @@ export function JustTextButton({
   removePressableAreaMargin = false,
   fontFamily = FontFamily.light,
   textAlign = 'left',
-  color = ColorConstant.blue2,
+  color = ColorConfig.blue2,
 }: PropsWithChildren<IProps>) {
   return (
     <TouchableContainer onPress={onPress} style={style}>

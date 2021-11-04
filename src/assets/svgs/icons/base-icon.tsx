@@ -2,7 +2,7 @@ import React, { PropsWithChildren, useContext, useLayoutEffect } from 'react';
 import Svg from 'react-native-svg';
 import { SizeContext as sizeContext } from '../../../app/components/buttons/icon-button';
 import { ViewElementStyle } from '../../../app/data-types/types';
-import { SizeConstant } from '../../../configs';
+import { SizeConfig } from '../../../configs';
 
 interface IBaseSize {
   width: number;
@@ -45,15 +45,15 @@ export function BaseIcon({
   function changeSize(size?: Size) {
     switch (size) {
       case 'big':
-        return SizeConstant.bigIcon;
+        return SizeConfig.bigIcon;
       case 'medium':
-        return SizeConstant.mediumIcon;
+        return SizeConfig.mediumIcon;
       case 'small':
-        return SizeConstant.smallIcon;
+        return SizeConfig.smallIcon;
       case 'tiny':
-        return SizeConstant.tinyIcon;
+        return SizeConfig.tinyIcon;
       case undefined:
-        return SizeConstant.mediumIcon;
+        return SizeConfig.mediumIcon;
     }
   }
 

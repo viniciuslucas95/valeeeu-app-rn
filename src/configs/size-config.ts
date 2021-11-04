@@ -1,6 +1,6 @@
 import { UnitHandler } from '../app/helpers';
 
-export class SizeConstant {
+export class SizeConfig {
   // Margins
   static readonly hugeMargin = 30;
   static readonly bigMargin = 20;

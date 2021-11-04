@@ -5,7 +5,7 @@ import { AccountScreen } from '../data-types/enums/screens';
 import { INavigate } from '../data-types/interfaces';
 import { View } from 'react-native';
 import { CloseIcon } from '../../assets/svgs/icons';
-import { ColorConstant, SizeConstant } from '../../configs';
+import { ColorConfig, SizeConfig } from '../../configs';
 import { IconButton } from '../components/buttons';
 
 const Stack = createStackNavigator();
@@ -20,16 +20,16 @@ export function AccountStackNavigation({ navigation }: INavigate) {
       <Stack.Screen
         name={AccountScreen.login}
         options={({ navigation }) => ({
-          headerStyle: { backgroundColor: ColorConstant.blue2, elevation: 0 },
+          headerStyle: { backgroundColor: ColorConfig.blue2, elevation: 0 },
           headerLeft: () => (
             <View style={{ flexDirection: 'row' }}>
               <IconButton side='left' onPress={() => navigation.goBack()}>
-                <CloseIcon color={ColorConstant.white1} />
+                <CloseIcon color={ColorConfig.white1} />
               </IconButton>
             </View>
           ),
           headerLeftContainerStyle: {
-            marginLeft: SizeConstant.bigMargin,
+            marginLeft: SizeConfig.bigMargin,
           },
         })}
       >

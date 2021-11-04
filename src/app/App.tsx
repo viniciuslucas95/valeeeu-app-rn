@@ -14,7 +14,7 @@ import {
 } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
 import { MainNavigator } from './navigators';
-import { ColorConstant } from '../configs';
+import { ColorConfig } from '../configs';
 
 export default function App() {
   const [hasFontsLoaded] = useFonts({
@@ -24,7 +24,7 @@ export default function App() {
     Roboto_500Medium,
   });
 
-  setStatusBarBackgroundColor(ColorConstant.blue2, false);
+  setStatusBarBackgroundColor(ColorConfig.blue2, false);
   setStatusBarStyle('light');
 
   if (!hasFontsLoaded) return <AppLoading />;

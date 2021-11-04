@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useState } from 'react';
 import styled from 'styled-components/native';
-import { ColorConstant, SizeConstant } from '../../configs';
+import { ColorConfig, SizeConfig } from '../../configs';
 import { FontFamily } from '../data-types/enums';
 import { ViewElementStyle } from '../data-types/types';
 import { UnitHandler } from '../helpers';
@@ -27,7 +27,7 @@ export function TextInput({
   text,
   style,
   setText,
-  width = SizeConstant.maxElementWidth,
+  width = SizeConfig.maxElementWidth,
 }: PropsWithChildren<IProps>) {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -37,7 +37,7 @@ export function TextInput({
         {icon ? <IconContainer>{icon}</IconContainer> : null}
         <InputText
           placeholder={placeholder}
-          placeholderTextColor={ColorConstant.gray4}
+          placeholderTextColor={ColorConfig.gray4}
           secureTextEntry={hasSecureText}
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
@@ -49,7 +49,7 @@ export function TextInput({
       <LabelContainer>
         <Text
           fontFamily={FontFamily.medium}
-          color={isFocused ? ColorConstant.blue2 : ColorConstant.black1}
+          color={isFocused ? ColorConfig.blue2 : ColorConfig.black1}
         >
           {label}
         </Text>
@@ -73,32 +73,32 @@ const Container = styled.View<IContainerProps>`
 const InputText = styled.TextInput`
   flex: 1;
   font-family: ${FontFamily.regular};
-  font-size: ${SizeConstant.mediumText + 'px'};
-  color: ${ColorConstant.black1};
+  font-size: ${SizeConfig.mediumText + 'px'};
+  color: ${ColorConfig.black1};
   height: ${UnitHandler.rem(
-    SizeConstant.buttonPressableArea + SizeConstant.thinBorderWidth
+    SizeConfig.buttonPressableArea + SizeConfig.thinBorderWidth
   ) + 'px'};
 `;
 
 const IconContainer = styled.View`
-  margin-right: ${SizeConstant.mediumMargin + 'px'};
+  margin-right: ${SizeConfig.mediumMargin + 'px'};
   top: 1px;
 `;
 
 const InputContainer = styled.View<IInputProps>`
   flex-direction: row;
   align-items: center;
-  padding: 0 ${SizeConstant.mediumMargin + 'px'};
-  border-radius: ${SizeConstant.borderRadius + 'px'};
-  border-width: ${SizeConstant.thickBorderWidth + 'px'};
+  padding: 0 ${SizeConfig.mediumMargin + 'px'};
+  border-radius: ${SizeConfig.borderRadius + 'px'};
+  border-width: ${SizeConfig.thickBorderWidth + 'px'};
   border-color: ${({ isFocused }) =>
-    isFocused ? ColorConstant.blue2 : ColorConstant.gray3};
+    isFocused ? ColorConfig.blue2 : ColorConfig.gray3};
 `;
 
 const LabelContainer = styled.View`
-  background-color: ${ColorConstant.white1};
+  background-color: ${ColorConfig.white1};
   position: absolute;
-  padding: 0 ${SizeConstant.mediumMargin + 'px'};
-  left: ${SizeConstant.mediumMargin + 'px'};
-  top: -${SizeConstant.inputLabelPositionAdjust + 'px'};
+  padding: 0 ${SizeConfig.mediumMargin + 'px'};
+  left: ${SizeConfig.mediumMargin + 'px'};
+  top: -${SizeConfig.inputLabelPositionAdjust + 'px'};
 `;

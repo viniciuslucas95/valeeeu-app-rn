@@ -1,6 +1,6 @@
 import React from 'react';
 import { HeartIcon } from '../../../assets/svgs/icons';
-import { ColorConstant } from '../../../configs';
+import { ColorConfig } from '../../../configs';
 import { ViewElementStyle } from '../../data-types/types';
 import { BaseTagToggle } from './base-tag-toggle';
 
@@ -18,7 +18,7 @@ export function HealthTagToggle({ onPress, style, isToggled = false }: IProps) {
       onPress={onPress}
       isToggled={isToggled}
     >
-      <HeartIcon color={ColorConstant.white1} size='big' />
+      <HeartIcon color={ColorConfig.white1} size='big' />
     </BaseTagToggle>
   );
 }

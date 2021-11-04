@@ -3,7 +3,7 @@ import { StatusBar } from 'react-native';
 import styled from 'styled-components/native';
 import { LogoSvg } from '../../assets/svgs';
 import { SearchIcon } from '../../assets/svgs/icons';
-import { ColorConstant, SizeConstant } from '../../configs';
+import { ColorConfig, SizeConfig } from '../../configs';
 import { FakeTextInputButton } from '../components/buttons';
 import { IconTagList, TextTagList } from '../components/tag-lists';
 import { UnitHandler } from '../helpers';
@@ -36,8 +36,8 @@ export function HomeScreen() {
         <LogoSvg
           style={{
             alignSelf: 'center',
-            marginTop: SizeConstant.hugeMargin * 2,
-            marginBottom: SizeConstant.hugeMargin,
+            marginTop: SizeConfig.hugeMargin * 2,
+            marginBottom: SizeConfig.hugeMargin,
           }}
           width={UnitHandler.vw(66)}
         />
@@ -48,7 +48,7 @@ export function HomeScreen() {
         />
         <FakeTextInputButton
           onPress={() => console.log('Search button pressed...')}
-          icon={<SearchIcon color={ColorConstant.gray4} />}
+          icon={<SearchIcon color={ColorConfig.gray4} />}
         >
           Procurar serviço...
         </FakeTextInputButton>
@@ -65,7 +65,7 @@ export function HomeScreen() {
 const SafeContainer = styled.SafeAreaView`
   margin-top: ${(StatusBar.currentHeight ?? 0) + 'px'};
   flex: 1;
-  background-color: ${ColorConstant.white1};
+  background-color: ${ColorConfig.white1};
 `;
 
 const ScrollView = styled.ScrollView``;

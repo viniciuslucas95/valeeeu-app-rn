@@ -7,13 +7,13 @@ import {
   GoogleLoginIcon,
   FacebookLoginIcon,
 } from '../../assets/svgs/icons';
-import { ColorConstant, SizeConstant } from '../../configs';
+import { ColorConfig, SizeConfig } from '../../configs';
 import { TextInput } from '../components';
 import { JustTextButton, IconButton, Button } from '../components/buttons';
 import { FontFamily } from '../data-types/enums';
 import { INavigate } from '../data-types/interfaces';
 import { UnitHandler } from '../helpers';
-import { Text } from '../styled-components';
+import { Text, Line } from '../styled-components';
 
 const hidePasswordIconPositionAdjust = -UnitHandler.vw(0.4);
 const createAccountMarginAdjust = -UnitHandler.rem(4);
@@ -42,7 +42,7 @@ export function LoginScreen({ navigation }: INavigate) {
           style={{
             flex: 4.32,
             marginBottom:
-              SizeConstant.inputLabelPositionAdjust + SizeConstant.bigMargin,
+              SizeConfig.inputLabelPositionAdjust + SizeConfig.bigMargin,
           }}
         >
           {screenWidth > maxWidth ? (
@@ -61,8 +61,7 @@ export function LoginScreen({ navigation }: INavigate) {
           <TextInput
             style={{
               marginBottom:
-                SizeConstant.inputLabelPositionAdjust +
-                SizeConstant.mediumMargin,
+                SizeConfig.inputLabelPositionAdjust + SizeConfig.mediumMargin,
             }}
             width={screenWidth > maxWidth ? maxWidth : undefined}
             text={user}
@@ -71,7 +70,7 @@ export function LoginScreen({ navigation }: INavigate) {
             placeholder='Digite seu email ou seu celular'
           />
           <TextInput
-            style={{ marginBottom: SizeConstant.bigMargin }}
+            style={{ marginBottom: SizeConfig.bigMargin }}
             width={screenWidth > maxWidth ? maxWidth : undefined}
             text={password}
             setText={setPassword}
@@ -89,9 +88,9 @@ export function LoginScreen({ navigation }: INavigate) {
                 }
               >
                 {isShowingPassword ? (
-                  <NoEyeIcon color={ColorConstant.gray4} />
+                  <NoEyeIcon color={ColorConfig.gray4} />
                 ) : (
-                  <EyeIcon color={ColorConstant.gray4} />
+                  <EyeIcon color={ColorConfig.gray4} />
                 )}
               </IconButton>
             }
@@ -109,20 +108,20 @@ export function LoginScreen({ navigation }: INavigate) {
           </JustTextButton>
         </CredentialsContainer>
         <SeparatorContainer
-          style={{ flex: 2.16, marginBottom: SizeConstant.smallMargin }}
+          style={{ flex: 2.16, marginBottom: SizeConfig.smallMargin }}
         >
-          <LeftLine />
+          <Line style={{ marginLeft: SizeConfig.bigMargin }} />
           <Text
             style={{
-              paddingHorizontal: SizeConstant.mediumMargin,
+              paddingHorizontal: SizeConfig.mediumMargin,
               bottom: UnitHandler.rem(2),
             }}
-            color={ColorConstant.gray4}
+            color={ColorConfig.gray4}
             fontFamily={FontFamily.light}
           >
             ou
           </Text>
-          <RightLine />
+          <Line style={{ marginRight: SizeConfig.bigMargin }} />
         </SeparatorContainer>
         <PlataformsLoginContainer style={{ flex: 2.16 }}>
           <IconButton
@@ -141,14 +140,14 @@ export function LoginScreen({ navigation }: INavigate) {
         <AccountCreationContainer
           style={{
             flex: 4,
-            marginTop: SizeConstant.bigMargin,
-            marginBottom: SizeConstant.mediumMargin,
+            marginTop: SizeConfig.bigMargin,
+            marginBottom: SizeConfig.mediumMargin,
           }}
         >
           <AccountCreationContent>
             <Text
               style={{ marginRight: createAccountMarginAdjust }}
-              color={ColorConstant.gray5}
+              color={ColorConfig.gray5}
               fontFamily={FontFamily.light}
             >
               Ainda não possui uma conta?
@@ -175,7 +174,7 @@ const ScrollView = styled.ScrollView``;
 
 const SafeContainer = styled.SafeAreaView`
   flex: 1;
-  background-color: ${ColorConstant.white1};
+  background-color: ${ColorConfig.white1};
 `;
 
 const LogoContainer = styled.View``;
@@ -192,23 +191,9 @@ const SeparatorContainer = styled.View`
   justify-content: space-between;
 `;
 
-const Line = styled.View`
-  height: ${SizeConstant.thinBorderWidth + 'px'};
-  flex: 1;
-  background-color: ${ColorConstant.gray4};
-`;
-
-const LeftLine = styled(Line)`
-  margin-left: ${SizeConstant.bigMargin + 'px'};
-`;
-
-const RightLine = styled(Line)`
-  margin-right: ${SizeConstant.bigMargin + 'px'};
-`;
-
 const PlataformsLoginContainer = styled.View`
   flex-direction: row;
-  width: ${SizeConstant.maxElementWidth + 'px'};
+  width: ${SizeConfig.maxElementWidth + 'px'};
   max-width: ${maxWidth + 'px'};
   justify-content: space-evenly;
   align-items: center;
@@ -219,9 +204,9 @@ const AccountCreationContainer = styled.View`
 `;
 
 const AccountCreationContent = styled.View`
-  width: ${(SizeConstant.maxElementWidth > maxWidth
+  width: ${(SizeConfig.maxElementWidth > maxWidth
     ? maxWidth
-    : SizeConstant.maxElementWidth) + 'px'};
+    : SizeConfig.maxElementWidth) + 'px'};
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;

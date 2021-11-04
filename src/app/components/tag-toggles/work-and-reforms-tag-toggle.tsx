@@ -1,6 +1,6 @@
 import React from 'react';
 import { ToolsIcon } from '../../../assets/svgs/icons';
-import { ColorConstant } from '../../../configs';
+import { ColorConfig } from '../../../configs';
 import { ViewElementStyle } from '../../data-types/types';
 import { BaseTagToggle } from './base-tag-toggle';
 
@@ -22,7 +22,7 @@ export function WorkAndReformsTagToggle({
       onPress={onPress}
       isToggled={isToggled}
     >
-      <ToolsIcon color={ColorConstant.white1} size='big' />
+      <ToolsIcon color={ColorConfig.white1} size='big' />
     </BaseTagToggle>
   );
 }

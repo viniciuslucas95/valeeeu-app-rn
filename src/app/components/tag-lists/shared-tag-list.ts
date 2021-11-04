@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { SizeConstant } from '../../../configs';
+import { SizeConfig } from '../../../configs';
 import { ViewElementStyle } from '../../data-types/types';
 import { pressabledAreaAdjust } from '../tag-toggles';
 
@@ -11,7 +11,7 @@ export interface ITagList {
 }
 
 export function getMargins(index: number, dataLength: number) {
-  const margin = SizeConstant.bigMargin - pressabledAreaAdjust;
+  const margin = SizeConfig.bigMargin - pressabledAreaAdjust;
   const style: ViewElementStyle =
     index === 0
       ? {

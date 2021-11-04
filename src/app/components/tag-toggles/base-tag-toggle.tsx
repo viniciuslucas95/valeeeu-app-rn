@@ -1,10 +1,11 @@
 import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components/native';
-import { ColorConstant, SizeConstant } from '../../../configs';
+import { ColorConfig, SizeConfig } from '../../../configs';
 import { ViewElementStyle } from '../../data-types/types';
 import { IconButton } from '../buttons';
 import { UnitHandler } from '../../helpers';
 import { JustTextButton } from '../buttons';
+import { FontFamily } from '../../data-types/enums';
 
 interface IProps {
   onPress(): void;
@@ -16,7 +17,7 @@ interface IProps {
 }
 
 const areaTagMaxWidth =
-  UnitHandler.rem(SizeConstant.buttonPressableArea * 1.7) + 'px';
+  UnitHandler.rem(SizeConfig.buttonPressableArea * 1.7) + 'px';
 
 export const pressabledAreaAdjust = UnitHandler.rem(6);
 
@@ -31,9 +32,7 @@ export function BaseTagToggle({
     <Container style={style}>
       <IconButton
         background={{
-          backgroundColor: isToggled
-            ? ColorConstant.blue2
-            : ColorConstant.gray3,
+          backgroundColor: isToggled ? ColorConfig.blue2 : ColorConfig.gray3,
           elevation: 2.5,
         }}
         onPress={onPress}
@@ -41,9 +40,10 @@ export function BaseTagToggle({
         {children}
       </IconButton>
       <JustTextButton
+        fontFamily={isToggled ? FontFamily.regular : FontFamily.light}
         textAlign='center'
         extraTouchableArea={-pressabledAreaAdjust}
-        color={isToggled ? ColorConstant.blue2 : ColorConstant.gray5}
+        color={isToggled ? ColorConfig.blue2 : ColorConfig.gray5}
         onPress={onPress}
       >
         {label}
@@ -53,7 +53,7 @@ export function BaseTagToggle({
 }
 
 const Container = styled.View`
-  margin-top: ${SizeConstant.mediumMargin + 'px'};
+  margin-top: ${SizeConfig.mediumMargin + 'px'};
   width: ${areaTagMaxWidth};
   align-items: center;
 `;

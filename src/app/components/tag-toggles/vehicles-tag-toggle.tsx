@@ -1,6 +1,6 @@
 import React from 'react';
 import { CarIcon } from '../../../assets/svgs/icons';
-import { ColorConstant } from '../../../configs';
+import { ColorConfig } from '../../../configs';
 import { ViewElementStyle } from '../../data-types/types';
 import { BaseTagToggle } from './base-tag-toggle';
 
@@ -22,7 +22,7 @@ export function VehiclesTagToggle({
       onPress={onPress}
       isToggled={isToggled}
     >
-      <CarIcon color={ColorConstant.white1} size='big' />
+      <CarIcon color={ColorConfig.white1} size='big' />
     </BaseTagToggle>
   );
 }

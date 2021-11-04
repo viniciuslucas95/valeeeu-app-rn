@@ -1,6 +1,6 @@
 import React from 'react';
 import { GlassesAndMustacheIcon } from '../../../assets/svgs/icons';
-import { ColorConstant } from '../../../configs';
+import { ColorConfig } from '../../../configs';
 import { ViewElementStyle } from '../../data-types/types';
 import { BaseTagToggle } from './base-tag-toggle';
 
@@ -22,7 +22,7 @@ export function BeautyAndFashionTagToggle({
       onPress={onPress}
       isToggled={isToggled}
     >
-      <GlassesAndMustacheIcon color={ColorConstant.white1} size='big' />
+      <GlassesAndMustacheIcon color={ColorConfig.white1} size='big' />
     </BaseTagToggle>
   );
 }
