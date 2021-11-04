@@ -4,3 +4,4 @@ export { pressabledAreaAdjust } from './base-tag-toggle';
 export { VehiclesTagToggle } from './vehicles-tag-toggle';
 export { HealthTagToggle } from './health-tag-toggle';
 export { WorkAndReformsTagToggle } from './work-and-reforms-tag-toggle';
+export { TextTagToggle } from './text-tag-toggle';

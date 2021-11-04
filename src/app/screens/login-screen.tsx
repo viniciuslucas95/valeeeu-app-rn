@@ -29,6 +29,7 @@ export function LoginScreen({ navigation }: INavigate) {
   return (
     <SafeContainer>
       <ScrollView
+        bounces={false}
         contentContainerStyle={{
           justifyContent: 'space-between',
           alignItems: 'center',

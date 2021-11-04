@@ -30,7 +30,6 @@ export function TextInput({
   width = SizeConfig.maxElementWidth,
 }: PropsWithChildren<IProps>) {
   const [isFocused, setIsFocused] = useState(false);
-
   return (
     <Container width={width} style={style}>
       <InputContainer isFocused={isFocused}>

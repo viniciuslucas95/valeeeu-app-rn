@@ -43,7 +43,6 @@ export function IconButton({
     height: 0,
     width: 0,
   });
-
   return (
     <SizeContext.Provider value={{ setSize: side ? setSize : undefined }}>
       <TouchableContainer onPress={onPress} style={style}>

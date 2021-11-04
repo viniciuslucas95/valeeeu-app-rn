@@ -6,6 +6,7 @@ import { SearchIcon } from '../../assets/svgs/icons';
 import { ColorConfig, SizeConfig } from '../../configs';
 import { FakeTextInputButton } from '../components/buttons';
 import { IconTagList, TextTagList } from '../components/tag-lists';
+import { FilterTagList } from '../components/tag-lists/filter-tag-list';
 import { UnitHandler } from '../helpers';
 
 const areaTags = [
@@ -29,10 +30,12 @@ const jobTags = [
 export function HomeScreen() {
   const [currentAreaTag, setCurrentAreaTag] = useState(0);
   const [currentJobTag, setCurrentJobTag] = useState(0);
-
+  const [distanceFilter, setDistanceFilter] = useState(5400);
+  const [onlineOnlyFilter, setOnlineOnlyFilter] = useState(false);
+  const [ratingFilter, setRatingFilter] = useState(4.5);
   return (
     <SafeContainer>
-      <ScrollView>
+      <ScrollView bounces={false}>
         <LogoSvg
           style={{
             alignSelf: 'center',
@@ -56,6 +59,17 @@ export function HomeScreen() {
           activeIndex={currentJobTag}
           data={jobTags}
           setActiveIndex={setCurrentJobTag}
+        />
+        <FilterTagList
+          style={{ marginTop: SizeConfig.bigMargin }}
+          onlineOnly={onlineOnlyFilter}
+          onOnlineOnlyFilterPress={() => setOnlineOnlyFilter(!onlineOnlyFilter)}
+          distance={distanceFilter}
+          onDistanceFilterPress={() =>
+            console.log('Distance filter pressed...')
+          }
+          rating={ratingFilter}
+          onRatingFilterPress={() => console.log('Rating filter pressed...')}
         />
       </ScrollView>
     </SafeContainer>

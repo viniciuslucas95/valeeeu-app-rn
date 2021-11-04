@@ -23,6 +23,7 @@ export function TextTagList({ setActiveIndex, activeIndex, data }: ITagList) {
 
   return (
     <FlatListWrapper>
+      <Line flex={1} style={{ top: UnitHandler.rem(42.75) }} />
       <FlatList
         ref={flatList}
         showsHorizontalScrollIndicator={false}
@@ -58,7 +59,6 @@ export function TextTagList({ setActiveIndex, activeIndex, data }: ITagList) {
         }}
         keyExtractor={(_, index) => index.toString()}
       />
-      <Line flex={1} style={{ bottom: 1 }} />
     </FlatListWrapper>
   );
 }

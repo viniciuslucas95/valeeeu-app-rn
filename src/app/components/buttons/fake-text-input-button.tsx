@@ -27,7 +27,7 @@ export function FakeTextInputButton({
   return (
     <TouchableContainer onPress={onPress}>
       <Container
-        style={[style, { elevation: 2.5 }]}
+        style={[style, { elevation: 1 }]}
         width={width ?? SizeConfig.maxElementWidth}
       >
         {icon ? <IconContainer>{icon}</IconContainer> : null}
