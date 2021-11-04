@@ -22,11 +22,7 @@ export function Button({
   return (
     <TouchableContainer onPress={onPress} style={style}>
       <Container width={width}>
-        <Text
-          fontFamily={FontFamily.medium}
-          color={ColorConfig.white1}
-          fontSize={SizeConfig.bigText + 'px'}
-        >
+        <Text fontFamily={FontFamily.medium} color={ColorConfig.white1}>
           {children}
         </Text>
       </Container>

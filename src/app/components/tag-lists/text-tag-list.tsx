@@ -23,7 +23,10 @@ export function TextTagList({ setActiveIndex, activeIndex, data }: ITagList) {
 
   return (
     <FlatListWrapper>
-      <Line flex={1} style={{ top: UnitHandler.rem(42.75) }} />
+      <Line
+        flex={1}
+        style={{ top: UnitHandler.rem(SizeConfig.smallMargin * 7.5) }}
+      />
       <FlatList
         ref={flatList}
         showsHorizontalScrollIndicator={false}

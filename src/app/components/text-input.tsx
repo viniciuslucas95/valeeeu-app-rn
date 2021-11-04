@@ -77,7 +77,6 @@ const Container = styled.View<IContainerProps>`
 const InputText = styled.TextInput`
   flex: 1;
   font-family: ${FontFamily.regular};
-  font-size: ${SizeConfig.mediumText + 'px'};
   color: ${ColorConfig.black1};
   height: ${UnitHandler.rem(
     SizeConfig.buttonPressableArea + SizeConfig.thinBorderWidth

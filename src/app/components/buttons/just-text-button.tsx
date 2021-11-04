@@ -18,6 +18,8 @@ interface IProps {
   textAlign?: TextAlign;
 }
 
+export const pressableArea = UnitHandler.rem(10);
+
 export function JustTextButton({
   onPress,
   children,
@@ -49,14 +51,14 @@ interface ITextAreaProps {
 
 const TouchableTextArea = styled.View<ITextAreaProps>`
   border-radius: ${({ extraTouchableArea }) =>
-    UnitHandler.rem(10) + extraTouchableArea + 'px'};
+    pressableArea + extraTouchableArea + 'px'};
   padding: ${({ extraTouchableArea }) =>
-    UnitHandler.rem(10) + extraTouchableArea + 'px'};
+    pressableArea + extraTouchableArea + 'px'};
   ${({ removePressableAreaMargin }) =>
     removePressableAreaMargin
       ? css`
-          margin-top: -${UnitHandler.rem(10) + 'px'};
-          margin-bottom: -${UnitHandler.rem(10) + 'px'};
+          margin-top: -${pressableArea + 'px'};
+          margin-bottom: -${pressableArea + 'px'};
         `
       : null};
 `;

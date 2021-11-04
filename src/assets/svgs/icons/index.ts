@@ -13,3 +13,5 @@ export { CarIcon } from './car-icon';
 export { HeartIcon } from './heart-icon';
 export { ToolsIcon } from './tools-icon';
 export { ExpandIcon } from './expand-icon';
+export { StarIcon } from './star-icon';
+export { LocationIcon } from './location-icon';
