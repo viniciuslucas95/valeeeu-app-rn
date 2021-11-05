@@ -1,27 +1,23 @@
 import React from 'react';
-import styled from 'styled-components/native';
+import { HomeFilterToggle } from '../toggles';
+import { HomeFilterButton } from '../buttons';
+import { IStyleable } from '../../data-types/interfaces';
 import { SizeConfig } from '../../../configs';
-import { ViewElementStyle } from '../../data-types/types';
-import { TextTagToggle } from '../tag-toggles';
-import { FilterTag } from './filter-tag';
+import { ScrollView, View } from 'react-native';
 
-interface IProps {
+interface IProps extends IStyleable {
   onDistanceFilterPress(): void;
   distance: number;
   onOnlineOnlyFilterPress(): void;
   onlineOnly: boolean;
   rating: number;
   onRatingFilterPress(): void;
-  style?: ViewElementStyle;
 }
 
-const notBorderMargin = SizeConfig.mediumMargin * 0.5;
 const borderMargin = SizeConfig.bigMargin;
-const notBorderFilterStyle = {
-  marginHorizontal: notBorderMargin,
-};
+const notBorderMargin = SizeConfig.smallMargin;
 
-export function FilterTagList({
+export function HomeFilterButtonsAndTogglesList({
   onDistanceFilterPress,
   distance,
   onlineOnly,
@@ -45,9 +41,9 @@ export function FilterTagList({
   }
 
   return (
-    <ScrollViewWrapper style={style}>
+    <View style={style}>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <FilterTag
+        <HomeFilterButton
           style={{
             marginLeft: borderMargin,
             marginRight: notBorderMargin,
@@ -55,28 +51,21 @@ export function FilterTagList({
           onPress={onDistanceFilterPress}
         >
           {convertDistanceToText()}
-        </FilterTag>
-        <TextTagToggle
-          style={notBorderFilterStyle}
+        </HomeFilterButton>
+        <HomeFilterToggle
+          style={{ marginHorizontal: notBorderMargin }}
           onPress={onOnlineOnlyFilterPress}
-          isActive={onlineOnly}
+          isToggled={onlineOnly}
         >
           Está online
-        </TextTagToggle>
-        <FilterTag
-          style={{
-            marginLeft: notBorderMargin,
-            marginRight: borderMargin,
-          }}
+        </HomeFilterToggle>
+        <HomeFilterButton
+          style={{ marginRight: borderMargin, marginLeft: notBorderMargin }}
           onPress={onRatingFilterPress}
         >
           {convertRatingToText()}
-        </FilterTag>
+        </HomeFilterButton>
       </ScrollView>
-    </ScrollViewWrapper>
+    </View>
   );
 }
-
-const ScrollViewWrapper = styled.View``;
-
-const ScrollView = styled.ScrollView``;

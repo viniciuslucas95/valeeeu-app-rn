@@ -1,20 +1,19 @@
 import React, { useRef } from 'react';
 import { ColorConfig, SizeConfig } from '../../../configs';
 import { JustTextButton } from '../buttons';
-import {
-  FlatList,
-  FlatListWrapper,
-  getMargins,
-  ITagList,
-} from './shared-tag-list';
-import { FlatList as FlatListNative } from 'react-native';
+import { ITagList } from './tag-list';
+import { FlatList, View } from 'react-native';
 import { Line } from '../../styled-components';
-import styled from 'styled-components/native';
 import { FontFamily } from '../../data-types/enums';
 import { UnitHandler } from '../../helpers';
+import { getMarginsForList } from './list';
 
-export function TextTagList({ setActiveIndex, activeIndex, data }: ITagList) {
-  const flatList = useRef<FlatListNative>(null);
+export function HomeJobButtonList({
+  setActiveIndex,
+  activeIndex,
+  data,
+}: ITagList) {
+  const flatList = useRef<FlatList>(null);
 
   function scrollToTag(index: number) {
     setActiveIndex(index);
@@ -22,7 +21,7 @@ export function TextTagList({ setActiveIndex, activeIndex, data }: ITagList) {
   }
 
   return (
-    <FlatListWrapper>
+    <View>
       <Line
         flex={1}
         style={{ top: UnitHandler.rem(SizeConfig.smallMargin * 7.5) }}
@@ -35,12 +34,12 @@ export function TextTagList({ setActiveIndex, activeIndex, data }: ITagList) {
         renderItem={({ item, index }) => {
           const isActive = activeIndex === index;
           return (
-            <ButtonContainer>
+            <View>
               <JustTextButton
                 textAlign='center'
                 extraTouchableArea={isActive ? -0.5 : 0}
                 fontFamily={isActive ? FontFamily.regular : FontFamily.light}
-                style={[getMargins(index, data.length)]}
+                style={getMarginsForList(index, data.length)}
                 color={isActive ? ColorConfig.blue2 : ColorConfig.gray5}
                 onPress={() => scrollToTag(index)}
               >
@@ -51,19 +50,17 @@ export function TextTagList({ setActiveIndex, activeIndex, data }: ITagList) {
                   flex={0}
                   color={ColorConfig.blue1}
                   style={{
-                    ...getMargins(index, data.length),
+                    ...getMarginsForList(index, data.length),
                     height: 2,
                     marginTop: SizeConfig.smallMargin - 0.5,
                   }}
                 />
               ) : null}
-            </ButtonContainer>
+            </View>
           );
         }}
         keyExtractor={(_, index) => index.toString()}
       />
-    </FlatListWrapper>
+    </View>
   );
 }
-
-const ButtonContainer = styled.View``;

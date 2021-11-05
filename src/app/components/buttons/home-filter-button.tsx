@@ -3,22 +3,16 @@ import styled from 'styled-components/native';
 import { ExpandIcon } from '../../../assets/svgs/icons';
 import { ColorConfig, SizeConfig } from '../../../configs';
 import { FontFamily } from '../../data-types/enums';
-import { ViewElementStyle } from '../../data-types/types';
 import { UnitHandler } from '../../helpers';
 import { Text } from '../../styled-components';
 import { TouchableContainer } from '../auxiliaries';
+import { PressableWithStringChildren } from './pressable-with-string-children';
 
-interface IProps {
-  children: string;
-  onPress(): void;
-  style?: ViewElementStyle;
-}
-
-export function FilterTag({
+export function HomeFilterButton({
   children,
   onPress,
   style,
-}: PropsWithChildren<IProps>) {
+}: PropsWithChildren<PressableWithStringChildren>) {
   return (
     <TouchableContainer style={style} onPress={onPress}>
       <TouchableArea style={{ elevation: 0.5, marginVertical: 2 }}>
@@ -26,6 +20,7 @@ export function FilterTag({
           {children}
         </Text>
         <ExpandIcon
+          size='tiny'
           style={{ marginLeft: SizeConfig.smallMargin, top: 1 }}
           color={ColorConfig.gray4}
         />

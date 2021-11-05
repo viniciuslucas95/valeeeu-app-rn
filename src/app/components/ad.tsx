@@ -8,18 +8,14 @@ import { Platform } from 'react-native';
 import styled from 'styled-components/native';
 import { ColorConfig, SizeConfig } from '../../configs';
 import { FontFamily } from '../data-types/enums';
-import { ViewElementStyle } from '../data-types/types';
+import { IStyleable } from '../data-types/interfaces';
 import { UnitHandler } from '../helpers';
 import { Text } from '../styled-components';
 
 const androidBannerTestId = 'ca-app-pub-3940256099942544/6300978111';
 const iosBannerTestId = 'ca-app-pub-3940256099942544/2934735716';
 
-interface IProps {
-  style?: ViewElementStyle;
-}
-
-export function Ad({ style }: IProps) {
+export function Ad({ style }: IStyleable) {
   const [isAdAvaiable, setIsAdAvaiable] = useState(false);
 
   useEffect(() => {

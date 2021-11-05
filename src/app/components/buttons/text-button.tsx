@@ -2,18 +2,14 @@ import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components/native';
 import { ColorConfig, SizeConfig } from '../../../configs';
 import { FontFamily } from '../../data-types/enums';
-import { ViewElementStyle } from '../../data-types/types';
 import { Text } from '../../styled-components';
 import { TouchableContainer } from '../auxiliaries';
+import { PressableWithStringChildren } from './pressable-with-string-children';
+import { IHaveWidth } from './width';
 
-interface IProps {
-  onPress(): void;
-  children: string;
-  style?: ViewElementStyle;
-  width?: number;
-}
+interface IProps extends PressableWithStringChildren, Partial<IHaveWidth> {}
 
-export function Button({
+export function TextButton({
   onPress,
   children,
   style,
@@ -30,11 +26,7 @@ export function Button({
   );
 }
 
-interface IButtonProps {
-  width: number;
-}
-
-const Container = styled.View<IButtonProps>`
+const Container = styled.View<IHaveWidth>`
   height: ${SizeConfig.buttonPressableArea + 'px'};
   width: ${({ width }) => width + 'px'};
   align-items: center;

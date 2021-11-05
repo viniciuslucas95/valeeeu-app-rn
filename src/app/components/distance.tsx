@@ -1,14 +1,12 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { LocationIcon, StarIcon } from '../../assets/svgs/icons';
+import { LocationIcon } from '../../assets/svgs/icons';
 import { ColorConfig, SizeConfig } from '../../configs';
-import { FontFamily } from '../data-types/enums';
-import { ViewElementStyle } from '../data-types/types';
+import { IStyleable } from '../data-types/interfaces';
 import { UnitHandler } from '../helpers';
 import { Text } from '../styled-components';
 
-interface IProps {
-  style?: ViewElementStyle;
+interface IProps extends IStyleable {
   distance: number;
 }
 

@@ -1,14 +1,11 @@
 import React from 'react';
-import styled from 'styled-components/native';
 import { ProfileIcon } from '../../../assets/svgs/icons';
 import { ColorConfig } from '../../../configs';
+import { IPressable } from '../../data-types/interfaces';
+import { Container } from '../../styled-components';
 import { TouchableContainer } from '../auxiliaries';
 
-interface IProps {
-  onPress(): void;
-}
-
-export function ProfileIconButton({ onPress }: IProps) {
+export function ProfileIconButton({ onPress }: IPressable) {
   return (
     <TouchableContainer style={{ flex: 1 }} onPress={onPress}>
       <Container>
@@ -17,9 +14,3 @@ export function ProfileIconButton({ onPress }: IProps) {
     </TouchableContainer>
   );
 }
-
-const Container = styled.View`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;

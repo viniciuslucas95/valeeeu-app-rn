@@ -2,11 +2,12 @@ import React, { PropsWithChildren, useState } from 'react';
 import styled from 'styled-components/native';
 import { ColorConfig, SizeConfig } from '../../configs';
 import { FontFamily } from '../data-types/enums';
-import { ViewElementStyle } from '../data-types/types';
+import { IStyleable } from '../data-types/interfaces';
 import { UnitHandler } from '../helpers';
 import { Text } from '../styled-components';
+import { IHaveWidth } from './buttons/width';
 
-interface IProps {
+interface IProps extends IStyleable, Partial<IHaveWidth> {
   hasSecureText?: boolean;
   label?: string;
   placeholder?: string;
@@ -14,8 +15,6 @@ interface IProps {
   button?: JSX.Element;
   text: string;
   setText: React.Dispatch<React.SetStateAction<string>>;
-  style?: ViewElementStyle;
-  width?: number;
 }
 
 export function TextInput({
@@ -30,6 +29,7 @@ export function TextInput({
   width = SizeConfig.maxElementWidth,
 }: PropsWithChildren<IProps>) {
   const [isFocused, setIsFocused] = useState(false);
+
   return (
     <Container width={width} style={style}>
       <InputContainer isFocused={isFocused}>
@@ -61,11 +61,7 @@ interface IInputProps {
   isFocused?: boolean;
 }
 
-interface IContainerProps {
-  width: number;
-}
-
-const Container = styled.View<IContainerProps>`
+const Container = styled.View<IHaveWidth>`
   justify-content: center;
   height: ${UnitHandler.rem(1) +
   SizeConfig.buttonPressableArea +

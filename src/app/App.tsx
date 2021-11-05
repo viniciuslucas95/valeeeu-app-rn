@@ -16,6 +16,7 @@ import AppLoading from 'expo-app-loading';
 import { MainNavigator } from './navigators';
 import { ColorConfig } from '../configs';
 import { Platform } from 'react-native';
+import { ContextWrapper } from './components';
 
 export default function App() {
   const [hasFontsLoaded] = useFonts({
@@ -24,11 +25,17 @@ export default function App() {
     Roboto_400Regular,
     Roboto_500Medium,
   });
+
   if (Platform.OS === 'android')
     setStatusBarBackgroundColor(ColorConfig.blue2, false);
   setStatusBarStyle('light');
   if (!hasFontsLoaded) return <AppLoading />;
-  return <MainNavigator />;
+
+  return (
+    <ContextWrapper>
+      <MainNavigator />
+    </ContextWrapper>
+  );
 }
 
 registerRootComponent(App);

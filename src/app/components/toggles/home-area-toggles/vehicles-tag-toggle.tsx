@@ -1,14 +1,10 @@
 import React from 'react';
-import { CarIcon } from '../../../assets/svgs/icons';
-import { ColorConfig } from '../../../configs';
-import { ViewElementStyle } from '../../data-types/types';
+import { CarIcon } from '../../../../assets/svgs/icons';
+import { ColorConfig } from '../../../../configs';
+import { Toggleable } from '../toggleable';
 import { BaseTagToggle } from './base-tag-toggle';
 
-interface IProps {
-  onPress(): void;
-  isToggled?: boolean;
-  style?: ViewElementStyle;
-}
+interface IProps extends Toggleable {}
 
 export function VehiclesTagToggle({
   onPress,

@@ -1,33 +1,26 @@
 import React, { PropsWithChildren, useContext, useLayoutEffect } from 'react';
 import Svg from 'react-native-svg';
 import { SizeContext as sizeContext } from '../../../app/components/buttons/icon-button';
-import { ViewElementStyle } from '../../../app/data-types/types';
+import { IStyleable } from '../../../app/data-types/interfaces';
 import { SizeConfig } from '../../../configs';
-
-interface IBaseSize {
-  width: number;
-  height: number;
-}
-
-interface IProps extends Omit<IIcon, 'color'> {
-  baseSize: IBaseSize;
-  children: JSX.Element | JSX.Element[];
-}
+import { ISvgProps } from '../base-svg';
 
 type Size = 'big' | 'medium' | 'small' | 'tiny';
 
-export interface IIcon {
-  color?: string;
+interface IHaveSize {
   size?: Size;
-  style?: ViewElementStyle;
+}
+
+export interface IIcon extends IStyleable, IHaveSize {
+  color?: string;
 }
 
 export function BaseIcon({
   baseSize: { width, height },
   style,
   children,
-  size,
-}: PropsWithChildren<IProps>) {
+  size = 'medium',
+}: PropsWithChildren<ISvgProps & IHaveSize>) {
   const { setSize } = useContext(sizeContext);
   const viewBox = `0 0 ${width} ${height}`;
   const widthDifference = width / height;

@@ -1,33 +1,33 @@
 import React, { useRef } from 'react';
+import { ITagList } from './tag-list';
+import { FlatList, View } from 'react-native';
 import {
-  FlatList,
-  FlatListWrapper,
-  getMargins,
-  ITagList,
-} from './shared-tag-list';
-import {
-  VehiclesTagToggle,
+  TechnologyTagToggle,
   BeautyAndFashionTagToggle,
   HealthTagToggle,
-  TechnologyTagToggle,
+  VehiclesTagToggle,
   WorkAndReformsTagToggle,
-} from '../../components/tag-toggles';
-import { FlatList as FlatListNative } from 'react-native';
+} from '../toggles/home-area-toggles';
+import { getMarginsForList } from './list';
 
-export function IconTagList({ setActiveIndex, activeIndex, data }: ITagList) {
-  const flatList = useRef<FlatListNative>(null);
+export function HomeAreaButtonList({
+  setActiveIndex,
+  activeIndex,
+  data,
+}: ITagList) {
+  const flatList = useRef<FlatList>(null);
 
   function scrollToTag(index: number) {
     setActiveIndex(index);
     flatList.current?.scrollToIndex({ index, viewPosition: 0.5 });
   }
 
-  function getAreaTag(tag: string, index: number) {
+  function getAreaTagIcon(tag: string, index: number) {
     switch (tag) {
       case 'Tecnologia':
         return (
           <TechnologyTagToggle
-            style={getMargins(index, data.length)}
+            style={getMarginsForList(index, data.length)}
             key={index}
             isToggled={activeIndex === index}
             onPress={() => scrollToTag(index)}
@@ -36,7 +36,7 @@ export function IconTagList({ setActiveIndex, activeIndex, data }: ITagList) {
       case 'Beleza e Moda':
         return (
           <BeautyAndFashionTagToggle
-            style={getMargins(index, data.length)}
+            style={getMarginsForList(index, data.length)}
             key={index}
             isToggled={activeIndex === index}
             onPress={() => scrollToTag(index)}
@@ -45,7 +45,7 @@ export function IconTagList({ setActiveIndex, activeIndex, data }: ITagList) {
       case 'Saúde':
         return (
           <HealthTagToggle
-            style={getMargins(index, data.length)}
+            style={getMarginsForList(index, data.length)}
             key={index}
             isToggled={activeIndex === index}
             onPress={() => scrollToTag(index)}
@@ -54,7 +54,7 @@ export function IconTagList({ setActiveIndex, activeIndex, data }: ITagList) {
       case 'Veículos':
         return (
           <VehiclesTagToggle
-            style={getMargins(index, data.length)}
+            style={getMarginsForList(index, data.length)}
             key={index}
             isToggled={activeIndex === index}
             onPress={() => scrollToTag(index)}
@@ -63,7 +63,7 @@ export function IconTagList({ setActiveIndex, activeIndex, data }: ITagList) {
       case 'Obras e Reformas':
         return (
           <WorkAndReformsTagToggle
-            style={getMargins(index, data.length)}
+            style={getMarginsForList(index, data.length)}
             key={index}
             isToggled={activeIndex === index}
             onPress={() => scrollToTag(index)}
@@ -73,7 +73,7 @@ export function IconTagList({ setActiveIndex, activeIndex, data }: ITagList) {
 
     return (
       <TechnologyTagToggle
-        style={getMargins(index, data.length)}
+        style={getMarginsForList(index, data.length)}
         key={index}
         isToggled={activeIndex === index}
         onPress={() => setActiveIndex(index)}
@@ -82,15 +82,15 @@ export function IconTagList({ setActiveIndex, activeIndex, data }: ITagList) {
   }
 
   return (
-    <FlatListWrapper>
+    <View>
       <FlatList
         ref={flatList}
         showsHorizontalScrollIndicator={false}
         data={data}
         horizontal
-        renderItem={({ item, index }) => getAreaTag(item as string, index)}
+        renderItem={({ item, index }) => getAreaTagIcon(item as string, index)}
         keyExtractor={(_, index) => index.toString()}
       />
-    </FlatListWrapper>
+    </View>
   );
 }

@@ -5,14 +5,11 @@ import { FontFamily } from '../../data-types/enums';
 import { UnitHandler } from '../../helpers';
 import { TouchableContainer } from '../auxiliaries';
 import { Text } from '../../styled-components';
-import { ViewElementStyle } from '../../data-types/types';
+import { IHaveWidth } from './width';
+import { PressableWithStringChildren } from './pressable-with-string-children';
 
-interface IProps {
-  onPress(): void;
+interface IProps extends Partial<IHaveWidth>, PressableWithStringChildren {
   icon?: JSX.Element;
-  width?: number;
-  style?: ViewElementStyle;
-  children: string;
   label?: string;
 }
 
@@ -46,11 +43,7 @@ export function FakeTextInputButton({
   );
 }
 
-interface IContainerProps {
-  width: number;
-}
-
-const Container = styled.View<IContainerProps>`
+const Container = styled.View<IHaveWidth>`
   margin: ${SizeConfig.mediumMargin + 'px'} 0;
   width: ${({ width }) => width + 'px'};
   height: ${SizeConfig.buttonPressableArea + UnitHandler.rem(1) + 'px'};

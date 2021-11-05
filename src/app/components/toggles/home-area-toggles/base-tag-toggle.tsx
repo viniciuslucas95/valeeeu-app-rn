@@ -1,25 +1,21 @@
 import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components/native';
-import { ColorConfig, SizeConfig } from '../../../configs';
-import { ViewElementStyle } from '../../data-types/types';
-import { IconButton } from '../buttons';
-import { UnitHandler } from '../../helpers';
-import { JustTextButton } from '../buttons';
-import { FontFamily } from '../../data-types/enums';
+import { ColorConfig, SizeConfig } from '../../../../configs';
+import { IconButton } from '../../buttons';
+import { UnitHandler } from '../../../helpers';
+import { JustTextButton } from '../../buttons';
+import { FontFamily } from '../../../data-types/enums';
+import { Toggleable } from '../toggleable';
+import { IHaveJsxChildren } from '../../../data-types/interfaces/childrens';
 
-interface IProps {
-  onPress(): void;
-  children: JSX.Element;
+interface IProps extends Toggleable, IHaveJsxChildren {
   label: string;
-  isToggled?: boolean;
-  style?: ViewElementStyle;
-  elevation?: number;
 }
 
 const areaTagMaxWidth =
   UnitHandler.rem(SizeConfig.buttonPressableArea * 1.7) + 'px';
 
-export const pressabledAreaAdjust = UnitHandler.rem(6);
+export const pressableAreaAdjust = UnitHandler.rem(6);
 
 export function BaseTagToggle({
   onPress,
@@ -42,7 +38,7 @@ export function BaseTagToggle({
       <JustTextButton
         fontFamily={isToggled ? FontFamily.regular : FontFamily.light}
         textAlign='center'
-        extraTouchableArea={-pressabledAreaAdjust}
+        extraTouchableArea={-pressableAreaAdjust}
         color={isToggled ? ColorConfig.blue2 : ColorConfig.gray5}
         onPress={onPress}
       >

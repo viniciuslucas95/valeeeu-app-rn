@@ -1,10 +1,13 @@
 import React, { createContext, PropsWithChildren, useState } from 'react';
 import styled, { css } from 'styled-components/native';
 import { SizeConfig } from '../../../configs';
-import { ViewElementStyle } from '../../data-types/types';
+import { IHaveJsxChildren } from '../../data-types/interfaces/childrens';
 import { TouchableContainer } from '../auxiliaries';
+import { Pressable } from '../pressable';
 
-type Side = 'left' | 'right';
+interface IHaveSide {
+  side: 'left' | 'right';
+}
 
 interface ISizeContext {
   setSize?: React.Dispatch<React.SetStateAction<IIconSize>>;
@@ -17,14 +20,9 @@ interface IIconSize {
 
 export interface IHaveBackground {
   backgroundColor: string;
-  elevation?: number;
 }
 
-interface IProps {
-  onPress(): void;
-  side?: Side;
-  children: JSX.Element;
-  style?: ViewElementStyle;
+interface IProps extends IHaveJsxChildren, Pressable, Partial<IHaveSide> {
   extraPressableArea?: number;
   background?: IHaveBackground;
 }
@@ -47,7 +45,6 @@ export function IconButton({
     <SizeContext.Provider value={{ setSize: side ? setSize : undefined }}>
       <TouchableContainer onPress={onPress} style={style}>
         <IconContainer
-          style={{ elevation: background?.elevation }}
           backgroundColor={background?.backgroundColor}
           extraPressableArea={extraPressableArea}
           buttonAdjust={side ? { side, size } : undefined}
@@ -59,15 +56,13 @@ export function IconButton({
   );
 }
 
-interface IButtonAdjust {
-  side: Side;
+interface IButtonAdjust extends IHaveSide {
   size: IIconSize;
 }
 
-interface IStyleProps {
+interface IStyleProps extends Partial<IHaveBackground> {
   buttonAdjust?: IButtonAdjust;
   extraPressableArea: number;
-  backgroundColor?: string;
 }
 
 const IconContainer = styled.View<IStyleProps>`

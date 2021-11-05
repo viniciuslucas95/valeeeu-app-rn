@@ -1,21 +1,19 @@
 import React, { PropsWithChildren } from 'react';
 import Svg from 'react-native-svg';
-import { ViewElementStyle } from '../../app/data-types/types';
+import { IHaveWidth } from '../../app/components/buttons/width';
+import { IStyleable } from '../../app/data-types/interfaces';
 
-interface IBaseSize {
-  width: number;
+interface IBaseSize extends IHaveWidth {
   height: number;
 }
 
-interface IProps extends Omit<ISvg, 'color'> {
+export interface ISvgProps extends Omit<ISvg, 'color'> {
   baseSize: IBaseSize;
   children: JSX.Element | JSX.Element[];
 }
 
-export interface ISvg {
-  width?: number;
+export interface ISvg extends Partial<IHaveWidth>, IStyleable {
   color?: string;
-  style?: ViewElementStyle;
 }
 
 export function BaseSvg({
@@ -23,7 +21,7 @@ export function BaseSvg({
   style,
   children,
   width: newWidth,
-}: PropsWithChildren<IProps>) {
+}: PropsWithChildren<ISvgProps>) {
   const viewBox = `0 0 ${width} ${height}`;
   const newWidthDifference = (newWidth ?? width) / width;
   const newHeight = height * newWidthDifference;

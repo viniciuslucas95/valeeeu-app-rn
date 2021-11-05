@@ -1,14 +1,17 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar, ScrollView } from 'react-native';
 import styled from 'styled-components/native';
 import { LogoSvg } from '../../assets/svgs';
 import { SearchIcon } from '../../assets/svgs/icons';
 import { ColorConfig, SizeConfig } from '../../configs';
 import { Ad, CardSection, ICard } from '../components';
 import { FakeTextInputButton } from '../components/buttons';
-import { IconTagList, TextTagList } from '../components/tag-lists';
-import { FilterTagList } from '../components/tag-lists/filter-tag-list';
+import {
+  HomeAreaButtonList,
+  HomeJobButtonList,
+  HomeFilterButtonsAndTogglesList,
+} from '../components/lists';
 import { UnitHandler } from '../helpers';
 import { Buffer } from 'buffer';
 
@@ -105,7 +108,7 @@ export function HomeScreen() {
           }}
           width={UnitHandler.vw(66)}
         />
-        <IconTagList
+        <HomeAreaButtonList
           activeIndex={currentAreaTag}
           data={areaTags}
           setActiveIndex={setCurrentAreaTag}
@@ -116,12 +119,12 @@ export function HomeScreen() {
         >
           Procurar serviço...
         </FakeTextInputButton>
-        <TextTagList
+        <HomeJobButtonList
           activeIndex={currentJobTag}
           data={jobTags}
           setActiveIndex={setCurrentJobTag}
         />
-        <FilterTagList
+        <HomeFilterButtonsAndTogglesList
           style={{ marginTop: SizeConfig.bigMargin }}
           onlineOnly={onlineOnlyFilter}
           onOnlineOnlyFilterPress={() => setOnlineOnlyFilter(!onlineOnlyFilter)}
@@ -158,5 +161,3 @@ const SafeContainer = styled.SafeAreaView`
   flex: 1;
   background-color: ${ColorConfig.white1};
 `;
-
-const ScrollView = styled.ScrollView``;

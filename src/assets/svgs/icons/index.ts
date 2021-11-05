@@ -15,3 +15,4 @@ export { ToolsIcon } from './tools-icon';
 export { ExpandIcon } from './expand-icon';
 export { StarIcon } from './star-icon';
 export { LocationIcon } from './location-icon';
+export { OptionsIcon } from './options-icon';

@@ -1,18 +1,19 @@
 import React, { PropsWithChildren } from 'react';
 import { FontFamily } from '../../data-types/enums';
-import { TextAlign, ViewElementStyle } from '../../data-types/types';
+import { TextAlign } from '../../data-types/types';
 import { TouchableContainer } from '../auxiliaries';
 import styled, { css } from 'styled-components/native';
 import { ColorConfig } from '../../../configs';
 import { Text } from '../../styled-components';
 import { UnitHandler } from '../../helpers';
+import { PressableWithStringChildren } from './pressable-with-string-children';
 
-interface IProps {
-  onPress(): void;
-  style?: ViewElementStyle;
-  children: string;
-  extraTouchableArea?: number;
-  removePressableAreaMargin?: boolean;
+interface IHaveArea {
+  extraTouchableArea: number;
+  removePressableAreaMargin: boolean;
+}
+
+interface IProps extends PressableWithStringChildren, Partial<IHaveArea> {
   fontFamily?: string;
   color?: string;
   textAlign?: TextAlign;
@@ -44,12 +45,7 @@ export function JustTextButton({
   );
 }
 
-interface ITextAreaProps {
-  extraTouchableArea: number;
-  removePressableAreaMargin: boolean;
-}
-
-const TouchableTextArea = styled.View<ITextAreaProps>`
+const TouchableTextArea = styled.View<IHaveArea>`
   border-radius: ${({ extraTouchableArea }) =>
     pressableArea + extraTouchableArea + 'px'};
   padding: ${({ extraTouchableArea }) =>

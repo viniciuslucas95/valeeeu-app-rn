@@ -1,18 +1,12 @@
 import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components/native';
-import { ViewElementStyle } from '../../data-types/types';
-
-interface IProps {
-  onPress(): void;
-  style?: ViewElementStyle;
-  children: JSX.Element;
-}
+import { Pressable } from '../pressable';
 
 export function TouchableContainer({
   onPress,
   style,
   children,
-}: PropsWithChildren<IProps>) {
+}: PropsWithChildren<Pressable>) {
   return (
     <Style style={style}>
       <Touchable onPress={onPress}>{children}</Touchable>

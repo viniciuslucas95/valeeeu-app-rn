@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { ScrollView, View } from 'react-native';
 import styled from 'styled-components/native';
 import { LogoWithBackgroundSvg, LogoSvg } from '../../assets/svgs';
 import {
@@ -10,7 +11,7 @@ import {
 import { ColorConfig, SizeConfig } from '../../configs';
 import { AuthApiServiceFactory } from '../../factories';
 import { TextInput } from '../components';
-import { JustTextButton, IconButton, Button } from '../components/buttons';
+import { JustTextButton, IconButton, TextButton } from '../components/buttons';
 import { authContext } from '../contexts';
 import { FontFamily } from '../data-types/enums';
 import { MainScreen, TabScreen } from '../data-types/enums/screens';
@@ -29,7 +30,7 @@ export function LoginScreen({ navigation }: INavigate) {
   const [isShowingPassword, setIsShowingPassword] = useState(false);
   const [user, setUser] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const { accessToken, saveTokensInStorageAsync } = useContext(authContext);
+  const { saveTokensInStorageAsync } = useContext(authContext);
 
   async function logInAsync() {
     const authenticationResult = await authApiService.authenticateAsync({
@@ -53,8 +54,8 @@ export function LoginScreen({ navigation }: INavigate) {
         keyboardDismissMode='none'
         keyboardShouldPersistTaps='handled'
       >
-        {screenWidth > maxWidth ? <FlexSpace style={{ flex: 25.92 }} /> : null}
-        <LogoContainer
+        {screenWidth > maxWidth ? <View style={{ flex: 25.92 }} /> : null}
+        <View
           style={{
             flex: 4.32,
             marginBottom:
@@ -72,7 +73,7 @@ export function LoginScreen({ navigation }: INavigate) {
               }
             />
           )}
-        </LogoContainer>
+        </View>
         <CredentialsContainer style={{ flex: 2.16 }}>
           <TextInput
             style={{
@@ -111,12 +112,12 @@ export function LoginScreen({ navigation }: INavigate) {
               </IconButton>
             }
           />
-          <Button
+          <TextButton
             width={screenWidth > maxWidth ? maxWidth : undefined}
             onPress={logInAsync}
           >
             Entrar
-          </Button>
+          </TextButton>
           <JustTextButton
             onPress={() => console.log('Forgot password button pressed...')}
           >
@@ -180,20 +181,16 @@ export function LoginScreen({ navigation }: INavigate) {
             </JustTextButton>
           </AccountCreationContent>
         </AccountCreationContainer>
-        {screenWidth > maxWidth ? <FlexSpace style={{ flex: 25.92 }} /> : null}
+        {screenWidth > maxWidth ? <View style={{ flex: 25.92 }} /> : null}
       </ScrollView>
     </SafeContainer>
   );
 }
 
-const ScrollView = styled.ScrollView``;
-
 const SafeContainer = styled.SafeAreaView`
   flex: 1;
   background-color: ${ColorConfig.white1};
 `;
-
-const LogoContainer = styled.View``;
 
 const CredentialsContainer = styled.View`
   justify-content: center;
@@ -227,5 +224,3 @@ const AccountCreationContent = styled.View`
   flex-wrap: wrap;
   justify-content: center;
 `;
-
-const FlexSpace = styled.View``;
