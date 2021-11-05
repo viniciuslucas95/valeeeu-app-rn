@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components/native';
 import { LogoWithBackgroundSvg, LogoSvg } from '../../assets/svgs';
 import {
@@ -8,9 +8,12 @@ import {
   FacebookLoginIcon,
 } from '../../assets/svgs/icons';
 import { ColorConfig, SizeConfig } from '../../configs';
+import { AuthApiServiceFactory } from '../../factories';
 import { TextInput } from '../components';
 import { JustTextButton, IconButton, Button } from '../components/buttons';
+import { authContext } from '../contexts';
 import { FontFamily } from '../data-types/enums';
+import { MainScreen, TabScreen } from '../data-types/enums/screens';
 import { INavigate } from '../data-types/interfaces';
 import { UnitHandler } from '../helpers';
 import { Text, Line } from '../styled-components';
@@ -20,11 +23,23 @@ const createAccountMarginAdjust = -UnitHandler.rem(4);
 const screenWidth = UnitHandler.vw(101);
 const logoDifferenceFromScreenWidth = 40;
 const maxWidth = 400;
+const authApiService = AuthApiServiceFactory.create();
 
 export function LoginScreen({ navigation }: INavigate) {
   const [isShowingPassword, setIsShowingPassword] = useState(false);
   const [user, setUser] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const { accessToken, saveTokensInStorageAsync } = useContext(authContext);
+
+  async function logInAsync() {
+    const authenticationResult = await authApiService.authenticateAsync({
+      user,
+      password,
+    });
+    if (!authenticationResult) return;
+    await saveTokensInStorageAsync(authenticationResult);
+    navigation.navigate(MainScreen.main, { screen: TabScreen.profile });
+  }
 
   return (
     <SafeContainer>
@@ -98,7 +113,7 @@ export function LoginScreen({ navigation }: INavigate) {
           />
           <Button
             width={screenWidth > maxWidth ? maxWidth : undefined}
-            onPress={() => console.log('Login button pressed...')}
+            onPress={logInAsync}
           >
             Entrar
           </Button>

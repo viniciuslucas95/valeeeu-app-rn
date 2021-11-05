@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import {
   ClientProfileScreen,
@@ -20,11 +20,12 @@ import {
 } from '../data-types/enums/screens';
 import { ColorConfig } from '../../configs';
 import { ProfileIconButton } from '../components/buttons';
+import { authContext } from '../contexts';
 
 const Tab = createBottomTabNavigator();
 
 export function TabNavigation({ navigation }: INavigate) {
-  const isLogged = false; // Change to account conext
+  const { accessToken } = useContext(authContext);
 
   return (
     <Tab.Navigator
@@ -73,7 +74,7 @@ export function TabNavigation({ navigation }: INavigate) {
         name={TabScreen.profile}
         component={ClientProfileScreen}
         options={
-          isLogged
+          accessToken && accessToken.length > 0
             ? {
                 tabBarIcon: ({ focused }) => (
                   <ProfileIcon
