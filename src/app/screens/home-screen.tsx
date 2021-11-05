@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'react-native';
 import styled from 'styled-components/native';
 import { LogoSvg } from '../../assets/svgs';
 import { SearchIcon } from '../../assets/svgs/icons';
 import { ColorConfig, SizeConfig } from '../../configs';
-import { CardSection, ICard } from '../components';
+import { Ad, CardSection, ICard } from '../components';
 import { FakeTextInputButton } from '../components/buttons';
 import { IconTagList, TextTagList } from '../components/tag-lists';
 import { FilterTagList } from '../components/tag-lists/filter-tag-list';
 import { UnitHandler } from '../helpers';
+import { Buffer } from 'buffer';
 
 const areaTags = [
   'Tecnologia',
@@ -30,48 +32,68 @@ const jobTags = [
 
 const categoryTags = ['Pintura de Unhas', 'Corte de Cabelo'];
 
-const categoryCards: ICard[] = [
-  {
-    id: '123',
-    picture: 'test',
-    lowestPrice: 5,
-    name: 'Ana Manicure',
-    description:
-      'Especializada no cuidado de mãos, retiramos cutículas e temos os melhores esmaltes da região, desde esmalte francês até esmalte da casa do caralho.',
-    distance: 1200,
-    rating: 4.7,
-    totalVotes: 87,
-  },
-  {
-    id: '1234',
-    picture: 'test',
-    lowestPrice: 5,
-    name: 'Ana Manicure',
-    description:
-      'Especializada no cuidado de mãos, retiramos cutículas e temos os melhores esmaltes da região, desde esmalte francês até esmalte da casa do caralho.',
-    distance: 500,
-    rating: 4.7,
-    totalVotes: 87,
-  },
-  {
-    id: '1235',
-    picture: 'test',
-    lowestPrice: 5,
-    name: 'Ana Manicure',
-    description:
-      'Especializada no cuidado de mãos, retiramos cutículas e temos os melhores esmaltes da região, desde esmalte francês até esmalte da casa do caralho.',
-    distance: 500,
-    rating: 4.7,
-    totalVotes: 87,
-  },
-];
-
 export function HomeScreen() {
   const [currentAreaTag, setCurrentAreaTag] = useState(0);
   const [currentJobTag, setCurrentJobTag] = useState(0);
   const [distanceFilter, setDistanceFilter] = useState(5400);
   const [onlineOnlyFilter, setOnlineOnlyFilter] = useState(false);
   const [ratingFilter, setRatingFilter] = useState(4.5);
+  const [categoryCards, setCategoryCards] = useState<ICard[]>([
+    {
+      id: '123',
+      picture: 'dada',
+      lowestPrice: 5,
+      name: 'Ana Manicure',
+      description:
+        'Especializada no cuidado de mãos, retiramos cutículas e temos os melhores esmaltes da região, desde esmalte francês até esmalte da casa do caralho.',
+      distance: 1200,
+      rating: 4.7,
+      totalVotes: 87,
+    },
+    {
+      id: '1234',
+      picture: 'test',
+      lowestPrice: 39.9,
+      name: 'Ana Manicure',
+      description:
+        'Especializada no cuidado de mãos, retiramos cutículas e temos os melhores esmaltes da região, desde esmalte francês até esmalte da casa do caralho.',
+      distance: 500,
+      rating: 4.7,
+      totalVotes: 87,
+    },
+    {
+      id: '1235',
+      picture: 'test',
+      lowestPrice: 5,
+      name: 'Ana Manicure',
+      description:
+        'Especializada no cuidado de mãos, retiramos cutículas e temos os melhores esmaltes da região, desde esmalte francês até esmalte da casa do caralho.',
+      distance: 500,
+      rating: 4.7,
+      totalVotes: 87,
+    },
+  ]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { data } = await axios.get(
+          'https://st.depositphotos.com/1758925/2485/i/600/depositphotos_24857221-stock-photo-manicure-nail.jpg',
+          { responseType: 'arraybuffer' }
+        );
+        const image = Buffer.from(data, 'binary').toString('base64');
+        setCategoryCards(
+          categoryCards.map((card) => {
+            card.picture = image;
+            return card;
+          })
+        );
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, []);
+
   return (
     <SafeContainer>
       <ScrollView bounces={false}>
@@ -113,6 +135,14 @@ export function HomeScreen() {
         <CardSection
           style={{
             marginTop: SizeConfig.bigMargin,
+            marginBottom: SizeConfig.bigMargin,
+          }}
+          cards={categoryCards}
+          title={categoryTags[0]}
+        />
+        <Ad style={{ marginBottom: SizeConfig.mediumMargin }} />
+        <CardSection
+          style={{
             marginBottom: SizeConfig.bigMargin,
           }}
           cards={categoryCards}

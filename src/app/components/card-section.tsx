@@ -7,6 +7,7 @@ import { Text } from '../styled-components';
 import { JustTextButton, pressableArea } from './buttons';
 import { Rating } from './rating';
 import { Distance } from './distance';
+import isBase64 from 'is-base64';
 
 interface IProps {
   title: string;
@@ -46,7 +47,6 @@ export function CardSection({ style, title, cards }: IProps) {
           horizontal
           renderItem={({ item, index }) => {
             const {
-              id,
               description,
               distance,
               lowestPrice,
@@ -55,6 +55,7 @@ export function CardSection({ style, title, cards }: IProps) {
               rating,
               totalVotes,
             } = item as ICard;
+            const validPicture = isBase64(picture);
             return (
               <Card
                 style={[
@@ -75,7 +76,30 @@ export function CardSection({ style, title, cards }: IProps) {
                   { elevation: 2.5, marginVertical: SizeConfig.smallMargin },
                 ]}
               >
-                <CardPictureContainer></CardPictureContainer>
+                <CardPictureContainer>
+                  {validPicture ? (
+                    <Picture
+                      source={{
+                        uri: `data:image/jpeg;base64,${picture}`,
+                      }}
+                    />
+                  ) : null}
+                  <PriceContainer>
+                    <Text
+                      fontFamily={FontFamily.light}
+                      fontSize={SizeConfig.tinyText}
+                      color={ColorConfig.gray5}
+                    >
+                      A partir de{' '}
+                      <Text
+                        fontFamily={FontFamily.medium}
+                        fontSize={SizeConfig.smallText}
+                      >
+                        R$ {lowestPrice.toFixed(2).replace('.', ',')}
+                      </Text>
+                    </Text>
+                  </PriceContainer>
+                </CardPictureContainer>
                 <CardInfoContainer>
                   <Text fontFamily={FontFamily.medium}>{name}</Text>
                   <Text
@@ -119,12 +143,20 @@ const Card = styled.View`
   background-color: ${ColorConfig.white1};
 `;
 
+const Picture = styled.Image`
+  position: absolute;
+  border-top-left-radius: ${SizeConfig.borderRadius + 'px'};
+  border-top-right-radius: ${SizeConfig.borderRadius + 'px'};
+  height: ${SizeConfig.imageSize + 'px'};
+  width: ${SizeConfig.imageSize + 'px'};
+`;
+
 // prettier-ignore
 const CardPictureContainer = styled.View`
   height: ${SizeConfig.imageSize + 'px'};
   border-top-left-radius: ${SizeConfig.borderRadius + 'px'};
   border-top-right-radius: ${SizeConfig.borderRadius + 'px'};
-  background-color: gray; // Picture area, change it with a picure
+  background-color: ${ColorConfig.gray3};
 `;
 
 // prettier-ignore
@@ -135,6 +167,15 @@ const CardInfoContainer = styled.View`
 const DistanceAndRatingContainer = styled.View`
   flex-direction: row;
   justify-content: space-between;
+`;
+
+const PriceContainer = styled.View`
+  position: absolute;
+  padding: ${SizeConfig.tinyMargin / 2 + 'px'} ${SizeConfig.tinyMargin + 'px'};
+  border-radius: ${SizeConfig.borderRadius + 'px'};
+  right: ${SizeConfig.tinyMargin + 'px'};
+  bottom: ${SizeConfig.tinyMargin + 'px'};
+  background-color: ${ColorConfig.white1};
 `;
 
 const FlatListWrapper = styled.View``;
