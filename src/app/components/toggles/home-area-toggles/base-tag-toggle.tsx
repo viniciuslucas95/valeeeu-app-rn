@@ -5,11 +5,11 @@ import { IconButton } from '../../buttons';
 import { UnitHandler } from '../../../helpers';
 import { JustTextButton } from '../../buttons';
 import { FontFamily } from '../../../data-types/enums';
-import { Toggleable } from '../toggleable';
-import { IHaveJsxChildren } from '../../../data-types/interfaces/childrens';
+import { Toggleable } from '../types';
 
-interface IProps extends Toggleable, IHaveJsxChildren {
+interface IProps extends Toggleable {
   label: string;
+  children: JSX.Element;
 }
 
 const areaTagMaxWidth =
@@ -20,17 +20,14 @@ export const pressableAreaAdjust = UnitHandler.rem(6);
 export function BaseTagToggle({
   onPress,
   label,
-  isToggled,
+  isToggled = false,
   children,
   style,
 }: PropsWithChildren<IProps>) {
   return (
     <Container style={style}>
       <IconButton
-        background={{
-          backgroundColor: isToggled ? ColorConfig.blue2 : ColorConfig.gray3,
-          elevation: 2.5,
-        }}
+        backgroundColor={isToggled ? ColorConfig.blue2 : ColorConfig.gray3}
         onPress={onPress}
       >
         {children}

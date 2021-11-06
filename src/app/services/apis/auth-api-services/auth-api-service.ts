@@ -1,4 +1,4 @@
-import { IAccountCredentials } from '../../../dtos';
+import { IAccountCredentialsDto } from '../../../dtos';
 
 export interface IAuthenticationResult {
   accessToken: string;
@@ -11,7 +11,7 @@ export interface IAccessTokenGenerationResult {
 
 export interface IAuthApiService {
   authenticateAsync(
-    credentials: IAccountCredentials
+    credentials: IAccountCredentialsDto
   ): Promise<IAuthenticationResult | undefined>;
   validateAccessTokenAsync(accessToken: string): Promise<boolean>;
   generateNewAccessTokenAsync(

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { LocationIcon } from '../../assets/svgs/icons';
 import { ColorConfig, SizeConfig } from '../../configs';
-import { IStyleable } from '../data-types/interfaces';
+import { IStyleable } from '../data-types/props';
 import { UnitHandler } from '../helpers';
 import { Text } from '../styled-components';
 

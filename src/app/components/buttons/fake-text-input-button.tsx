@@ -5,12 +5,13 @@ import { FontFamily } from '../../data-types/enums';
 import { UnitHandler } from '../../helpers';
 import { TouchableContainer } from '../auxiliaries';
 import { Text } from '../../styled-components';
-import { IHaveWidth } from './width';
-import { PressableWithStringChildren } from './pressable-with-string-children';
+import { IStyleable } from '../../data-types/props';
+import { IHaveWidth, IPressable } from '../interfaces';
 
-interface IProps extends Partial<IHaveWidth>, PressableWithStringChildren {
+interface IProps extends IStyleable, Partial<IHaveWidth>, IPressable {
   icon?: JSX.Element;
   label?: string;
+  children: string;
 }
 
 export function FakeTextInputButton({

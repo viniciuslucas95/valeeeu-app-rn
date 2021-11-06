@@ -9,13 +9,13 @@ import {
   FacebookLoginIcon,
 } from '../../assets/svgs/icons';
 import { ColorConfig, SizeConfig } from '../../configs';
-import { AuthApiServiceFactory } from '../../factories';
+import { AuthApiServiceFactory } from '../factories';
 import { TextInput } from '../components';
 import { JustTextButton, IconButton, TextButton } from '../components/buttons';
 import { authContext } from '../contexts';
 import { FontFamily } from '../data-types/enums';
-import { MainScreen, TabScreen } from '../data-types/enums/screens';
-import { INavigate } from '../data-types/interfaces';
+import { AppScreen, MainScreen } from '../data-types/enums/screens';
+import { INavigate } from '../data-types/props';
 import { UnitHandler } from '../helpers';
 import { Text, Line } from '../styled-components';
 
@@ -39,7 +39,7 @@ export function LoginScreen({ navigation }: INavigate) {
     });
     if (!authenticationResult) return;
     await saveTokensInStorageAsync(authenticationResult);
-    navigation.navigate(MainScreen.main, { screen: TabScreen.profile });
+    navigation.navigate(AppScreen.main, { screen: MainScreen.profile });
   }
 
   return (

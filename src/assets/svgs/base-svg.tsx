@@ -1,7 +1,10 @@
 import React, { PropsWithChildren } from 'react';
 import Svg from 'react-native-svg';
-import { IHaveWidth } from '../../app/components/buttons/width';
-import { IStyleable } from '../../app/data-types/interfaces';
+import { IStyleable } from '../../app/data-types/props';
+
+interface IHaveWidth {
+  width: number;
+}
 
 interface IBaseSize extends IHaveWidth {
   height: number;

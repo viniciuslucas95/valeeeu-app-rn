@@ -1,19 +1,22 @@
 import React, { PropsWithChildren } from 'react';
-import styled from 'styled-components/native';
-import { Pressable } from '../pressable';
+import { TouchableWithoutFeedback, View } from 'react-native';
+import { IStyleable } from '../../data-types/props';
+
+interface IProps extends IStyleable {
+  onPress(): void;
+  children: JSX.Element;
+}
 
 export function TouchableContainer({
   onPress,
   style,
   children,
-}: PropsWithChildren<Pressable>) {
+}: PropsWithChildren<IProps>) {
   return (
-    <Style style={style}>
-      <Touchable onPress={onPress}>{children}</Touchable>
-    </Style>
+    <View style={style}>
+      <TouchableWithoutFeedback onPress={onPress}>
+        {children}
+      </TouchableWithoutFeedback>
+    </View>
   );
 }
-
-const Style = styled.View``;
-
-const Touchable = styled.TouchableWithoutFeedback``;

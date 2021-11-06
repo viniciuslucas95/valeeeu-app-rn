@@ -13,10 +13,10 @@ import {
   setStatusBarStyle,
 } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
-import { MainNavigator } from './navigators';
+import { AppNavigator } from './navigators';
 import { ColorConfig } from '../configs';
 import { Platform } from 'react-native';
-import { ContextWrapper } from './components';
+import { AccountProvider, AuthProvider } from './contexts';
 
 export default function App() {
   const [hasFontsLoaded] = useFonts({
@@ -32,9 +32,11 @@ export default function App() {
   if (!hasFontsLoaded) return <AppLoading />;
 
   return (
-    <ContextWrapper>
-      <MainNavigator />
-    </ContextWrapper>
+    <AuthProvider>
+      <AccountProvider>
+        <AppNavigator />
+      </AccountProvider>
+    </AuthProvider>
   );
 }
 

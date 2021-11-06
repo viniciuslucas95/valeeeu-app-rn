@@ -1,12 +1,12 @@
 import React, { useRef } from 'react';
 import { ColorConfig, SizeConfig } from '../../../configs';
 import { JustTextButton } from '../buttons';
-import { ITagList } from './tag-list';
+import { ITagList } from './interfaces';
 import { FlatList, View } from 'react-native';
 import { Line } from '../../styled-components';
 import { FontFamily } from '../../data-types/enums';
 import { UnitHandler } from '../../helpers';
-import { getMarginsForList } from './list';
+import { getMarginsForList } from './helpers';
 
 export function HomeJobButtonList({
   setActiveIndex,

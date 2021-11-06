@@ -1,4 +1,4 @@
-import { FakeAuthApiService } from '../app/services/apis/auth-apis-services';
+import { FakeAuthApiService } from '../services/apis/auth-api-services';
 
 export class AuthApiServiceFactory {
   static create() {

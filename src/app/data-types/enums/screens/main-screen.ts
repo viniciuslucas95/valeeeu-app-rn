@@ -1,4 +1,6 @@
 export enum MainScreen {
-  main = 'Main',
-  account = 'Account',
+  home = 'Home',
+  search = 'Search',
+  message = 'Message',
+  profile = 'Profile',
 }

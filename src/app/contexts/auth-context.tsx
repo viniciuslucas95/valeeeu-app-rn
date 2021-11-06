@@ -1,7 +1,7 @@
 import { createContext, PropsWithChildren, useEffect, useState } from 'react';
 import React from 'react';
 import { StorageService } from '../services';
-import { AuthApiServiceFactory } from '../../factories';
+import { AuthApiServiceFactory } from '../factories';
 
 interface IAuthContext {
   accessToken?: string;

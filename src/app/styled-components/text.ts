@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
 import { ColorConfig, SizeConfig } from '../../configs';
 import { FontFamily } from '../data-types/enums';
-import { TextAlign } from '../data-types/types';
 
 interface IProps {
   color?: string;
@@ -9,6 +8,8 @@ interface IProps {
   fontSize?: number;
   textAlign?: TextAlign;
 }
+
+export type TextAlign = 'left' | 'center' | 'right';
 
 export const Text = styled.Text<IProps>`
   font-family: ${({ fontFamily }) => fontFamily ?? FontFamily.regular};

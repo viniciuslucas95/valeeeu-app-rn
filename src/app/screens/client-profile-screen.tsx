@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components/native';
 import { authContext } from '../contexts';
-import { TabScreen } from '../data-types/enums/screens';
-import { INavigate } from '../data-types/interfaces';
+import { MainScreen } from '../data-types/enums/screens';
+import { INavigate } from '../data-types/props';
 
 export function ClientProfileScreen({ navigation }: INavigate) {
   const { deleteTokensFromStorageAsync } = useContext(authContext);
@@ -10,7 +10,7 @@ export function ClientProfileScreen({ navigation }: INavigate) {
   async function leaveAccountAsync() {
     const deleteResult = await deleteTokensFromStorageAsync();
     if (!deleteResult) return;
-    navigation.navigate(TabScreen.home);
+    navigation.navigate(MainScreen.home);
   }
 
   return (

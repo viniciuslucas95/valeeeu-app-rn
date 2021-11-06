@@ -5,17 +5,19 @@ import { UnitHandler } from '../../helpers';
 import { FontFamily } from '../../data-types/enums';
 import { Text } from '../../styled-components';
 import { TouchableContainer } from '../auxiliaries';
-import { IToggleable, Toggleable } from './toggleable';
-import { IHaveStringChildren } from '../../data-types/interfaces/childrens';
+import { Toggleable } from './types';
+import { IToggleable } from './interfaces';
 
-interface IProps extends Toggleable, IHaveStringChildren {}
+interface IProps extends Toggleable {
+  children: string;
+}
 
 export function HomeFilterToggle({
   children,
   onPress,
   style,
   isToggled = false,
-}: PropsWithChildren<IProps & Partial<IToggleable>>) {
+}: PropsWithChildren<IProps>) {
   return (
     <TouchableContainer style={style} onPress={onPress}>
       <TouchableArea

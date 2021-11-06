@@ -1,22 +1,23 @@
 import React, { PropsWithChildren } from 'react';
 import { FontFamily } from '../../data-types/enums';
-import { TextAlign } from '../../data-types/types';
 import { TouchableContainer } from '../auxiliaries';
 import styled, { css } from 'styled-components/native';
 import { ColorConfig } from '../../../configs';
-import { Text } from '../../styled-components';
+import { Text, TextAlign } from '../../styled-components';
 import { UnitHandler } from '../../helpers';
-import { PressableWithStringChildren } from './pressable-with-string-children';
+import { IPressable } from '../interfaces';
+import { IStyleable } from '../../data-types/props';
 
 interface IHaveArea {
   extraTouchableArea: number;
   removePressableAreaMargin: boolean;
 }
 
-interface IProps extends PressableWithStringChildren, Partial<IHaveArea> {
+interface IProps extends IPressable, IStyleable, Partial<IHaveArea> {
   fontFamily?: string;
   color?: string;
   textAlign?: TextAlign;
+  children: string;
 }
 
 export const pressableArea = UnitHandler.rem(10);

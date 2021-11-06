@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { LoginScreen } from '../screens';
 import { AccountScreen } from '../data-types/enums/screens';
-import { INavigate } from '../data-types/interfaces';
+import { INavigate } from '../data-types/props';
 import { Platform, View } from 'react-native';
 import { CloseIcon } from '../../assets/svgs/icons';
 import { ColorConfig, SizeConfig } from '../../configs';
@@ -10,7 +10,7 @@ import { IconButton } from '../components/buttons';
 
 const Stack = createStackNavigator();
 
-export function AccountStackNavigation({ navigation }: INavigate) {
+export function AccountNavigator({ navigation }: INavigate) {
   return (
     <Stack.Navigator
       screenOptions={{

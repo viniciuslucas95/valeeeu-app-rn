@@ -7,9 +7,9 @@ import { Text } from '../../styled-components';
 import { FontFamily } from '../../data-types/enums';
 import { Distance } from '../distance';
 import { Rating } from '../rating';
-import { IStyleable } from '../../data-types/interfaces';
+import { IStyleable } from '../../data-types/props';
 
-interface ICard {
+export interface ICard {
   id: string;
   picture: string;
   lowestPrice: number;
@@ -20,13 +20,13 @@ interface ICard {
   totalVotes: number;
 }
 
-interface IHaveCards {
+export interface IHaveCards {
   cards: ICard[];
 }
 
-export type StyleableWithCards = IStyleable & IHaveCards;
+type IProps = IHaveCards & IStyleable;
 
-export function HomeCardList({ cards, style }: StyleableWithCards) {
+export function HomeCardList({ cards, style }: IProps) {
   return (
     <View style={style}>
       <FlatList

@@ -2,12 +2,14 @@ import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components/native';
 import { ColorConfig, SizeConfig } from '../../../configs';
 import { FontFamily } from '../../data-types/enums';
+import { IStyleable } from '../../data-types/props';
 import { Text } from '../../styled-components';
 import { TouchableContainer } from '../auxiliaries';
-import { PressableWithStringChildren } from './pressable-with-string-children';
-import { IHaveWidth } from './width';
+import { IHaveWidth, IPressable } from '../interfaces';
 
-interface IProps extends PressableWithStringChildren, Partial<IHaveWidth> {}
+interface IProps extends IStyleable, IPressable, Partial<IHaveWidth> {
+  children: string;
+}
 
 export function TextButton({
   onPress,

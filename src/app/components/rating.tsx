@@ -3,12 +3,11 @@ import styled from 'styled-components/native';
 import { StarIcon } from '../../assets/svgs/icons';
 import { ColorConfig, SizeConfig } from '../../configs';
 import { FontFamily } from '../data-types/enums';
-import { ViewElementStyle } from '../data-types/types';
+import { IStyleable } from '../data-types/props';
 import { UnitHandler } from '../helpers';
 import { Text } from '../styled-components';
 
-interface IProps {
-  style?: ViewElementStyle;
+interface IProps extends IStyleable {
   rating: number;
   totalVotes: number;
 }

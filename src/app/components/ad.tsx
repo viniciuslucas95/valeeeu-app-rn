@@ -8,7 +8,7 @@ import { Platform } from 'react-native';
 import styled from 'styled-components/native';
 import { ColorConfig, SizeConfig } from '../../configs';
 import { FontFamily } from '../data-types/enums';
-import { IStyleable } from '../data-types/interfaces';
+import { IStyleable } from '../data-types/props';
 import { UnitHandler } from '../helpers';
 import { Text } from '../styled-components';
 

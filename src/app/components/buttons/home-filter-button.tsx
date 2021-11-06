@@ -3,16 +3,21 @@ import styled from 'styled-components/native';
 import { ExpandIcon } from '../../../assets/svgs/icons';
 import { ColorConfig, SizeConfig } from '../../../configs';
 import { FontFamily } from '../../data-types/enums';
+import { IStyleable } from '../../data-types/props';
 import { UnitHandler } from '../../helpers';
 import { Text } from '../../styled-components';
 import { TouchableContainer } from '../auxiliaries';
-import { PressableWithStringChildren } from './pressable-with-string-children';
+import { IPressable } from '../interfaces';
+
+interface IProps extends IStyleable, IPressable {
+  children: string;
+}
 
 export function HomeFilterButton({
   children,
   onPress,
   style,
-}: PropsWithChildren<PressableWithStringChildren>) {
+}: PropsWithChildren<IProps>) {
   return (
     <TouchableContainer style={style} onPress={onPress}>
       <TouchableArea style={{ elevation: 0.5, marginVertical: 2 }}>

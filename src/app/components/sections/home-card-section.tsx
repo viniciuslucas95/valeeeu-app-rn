@@ -1,17 +1,18 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import { SizeConfig } from '../../configs';
-import { FontFamily } from '../data-types/enums';
-import { Text } from '../styled-components';
-import { JustTextButton, pressableArea } from './buttons';
+import { SizeConfig } from '../../../configs';
+import { FontFamily } from '../../data-types/enums';
+import { Text } from '../../styled-components';
+import { JustTextButton, pressableArea } from '../buttons';
 import { View } from 'react-native';
-import { StyleableWithCards, HomeCardList } from './lists/home-card-list';
+import { HomeCardList, IHaveCards } from '../lists';
+import { IStyleable } from '../../data-types/props';
 
-interface IProps extends StyleableWithCards {
+interface IProps extends IStyleable, IHaveCards {
   title: string;
 }
 
-export function CardSection({ style, title, cards }: IProps) {
+export function HomeCardSection({ style, title, cards }: IProps) {
   return (
     <View style={style}>
       <TitleContainer>

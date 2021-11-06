@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { ITagList } from './tag-list';
+import { ITagList } from './interfaces';
 import { FlatList, View } from 'react-native';
 import {
   TechnologyTagToggle,
@@ -8,7 +8,7 @@ import {
   VehiclesTagToggle,
   WorkAndReformsTagToggle,
 } from '../toggles/home-area-toggles';
-import { getMarginsForList } from './list';
+import { getMarginsForList } from './helpers';
 
 export function HomeAreaButtonList({
   setActiveIndex,

@@ -1,10 +1,9 @@
 import { SizeConfig } from '../../../configs';
-import { ViewElementStyle } from '../../data-types/types';
 import { pressableAreaAdjust } from '../toggles/home-area-toggles';
 
 export function getMarginsForList(index: number, dataLength: number) {
   const margin = SizeConfig.bigMargin - pressableAreaAdjust;
-  const style: ViewElementStyle =
+  const style =
     index === 0
       ? {
           marginLeft: margin,

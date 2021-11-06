@@ -1,9 +1,9 @@
 import React from 'react';
 import { HomeFilterToggle } from '../toggles';
 import { HomeFilterButton } from '../buttons';
-import { IStyleable } from '../../data-types/interfaces';
 import { SizeConfig } from '../../../configs';
 import { ScrollView, View } from 'react-native';
+import { IStyleable } from '../../data-types/props';
 
 interface IProps extends IStyleable {
   onDistanceFilterPress(): void;

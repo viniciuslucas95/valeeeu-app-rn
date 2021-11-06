@@ -1,3 +1,2 @@
-export { Text } from './text';
+export { Text, TextAlign } from './text';
 export { Line } from './line';
-export { Container } from './container';

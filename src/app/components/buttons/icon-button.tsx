@@ -1,9 +1,9 @@
 import React, { createContext, PropsWithChildren, useState } from 'react';
 import styled, { css } from 'styled-components/native';
 import { SizeConfig } from '../../../configs';
-import { IHaveJsxChildren } from '../../data-types/interfaces/childrens';
+import { IStyleable } from '../../data-types/props';
 import { TouchableContainer } from '../auxiliaries';
-import { Pressable } from '../pressable';
+import { IHaveWidth, IPressable } from '../interfaces';
 
 interface IHaveSide {
   side: 'left' | 'right';
@@ -13,18 +13,21 @@ interface ISizeContext {
   setSize?: React.Dispatch<React.SetStateAction<IIconSize>>;
 }
 
-interface IIconSize {
-  width: number;
+interface IIconSize extends IHaveWidth {
   height: number;
 }
 
-export interface IHaveBackground {
+interface IHaveBackground {
   backgroundColor: string;
 }
 
-interface IProps extends IHaveJsxChildren, Pressable, Partial<IHaveSide> {
+interface IProps
+  extends IStyleable,
+    IPressable,
+    Partial<IHaveSide>,
+    Partial<IHaveBackground> {
   extraPressableArea?: number;
-  background?: IHaveBackground;
+  children: JSX.Element;
 }
 
 export const SizeContext = createContext<ISizeContext>({} as ISizeContext);
@@ -35,7 +38,7 @@ export function IconButton({
   side,
   style,
   extraPressableArea = 0,
-  background,
+  backgroundColor = 'transparent',
 }: PropsWithChildren<IProps>) {
   const [size, setSize] = useState<IIconSize>({
     height: 0,
@@ -45,7 +48,7 @@ export function IconButton({
     <SizeContext.Provider value={{ setSize: side ? setSize : undefined }}>
       <TouchableContainer onPress={onPress} style={style}>
         <IconContainer
-          backgroundColor={background?.backgroundColor}
+          backgroundColor={backgroundColor}
           extraPressableArea={extraPressableArea}
           buttonAdjust={side ? { side, size } : undefined}
         >
@@ -60,7 +63,7 @@ interface IButtonAdjust extends IHaveSide {
   size: IIconSize;
 }
 
-interface IStyleProps extends Partial<IHaveBackground> {
+interface IStyleProps extends IHaveBackground {
   buttonAdjust?: IButtonAdjust;
   extraPressableArea: number;
 }
@@ -74,8 +77,7 @@ const IconContainer = styled.View<IStyleProps>`
     SizeConfig.buttonPressableArea + extraPressableArea + 'px'};
   border-radius: ${({ extraPressableArea }) =>
     SizeConfig.buttonPressableArea / 2 + extraPressableArea / 2 + 'px'};
-  background-color: ${({ backgroundColor }) =>
-    backgroundColor ?? 'transparent'};
+  background-color: ${({ backgroundColor }) => backgroundColor};
   ${({ buttonAdjust }) => {
     if (!buttonAdjust) return;
     const {
@@ -91,5 +93,5 @@ const IconContainer = styled.View<IStyleProps>`
         margin-right: -${(SizeConfig.buttonPressableArea - width) / 2 + 'px'};
       `;
     return null;
-  }}
+  }};
 `;

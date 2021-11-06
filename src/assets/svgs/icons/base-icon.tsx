@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useContext, useLayoutEffect } from 'react';
 import Svg from 'react-native-svg';
 import { SizeContext as sizeContext } from '../../../app/components/buttons/icon-button';
-import { IStyleable } from '../../../app/data-types/interfaces';
+import { IStyleable } from '../../../app/data-types/props';
 import { SizeConfig } from '../../../configs';
 import { ISvgProps } from '../base-svg';
 

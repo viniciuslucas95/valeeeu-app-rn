@@ -1,12 +1,14 @@
 import React from 'react';
 import { HeartIcon } from '../../../../assets/svgs/icons';
 import { ColorConfig } from '../../../../configs';
-import { Toggleable } from '../toggleable';
+import { Toggleable } from '../types';
 import { BaseTagToggle } from './base-tag-toggle';
 
-interface IProps extends Toggleable {}
-
-export function HealthTagToggle({ onPress, style, isToggled = false }: IProps) {
+export function HealthTagToggle({
+  onPress,
+  style,
+  isToggled = false,
+}: Toggleable) {
   return (
     <BaseTagToggle
       style={style}

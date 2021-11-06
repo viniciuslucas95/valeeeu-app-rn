@@ -1,4 +1,4 @@
-import { IAccountCredentials } from '../../../dtos';
+import { IAccountCredentialsDto } from '../../../dtos';
 import {
   IAccessTokenGenerationResult,
   IAuthApiService,
@@ -7,7 +7,7 @@ import {
 
 export class FakeAuthApiService implements IAuthApiService {
   async authenticateAsync(
-    credentials: IAccountCredentials
+    credentials: IAccountCredentialsDto
   ): Promise<IAuthenticationResult | undefined> {
     return {
       accessToken: '456',

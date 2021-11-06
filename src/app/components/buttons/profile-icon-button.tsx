@@ -1,9 +1,9 @@
 import React from 'react';
 import { ProfileIcon } from '../../../assets/svgs/icons';
 import { ColorConfig } from '../../../configs';
-import { IPressable } from '../../data-types/interfaces';
-import { Container } from '../../styled-components';
+import styled from 'styled-components/native';
 import { TouchableContainer } from '../auxiliaries';
+import { IPressable } from '../interfaces';
 
 export function ProfileIconButton({ onPress }: IPressable) {
   return (
@@ -14,3 +14,9 @@ export function ProfileIconButton({ onPress }: IPressable) {
     </TouchableContainer>
   );
 }
+
+const Container = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;

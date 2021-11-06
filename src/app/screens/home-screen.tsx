@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 import { LogoSvg } from '../../assets/svgs';
 import { SearchIcon } from '../../assets/svgs/icons';
 import { ColorConfig, SizeConfig } from '../../configs';
-import { Ad, CardSection, ICard } from '../components';
+import { Ad, HomeCardSection } from '../components';
 import { FakeTextInputButton } from '../components/buttons';
 import {
   HomeAreaButtonList,
@@ -14,6 +14,7 @@ import {
 } from '../components/lists';
 import { UnitHandler } from '../helpers';
 import { Buffer } from 'buffer';
+import { ICard } from '../components/lists/home-card-list';
 
 const areaTags = [
   'Tecnologia',
@@ -135,7 +136,7 @@ export function HomeScreen() {
           rating={ratingFilter}
           onRatingFilterPress={() => console.log('Rating filter pressed...')}
         />
-        <CardSection
+        <HomeCardSection
           style={{
             marginTop: SizeConfig.bigMargin,
             marginBottom: SizeConfig.bigMargin,
@@ -144,7 +145,7 @@ export function HomeScreen() {
           title={categoryTags[0]}
         />
         <Ad style={{ marginBottom: SizeConfig.mediumMargin }} />
-        <CardSection
+        <HomeCardSection
           style={{
             marginBottom: SizeConfig.bigMargin,
           }}

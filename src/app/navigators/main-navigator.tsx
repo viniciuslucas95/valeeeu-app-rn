@@ -1,34 +1,101 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
-import { MainScreen } from '../data-types/enums/screens';
-import { AccountStackNavigation } from './account-navigation';
-import { TabNavigation } from './tab-navigation';
+import React, { useContext } from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  ClientProfileScreen,
+  HomeScreen,
+  MessageScreen,
+  SearchScreen,
+} from '../screens';
+import {
+  HomeIcon,
+  MessageIcon,
+  ProfileIcon,
+  SearchIcon,
+} from '../../assets/svgs/icons';
+import { INavigate } from '../data-types/props';
+import {
+  AccountScreen,
+  AppScreen,
+  MainScreen,
+} from '../data-types/enums/screens';
+import { ColorConfig } from '../../configs';
+import { ProfileIconButton } from '../components/buttons';
+import { authContext } from '../contexts';
 
-const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-export function MainNavigator() {
+export function MainNavigator({ navigation }: INavigate) {
+  const { accessToken } = useContext(authContext);
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
+    <Tab.Navigator
+      screenOptions={{
+        tabBarShowLabel: false,
+        headerShown: false,
+      }}
+    >
+      <Tab.Screen
+        name={MainScreen.home}
+        component={HomeScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <HomeIcon
+              size='big'
+              color={focused ? ColorConfig.blue2 : ColorConfig.gray4}
+            />
+          ),
         }}
-      >
-        <Stack.Screen name={MainScreen.main}>
-          {({ navigation }) => <TabNavigation navigation={navigation} />}
-        </Stack.Screen>
-        <Stack.Screen
-          name={MainScreen.account}
-          options={{
-            presentation: 'modal',
-          }}
-        >
-          {({ navigation }) => (
-            <AccountStackNavigation navigation={navigation} />
-          )}
-        </Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+      />
+      <Tab.Screen
+        name={MainScreen.search}
+        component={SearchScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <SearchIcon
+              size='big'
+              color={focused ? ColorConfig.blue2 : ColorConfig.gray4}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={MainScreen.message}
+        component={MessageScreen}
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <MessageIcon
+              size='big'
+              color={focused ? ColorConfig.blue2 : ColorConfig.gray4}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={MainScreen.profile}
+        component={ClientProfileScreen}
+        options={
+          accessToken && accessToken.length > 0
+            ? {
+                tabBarIcon: ({ focused }) => (
+                  <ProfileIcon
+                    size='big'
+                    color={focused ? ColorConfig.blue2 : ColorConfig.gray4}
+                  />
+                ),
+              }
+            : ({ navigation }) => ({
+                tabBarButton: () => (
+                  <ProfileIconButton
+                    onPress={() =>
+                      navigation.navigate(AppScreen.account, {
+                        screen: AccountScreen.login,
+                      })
+                    }
+                  />
+                ),
+              })
+        }
+      />
+    </Tab.Navigator>
   );
 }
