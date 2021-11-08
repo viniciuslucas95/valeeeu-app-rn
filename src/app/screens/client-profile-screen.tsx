@@ -1,13 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import { ColorConfig, SizeConfig } from '../../configs';
 import { accountContext } from '../contexts';
 import { INavigate } from '../data-types/props';
 import { Text } from '../styled-components';
-import isBase64 from 'is-base64';
 import { FontFamily } from '../data-types/enums';
+import { Modal } from '../components';
+import { ProfileOptionsButton } from '../components/buttons';
 
 export function ClientProfileScreen({ navigation }: INavigate) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { accountInfo } = useContext(accountContext);
   if (!accountInfo) return null;
   const {
@@ -17,6 +19,18 @@ export function ClientProfileScreen({ navigation }: INavigate) {
     },
   } = accountInfo;
 
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <ProfileOptionsButton
+          style={{ marginRight: SizeConfig.bigMargin }}
+          navigation={navigation}
+          onPress={() => setIsModalOpen(true)}
+        />
+      ),
+    });
+  }, []);
+
   return (
     <Container>
       <InfoContainer>
@@ -25,11 +39,12 @@ export function ClientProfileScreen({ navigation }: INavigate) {
           <Text fontFamily={FontFamily.medium}>{name}</Text>
         </DataContainer>
       </InfoContainer>
+      <Modal isVisible={isModalOpen} setIsVisible={setIsModalOpen} />
     </Container>
   );
 }
 
-const Container = styled.View`
+const Container = styled.SafeAreaView`
   flex: 1;
   background-color: ${ColorConfig.white1};
 `;

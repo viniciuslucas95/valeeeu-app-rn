@@ -6,7 +6,6 @@ import { ClientProfileScreen } from '../screens';
 import { ClientProfileScreen as ClientProfileScreenStack } from '../data-types/enums/screens';
 import { FontFamily } from '../data-types/enums';
 import { ColorConfig, SizeConfig } from '../../configs';
-import { ProfileOptionsButton } from '../components/buttons/profile-options-button';
 
 const Stack = createStackNavigator();
 
@@ -24,20 +23,7 @@ export function ClientProfileNavigator({ navigation }: INavigate) {
         },
       }}
     >
-      <Stack.Screen
-        name={ClientProfileScreenStack.profile}
-        options={({ navigation }) => ({
-          headerRight: () => (
-            <ProfileOptionsButton
-              navigation={navigation}
-              onPress={() => console.log('test')}
-            />
-          ),
-          headerRightContainerStyle: {
-            marginRight: SizeConfig.bigMargin,
-          },
-        })}
-      >
+      <Stack.Screen name={ClientProfileScreenStack.profile}>
         {({ navigation }) => <ClientProfileScreen navigation={navigation} />}
       </Stack.Screen>
     </Stack.Navigator>
