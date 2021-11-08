@@ -5,13 +5,9 @@ import {
   HomeScreen,
   MessageScreen,
   SearchScreen,
+  WorkerProfileScreen,
 } from '../screens';
-import {
-  HomeIcon,
-  MessageIcon,
-  ProfileIcon,
-  SearchIcon,
-} from '../../assets/svgs/icons';
+import { HomeIcon, MessageIcon, SearchIcon } from '../../assets/svgs/icons';
 import { INavigate } from '../data-types/props';
 import {
   AccountScreen,
@@ -20,12 +16,16 @@ import {
 } from '../data-types/enums/screens';
 import { ColorConfig } from '../../configs';
 import { ProfileIconButton } from '../components/buttons';
-import { authContext } from '../contexts';
+import { accountContext, authContext } from '../contexts';
+import { WorkerProfileNavigator } from './worker-profile-navigator';
+import { ClientProfileNavigator } from './client-profile-navigator';
 
 const Tab = createBottomTabNavigator();
 
 export function MainNavigator({ navigation }: INavigate) {
   const { accessToken } = useContext(authContext);
+  const { accountInfo } = useContext(accountContext);
+  const hasWorkerProfile = accountInfo?.profile.workerProfile;
 
   return (
     <Tab.Navigator
@@ -72,29 +72,27 @@ export function MainNavigator({ navigation }: INavigate) {
       />
       <Tab.Screen
         name={MainScreen.profile}
-        component={ClientProfileScreen}
-        options={
-          accessToken && accessToken.length > 0
-            ? {
-                tabBarIcon: ({ focused }) => (
-                  <ProfileIcon
-                    size='big'
-                    color={focused ? ColorConfig.blue2 : ColorConfig.gray4}
-                  />
-                ),
-              }
-            : ({ navigation }) => ({
-                tabBarButton: () => (
-                  <ProfileIconButton
-                    onPress={() =>
+        component={
+          hasWorkerProfile ? WorkerProfileNavigator : ClientProfileNavigator
+        }
+        options={({ navigation }) => ({
+          tabBarButton: () => (
+            <ProfileIconButton
+              navigation={navigation}
+              onPress={
+                accessToken && accessToken.length > 0
+                  ? () =>
+                      navigation.navigate(AppScreen.main, {
+                        screen: MainScreen.profile,
+                      })
+                  : () =>
                       navigation.navigate(AppScreen.account, {
                         screen: AccountScreen.login,
                       })
-                    }
-                  />
-                ),
-              })
-        }
+              }
+            />
+          ),
+        })}
       />
     </Tab.Navigator>
   );

@@ -3,3 +3,4 @@ export { LoginScreen } from './login-screen';
 export { HomeScreen } from './home-screen';
 export { SearchScreen } from './search-screen';
 export { MessageScreen } from './message-screen';
+export { WorkerProfileScreen } from './worker-profile-screen';

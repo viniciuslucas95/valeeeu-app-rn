@@ -9,10 +9,10 @@ import {
   FacebookLoginIcon,
 } from '../../assets/svgs/icons';
 import { ColorConfig, SizeConfig } from '../../configs';
-import { AuthApiServiceFactory } from '../factories';
+import { AccountApiServiceFactory, AuthApiServiceFactory } from '../factories';
 import { TextInput } from '../components';
 import { JustTextButton, IconButton, TextButton } from '../components/buttons';
-import { authContext } from '../contexts';
+import { accountContext, authContext } from '../contexts';
 import { FontFamily } from '../data-types/enums';
 import { AppScreen, MainScreen } from '../data-types/enums/screens';
 import { INavigate } from '../data-types/props';
@@ -25,21 +25,32 @@ const screenWidth = UnitHandler.vw(101);
 const logoDifferenceFromScreenWidth = 40;
 const maxWidth = 400;
 const authApiService = AuthApiServiceFactory.create();
+const accountApiService = AccountApiServiceFactory.create();
 
 export function LoginScreen({ navigation }: INavigate) {
   const [isShowingPassword, setIsShowingPassword] = useState(false);
   const [user, setUser] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const { saveTokensInStorageAsync } = useContext(authContext);
+  const { setAccountInfo } = useContext(accountContext);
 
   async function logInAsync() {
-    const authenticationResult = await authApiService.authenticateAsync({
-      user,
-      password,
-    });
-    if (!authenticationResult) return;
-    await saveTokensInStorageAsync(authenticationResult);
-    navigation.navigate(AppScreen.main, { screen: MainScreen.profile });
+    try {
+      const authenticationResult = await authApiService.authenticateAsync({
+        user,
+        password,
+      });
+      if (!authenticationResult) return;
+      const accountResult = await accountApiService.getMeAsync(
+        authenticationResult.accessToken
+      );
+      if (!accountResult) throw new Error('No account found');
+      await saveTokensInStorageAsync(authenticationResult);
+      setAccountInfo(accountResult);
+      navigation.navigate(AppScreen.main, { screen: MainScreen.profile });
+    } catch (err) {
+      console.error(err);
+    }
   }
 
   return (

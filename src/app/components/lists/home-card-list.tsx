@@ -43,7 +43,6 @@ export function HomeCardList({ cards, style }: IProps) {
             rating,
             totalVotes,
           } = item as ICard;
-          const validPicture = isBase64(picture);
           return (
             <Card
               style={[
@@ -65,7 +64,7 @@ export function HomeCardList({ cards, style }: IProps) {
               ]}
             >
               <CardPictureContainer>
-                {validPicture ? (
+                {isBase64(picture) ? (
                   <Picture
                     source={{
                       uri: `data:image/jpeg;base64,${picture}`,

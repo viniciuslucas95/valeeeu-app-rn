@@ -1,6 +1,8 @@
+import { IProfileDto } from './profile-dto';
+
 export interface IAccountDto {
   id: string;
   email: string;
-  phone: number;
-  username: string;
+  phone: string;
+  profile: IProfileDto;
 }

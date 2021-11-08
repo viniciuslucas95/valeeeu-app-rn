@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/native';
+import { Text } from 'react-native';
 
 export function MessageScreen() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   return (
     <Container>
       <Text>Message Screen</Text>
@@ -14,5 +17,3 @@ const Container = styled.View`
   justify-content: center;
   align-items: center;
 `;
-
-const Text = styled.Text``;
