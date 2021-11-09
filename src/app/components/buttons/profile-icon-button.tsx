@@ -11,7 +11,7 @@ import { INavigate } from '../../data-types/props';
 type Props = IPressable & INavigate;
 
 export function ProfileIconButton({ onPress, navigation }: Props) {
-  const { accountInfo } = useContext(accountContext);
+  const { account: accountInfo } = useContext(accountContext);
   const picture = accountInfo ? accountInfo.profile.picture.picture : null;
   const isFocused = navigation.isFocused();
 

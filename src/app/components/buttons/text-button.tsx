@@ -7,8 +7,23 @@ import { Text } from '../../styled-components';
 import { TouchableContainer } from '../auxiliaries';
 import { IHaveWidth, IPressable } from '../interfaces';
 
-interface IProps extends IStyleable, IPressable, Partial<IHaveWidth> {
+interface IHaveBackgroundColor {
+  backgroundColor: string;
+}
+
+interface IHaveHeight {
+  height: number;
+}
+
+interface IProps
+  extends IStyleable,
+    IPressable,
+    Partial<IHaveWidth>,
+    Partial<IHaveBackgroundColor>,
+    Partial<IHaveHeight> {
   children: string;
+  fontColor?: string;
+  isDragging: React.MutableRefObject<boolean>;
 }
 
 export function TextButton({
@@ -16,11 +31,24 @@ export function TextButton({
   children,
   style,
   width = SizeConfig.maxElementWidth,
+  backgroundColor = ColorConfig.blue2,
+  fontColor = ColorConfig.white1,
+  height = SizeConfig.buttonPressableArea,
+  isDragging,
 }: PropsWithChildren<IProps>) {
+  function pressHandler() {
+    if (isDragging && isDragging.current) return;
+    onPress();
+  }
+
   return (
-    <TouchableContainer onPress={onPress} style={style}>
-      <Container width={width}>
-        <Text fontFamily={FontFamily.medium} color={ColorConfig.white1}>
+    <TouchableContainer onPress={pressHandler} style={style}>
+      <Container
+        height={height}
+        width={width}
+        backgroundColor={backgroundColor}
+      >
+        <Text fontFamily={FontFamily.medium} color={fontColor}>
           {children}
         </Text>
       </Container>
@@ -28,11 +56,13 @@ export function TextButton({
   );
 }
 
-const Container = styled.View<IHaveWidth>`
-  height: ${SizeConfig.buttonPressableArea + 'px'};
+type ContainerProps = IHaveWidth & IHaveBackgroundColor & IHaveHeight;
+
+const Container = styled.View<ContainerProps>`
+  height: ${({ height }) => height + 'px'};
   width: ${({ width }) => width + 'px'};
   align-items: center;
   justify-content: center;
-  background-color: ${ColorConfig.blue2};
+  background-color: ${({ backgroundColor }) => backgroundColor};
   border-radius: ${SizeConfig.borderRadius + 'px'};
 `;

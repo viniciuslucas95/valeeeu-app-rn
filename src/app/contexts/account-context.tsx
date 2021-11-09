@@ -11,8 +11,8 @@ import { AuthContext as authContext } from './auth-context';
 import { IAccountDto } from '../dtos';
 
 interface IAccountContext {
-  accountInfo: IAccountDto | undefined;
-  setAccountInfo: React.Dispatch<React.SetStateAction<IAccountDto | undefined>>;
+  account: IAccountDto | undefined;
+  setAccount: React.Dispatch<React.SetStateAction<IAccountDto | undefined>>;
 }
 
 const accountApiService = AccountApiServiceFactory.create();
@@ -23,7 +23,7 @@ export const AccountContext = createContext<IAccountContext>(
 
 export function AccountProvider({ children }: PropsWithChildren<any>) {
   const { accessToken } = useContext(authContext);
-  const [accountInfo, setAccountInfo] = useState<IAccountDto | undefined>();
+  const [account, setAccount] = useState<IAccountDto | undefined>();
 
   useEffect(() => {
     (async () => {
@@ -33,21 +33,21 @@ export function AccountProvider({ children }: PropsWithChildren<any>) {
 
   async function getMeAsync() {
     if (!accessToken) {
-      setAccountInfo(undefined);
+      setAccount(undefined);
       return;
     }
-    if (accountInfo) return;
+    if (account) return;
     try {
       const result = await accountApiService.getMeAsync(accessToken);
       if (!result) throw new Error('No account found');
-      setAccountInfo(result);
+      setAccount(result);
     } catch (err) {
       console.error(err);
     }
   }
 
   return (
-    <AccountContext.Provider value={{ accountInfo, setAccountInfo }}>
+    <AccountContext.Provider value={{ account, setAccount }}>
       {children}
     </AccountContext.Provider>
   );

@@ -32,7 +32,7 @@ export function LoginScreen({ navigation }: INavigate) {
   const [user, setUser] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const { saveTokensInStorageAsync } = useContext(authContext);
-  const { setAccountInfo } = useContext(accountContext);
+  const { setAccount: setAccountInfo } = useContext(accountContext);
 
   async function logInAsync() {
     try {

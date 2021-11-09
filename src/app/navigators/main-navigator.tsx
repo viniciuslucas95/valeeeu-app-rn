@@ -1,12 +1,6 @@
 import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import {
-  ClientProfileScreen,
-  HomeScreen,
-  MessageScreen,
-  SearchScreen,
-  WorkerProfileScreen,
-} from '../screens';
+import { HomeScreen, MessageScreen, SearchScreen } from '../screens';
 import { HomeIcon, MessageIcon, SearchIcon } from '../../assets/svgs/icons';
 import { INavigate } from '../data-types/props';
 import {
@@ -16,16 +10,13 @@ import {
 } from '../data-types/enums/screens';
 import { ColorConfig } from '../../configs';
 import { ProfileIconButton } from '../components/buttons';
-import { accountContext, authContext } from '../contexts';
-import { WorkerProfileNavigator } from './worker-profile-navigator';
-import { ClientProfileNavigator } from './client-profile-navigator';
+import { authContext } from '../contexts';
+import { ProfileNavigator } from './profile-navigator';
 
 const Tab = createBottomTabNavigator();
 
 export function MainNavigator({ navigation }: INavigate) {
   const { accessToken } = useContext(authContext);
-  const { accountInfo } = useContext(accountContext);
-  const hasWorkerProfile = accountInfo?.profile.workerProfile;
 
   return (
     <Tab.Navigator
@@ -72,9 +63,7 @@ export function MainNavigator({ navigation }: INavigate) {
       />
       <Tab.Screen
         name={MainScreen.profile}
-        component={
-          hasWorkerProfile ? WorkerProfileNavigator : ClientProfileNavigator
-        }
+        component={ProfileNavigator}
         options={({ navigation }) => ({
           tabBarButton: () => (
             <ProfileIconButton

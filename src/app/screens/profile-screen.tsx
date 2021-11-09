@@ -1,23 +1,18 @@
 import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import { ColorConfig, SizeConfig } from '../../configs';
-import { accountContext } from '../contexts';
+import { accountContext, authContext } from '../contexts';
 import { INavigate } from '../data-types/props';
 import { Text } from '../styled-components';
 import { FontFamily } from '../data-types/enums';
 import { Modal } from '../components';
 import { ProfileOptionsButton } from '../components/buttons';
+import { AppScreen, MainScreen } from '../data-types/enums/screens';
 
-export function ClientProfileScreen({ navigation }: INavigate) {
+export function ProfileScreen({ navigation }: INavigate) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { accountInfo } = useContext(accountContext);
-  if (!accountInfo) return null;
-  const {
-    profile: {
-      picture: { picture },
-      name,
-    },
-  } = accountInfo;
+  const { account } = useContext(accountContext);
+  const { deleteTokensFromStorageAsync } = useContext(authContext);
 
   useEffect(() => {
     navigation.setOptions({
@@ -28,18 +23,37 @@ export function ClientProfileScreen({ navigation }: INavigate) {
           onPress={() => setIsModalOpen(true)}
         />
       ),
+      headerTitle: account?.profile.username ?? 'usuario1829',
+      headerTitleStyle: {
+        fontFamily: FontFamily.medium,
+        fontSize: SizeConfig.bigText,
+      },
     });
   }, []);
+
+  async function logOutAsync() {
+    if (!(await deleteTokensFromStorageAsync())) return;
+    setIsModalOpen(false);
+    navigation.navigate(AppScreen.main, { screen: MainScreen.home });
+  }
 
   return (
     <Container>
       <InfoContainer>
-        <Picture source={{ uri: `data:image/jpeg;base64,${picture}` }} />
+        <Picture
+          source={{
+            uri: `data:image/jpeg;base64,${account?.profile.picture.picture}`,
+          }}
+        />
         <DataContainer>
-          <Text fontFamily={FontFamily.medium}>{name}</Text>
+          <Text fontFamily={FontFamily.medium}>{account?.profile.name}</Text>
         </DataContainer>
       </InfoContainer>
-      <Modal isVisible={isModalOpen} setIsVisible={setIsModalOpen} />
+      <Modal
+        items={[{ text: 'Sair', onPress: logOutAsync }]}
+        isVisible={isModalOpen}
+        setIsVisible={setIsModalOpen}
+      />
     </Container>
   );
 }
