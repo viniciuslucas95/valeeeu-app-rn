@@ -3,7 +3,7 @@ import { ProfileIcon } from '../../../assets/svgs/icons';
 import { ColorConfig } from '../../../configs';
 import styled from 'styled-components/native';
 import { TouchableContainer } from '../auxiliaries';
-import { accountContext } from '../../contexts';
+import { AccountContext as accountContext } from '../../contexts/account-context';
 import { IPressable } from '../interfaces';
 import isBase64 from 'is-base64';
 import { INavigate } from '../../data-types/props';

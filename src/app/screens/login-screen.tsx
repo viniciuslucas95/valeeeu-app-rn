@@ -54,7 +54,7 @@ export function LoginScreen({ navigation }: INavigate) {
   }
 
   return (
-    <SafeContainer>
+    <Container>
       <ScrollView
         bounces={false}
         contentContainerStyle={{
@@ -194,11 +194,11 @@ export function LoginScreen({ navigation }: INavigate) {
         </AccountCreationContainer>
         {screenWidth > maxWidth ? <View style={{ flex: 25.92 }} /> : null}
       </ScrollView>
-    </SafeContainer>
+    </Container>
   );
 }
 
-const SafeContainer = styled.SafeAreaView`
+const Container = styled.View`
   flex: 1;
   background-color: ${ColorConfig.white1};
 `;

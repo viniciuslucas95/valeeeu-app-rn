@@ -99,7 +99,7 @@ export function HomeScreen() {
   }, []);
 
   return (
-    <SafeContainer>
+    <Container>
       <ScrollView bounces={false}>
         <LogoSvg
           style={{
@@ -153,11 +153,11 @@ export function HomeScreen() {
           title={categoryTags[0]}
         />
       </ScrollView>
-    </SafeContainer>
+    </Container>
   );
 }
 
-const SafeContainer = styled.SafeAreaView`
+const Container = styled.View`
   margin-top: ${(StatusBar.currentHeight ?? 0) + 'px'};
   flex: 1;
   background-color: ${ColorConfig.white1};

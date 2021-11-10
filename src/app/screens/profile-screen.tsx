@@ -1,26 +1,27 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components/native';
 import { ColorConfig, SizeConfig } from '../../configs';
-import { accountContext, authContext } from '../contexts';
+import { accountContext, authContext, modalContext } from '../contexts';
 import { INavigate } from '../data-types/props';
 import { Text } from '../styled-components';
 import { FontFamily } from '../data-types/enums';
-import { Modal } from '../components';
-import { ProfileOptionsButton } from '../components/buttons';
+import { ProfileOptionsButton, TextButton } from '../components/buttons';
 import { AppScreen, MainScreen } from '../data-types/enums/screens';
 
 export function ProfileScreen({ navigation }: INavigate) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const { account } = useContext(accountContext);
+  const { openModal, closeModal, setupContent, dragRef } =
+    useContext(modalContext);
   const { deleteTokensFromStorageAsync } = useContext(authContext);
 
   useEffect(() => {
+    setupContent(<TextButton onPress={logOutAsync}>Sair</TextButton>);
     navigation.setOptions({
       headerRight: () => (
         <ProfileOptionsButton
           style={{ marginRight: SizeConfig.bigMargin }}
           navigation={navigation}
-          onPress={() => setIsModalOpen(true)}
+          onPress={() => openModal()}
         />
       ),
       headerTitle: account?.profile.username ?? 'usuario1829',
@@ -32,8 +33,9 @@ export function ProfileScreen({ navigation }: INavigate) {
   }, []);
 
   async function logOutAsync() {
+    if (dragRef && dragRef.current) return;
     if (!(await deleteTokensFromStorageAsync())) return;
-    setIsModalOpen(false);
+    closeModal();
     navigation.navigate(AppScreen.main, { screen: MainScreen.home });
   }
 
@@ -49,16 +51,11 @@ export function ProfileScreen({ navigation }: INavigate) {
           <Text fontFamily={FontFamily.medium}>{account?.profile.name}</Text>
         </DataContainer>
       </InfoContainer>
-      <Modal
-        items={[{ text: 'Sair', onPress: logOutAsync }]}
-        isVisible={isModalOpen}
-        setIsVisible={setIsModalOpen}
-      />
     </Container>
   );
 }
 
-const Container = styled.SafeAreaView`
+const Container = styled.View`
   flex: 1;
   background-color: ${ColorConfig.white1};
 `;

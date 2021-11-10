@@ -15,8 +15,8 @@ import {
 import AppLoading from 'expo-app-loading';
 import { AppNavigator } from './navigators';
 import { ColorConfig } from '../configs';
-import { Platform } from 'react-native';
-import { AccountProvider, AuthProvider } from './contexts';
+import { Platform, SafeAreaView } from 'react-native';
+import { AccountProvider, AuthProvider, ModalProvider } from './contexts';
 
 export default function App() {
   const [hasFontsLoaded] = useFonts({
@@ -32,11 +32,15 @@ export default function App() {
   if (!hasFontsLoaded) return <AppLoading />;
 
   return (
-    <AuthProvider>
-      <AccountProvider>
-        <AppNavigator />
-      </AccountProvider>
-    </AuthProvider>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ModalProvider>
+        <AuthProvider>
+          <AccountProvider>
+            <AppNavigator />
+          </AccountProvider>
+        </AuthProvider>
+      </ModalProvider>
+    </SafeAreaView>
   );
 }
 

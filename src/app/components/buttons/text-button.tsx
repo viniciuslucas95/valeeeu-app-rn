@@ -23,7 +23,6 @@ interface IProps
     Partial<IHaveHeight> {
   children: string;
   fontColor?: string;
-  isDragging: React.MutableRefObject<boolean>;
 }
 
 export function TextButton({
@@ -34,15 +33,9 @@ export function TextButton({
   backgroundColor = ColorConfig.blue2,
   fontColor = ColorConfig.white1,
   height = SizeConfig.buttonPressableArea,
-  isDragging,
 }: PropsWithChildren<IProps>) {
-  function pressHandler() {
-    if (isDragging && isDragging.current) return;
-    onPress();
-  }
-
   return (
-    <TouchableContainer onPress={pressHandler} style={style}>
+    <TouchableContainer onPress={onPress} style={style}>
       <Container
         height={height}
         width={width}
