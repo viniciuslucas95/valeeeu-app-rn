@@ -11,10 +11,23 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.viniciuslucas95.valeeeu"
+      "bundleIdentifier": "com.viniciuslucas95.valeeeu",
+      "splash": {
+        "image": "./src/assets/images/splash-xxxhdpi.png",
+        "backgroundColor": "#28AAF7"
+      }
     },
     "android": {
-      "package": "com.viniciuslucas95.valeeeu"
+      "package": "com.viniciuslucas95.valeeeu",
+      "splash": {
+        "mdpi": "./src/assets/images/splash-mdpi.png",
+        "hdpi": "./src/assets/images/splash-hdpi.png",
+        "xhdpi": "./src/assets/images/splash-xhdpi.png",
+        "xxhdpi": "./src/assets/images/splash-xxhdpi.png",
+        "xxxhdpi": "./src/assets/images/splash-xxxhdpi.png",
+        "backgroundColor": "#28AAF7",
+        "resizeMode": "native"
+      }
     }
   }
 }

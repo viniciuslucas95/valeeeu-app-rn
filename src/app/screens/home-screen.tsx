@@ -1,20 +1,17 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { StatusBar, ScrollView } from 'react-native';
-import styled from 'styled-components/native';
-import { LogoSvg } from '../../assets/svgs';
+import { ScrollView } from 'react-native';
 import { SearchIcon } from '../../assets/svgs/icons';
 import { ColorConfig, SizeConfig } from '../../configs';
 import { Ad, HomeCardSection } from '../components';
 import { FakeTextInputButton } from '../components/buttons';
 import {
   HomeAreaButtonList,
-  HomeJobButtonList,
   HomeFilterButtonsAndTogglesList,
 } from '../components/lists';
-import { UnitHandler } from '../helpers';
 import { Buffer } from 'buffer';
 import { ICard } from '../components/lists/home-card-list';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const areaTags = [
   'Tecnologia',
@@ -24,21 +21,10 @@ const areaTags = [
   'Saúde',
 ];
 
-const jobTags = [
-  'Barbeiros',
-  'Costureiras',
-  'Manicures',
-  'Estilistas',
-  'Esteticista',
-  'Esteticista',
-  'Maquiador',
-];
-
 const categoryTags = ['Pintura de Unhas', 'Corte de Cabelo'];
 
 export function HomeScreen() {
   const [currentAreaTag, setCurrentAreaTag] = useState(0);
-  const [currentJobTag, setCurrentJobTag] = useState(0);
   const [distanceFilter, setDistanceFilter] = useState(5400);
   const [onlineOnlyFilter, setOnlineOnlyFilter] = useState(false);
   const [ratingFilter, setRatingFilter] = useState(4.5);
@@ -99,31 +85,19 @@ export function HomeScreen() {
   }, []);
 
   return (
-    <Container>
+    <SafeAreaView style={{ flex: 1, backgroundColor: ColorConfig.white1 }}>
       <ScrollView bounces={false}>
-        <LogoSvg
-          style={{
-            alignSelf: 'center',
-            marginTop: SizeConfig.hugeMargin * 2,
-            marginBottom: SizeConfig.hugeMargin,
-          }}
-          width={UnitHandler.vw(66)}
-        />
-        <HomeAreaButtonList
-          activeIndex={currentAreaTag}
-          data={areaTags}
-          setActiveIndex={setCurrentAreaTag}
-        />
         <FakeTextInputButton
+          style={{ marginTop: SizeConfig.bigMargin }}
           onPress={() => console.log('Search button pressed...')}
           icon={<SearchIcon color={ColorConfig.gray4} />}
         >
           Procurar serviço...
         </FakeTextInputButton>
-        <HomeJobButtonList
-          activeIndex={currentJobTag}
-          data={jobTags}
-          setActiveIndex={setCurrentJobTag}
+        <HomeAreaButtonList
+          activeIndex={currentAreaTag}
+          data={areaTags}
+          setActiveIndex={setCurrentAreaTag}
         />
         <HomeFilterButtonsAndTogglesList
           style={{ marginTop: SizeConfig.bigMargin }}
@@ -153,12 +127,6 @@ export function HomeScreen() {
           title={categoryTags[0]}
         />
       </ScrollView>
-    </Container>
+    </SafeAreaView>
   );
 }
-
-const Container = styled.View`
-  margin-top: ${(StatusBar.currentHeight ?? 0) + 'px'};
-  flex: 1;
-  background-color: ${ColorConfig.white1};
-`;

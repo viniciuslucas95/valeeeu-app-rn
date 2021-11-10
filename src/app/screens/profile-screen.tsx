@@ -24,11 +24,6 @@ export function ProfileScreen({ navigation }: INavigate) {
           onPress={() => openModal()}
         />
       ),
-      headerTitle: account?.profile.username ?? 'usuario1829',
-      headerTitleStyle: {
-        fontFamily: FontFamily.medium,
-        fontSize: SizeConfig.bigText,
-      },
     });
   }, []);
 

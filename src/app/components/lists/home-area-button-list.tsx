@@ -14,6 +14,7 @@ export function HomeAreaButtonList({
   setActiveIndex,
   activeIndex,
   data,
+  style,
 }: ITagList) {
   const flatList = useRef<FlatList>(null);
 
@@ -82,7 +83,7 @@ export function HomeAreaButtonList({
   }
 
   return (
-    <View>
+    <View style={style}>
       <FlatList
         ref={flatList}
         showsHorizontalScrollIndicator={false}

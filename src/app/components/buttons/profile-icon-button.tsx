@@ -21,6 +21,7 @@ export function ProfileIconButton({ onPress, navigation }: Props) {
         {picture && isBase64(picture) ? (
           <Image
             isFocused={isFocused}
+            fadeDuration={0}
             source={{
               uri: `data:image/jpeg;base64,${picture}`,
             }}

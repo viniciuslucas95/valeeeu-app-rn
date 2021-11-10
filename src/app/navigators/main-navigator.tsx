@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HomeScreen, MessageScreen, SearchScreen } from '../screens';
 import { HomeIcon, MessageIcon, SearchIcon } from '../../assets/svgs/icons';

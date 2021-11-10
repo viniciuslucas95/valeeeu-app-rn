@@ -7,6 +7,7 @@ interface IAuthContext {
   accessToken?: string;
   saveTokensInStorageAsync(tokens: ITokens): Promise<boolean>;
   deleteTokensFromStorageAsync(): Promise<boolean>;
+  wereTokensCheckedOnAppLoad: boolean;
 }
 
 interface ITokens {
@@ -24,27 +25,35 @@ export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
 export function AuthProvider({ children }: PropsWithChildren<any>) {
   const [accessToken, setAccessToken] = useState<string | undefined>(undefined);
+  const [wereTokensCheckedOnAppLoad, setWereTokensCheckedOnAppLoad] =
+    useState(false);
 
   useEffect(() => {
     (async () => {
-      const { accessToken, refreshToken } = await readTokensFromStorageAsync();
-      if (!accessToken) return;
-      const isAccessTokenValid = await authApiService.validateAccessTokenAsync(
-        accessToken
-      );
-      if (isAccessTokenValid) {
-        setAccessToken(accessToken);
-        return;
+      try {
+        const { accessToken, refreshToken } =
+          await readTokensFromStorageAsync();
+        if (!accessToken) return;
+        const isAccessTokenValid =
+          await authApiService.validateAccessTokenAsync(accessToken);
+        if (isAccessTokenValid) {
+          setAccessToken(accessToken);
+          return;
+        }
+        if (!refreshToken) return;
+        const accessTokenGenerationResult =
+          await authApiService.generateNewAccessTokenAsync(refreshToken);
+        if (!accessTokenGenerationResult) return;
+        const { accessToken: newAccessToken } = accessTokenGenerationResult;
+        await saveTokensInStorageAsync({
+          accessToken: newAccessToken,
+          refreshToken,
+        });
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setWereTokensCheckedOnAppLoad(true);
       }
-      if (!refreshToken) return;
-      const accessTokenGenerationResult =
-        await authApiService.generateNewAccessTokenAsync(refreshToken);
-      if (!accessTokenGenerationResult) return;
-      const { accessToken: newAccessToken } = accessTokenGenerationResult;
-      await saveTokensInStorageAsync({
-        accessToken: newAccessToken,
-        refreshToken,
-      });
     })();
   }, []);
 
@@ -84,6 +93,7 @@ export function AuthProvider({ children }: PropsWithChildren<any>) {
   return (
     <AuthContext.Provider
       value={{
+        wereTokensCheckedOnAppLoad,
         accessToken,
         saveTokensInStorageAsync,
         deleteTokensFromStorageAsync,

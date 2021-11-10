@@ -15,8 +15,9 @@ import {
 import AppLoading from 'expo-app-loading';
 import { AppNavigator } from './navigators';
 import { ColorConfig } from '../configs';
-import { Platform, SafeAreaView } from 'react-native';
+import { Platform } from 'react-native';
 import { AccountProvider, AuthProvider, ModalProvider } from './contexts';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
   const [hasFontsLoaded] = useFonts({
@@ -29,10 +30,10 @@ export default function App() {
   if (Platform.OS === 'android')
     setStatusBarBackgroundColor(ColorConfig.blue2, false);
   setStatusBarStyle('light');
-  if (!hasFontsLoaded) return <AppLoading />;
+  if (!hasFontsLoaded) return <AppLoading autoHideSplash={false} />;
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaProvider>
       <ModalProvider>
         <AuthProvider>
           <AccountProvider>
@@ -40,7 +41,7 @@ export default function App() {
           </AccountProvider>
         </AuthProvider>
       </ModalProvider>
-    </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
