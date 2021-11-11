@@ -7,8 +7,14 @@ import {
 } from 'react-native';
 
 import { ViewStyle } from '../../types';
-import { FontFamily, TextInputColor, TextInputSize } from '../../constants';
+import { FontFamily } from '../../constants';
 import { Text } from '../text';
+import {
+  BorderSizeConfig,
+  ColorConfig,
+  ElementSizeConfig,
+  MarginSizeConfig,
+} from '../../../configs';
 
 interface IProps {
   placeholder: string;
@@ -45,14 +51,12 @@ export function FakeTextInputButton({
           {leftIcon}
           <View
             style={[
-              leftIcon ? { marginLeft: TextInputSize.paddingHorizontal } : null,
-              rightIcon
-                ? { marginRight: TextInputSize.paddingHorizontal }
-                : null,
+              leftIcon ? { marginLeft: MarginSizeConfig.medium } : null,
+              rightIcon ? { marginRight: MarginSizeConfig.medium } : null,
               styles.textContainer,
             ]}
           >
-            <Text fontColor={TextInputColor.placeholder}>{placeholder}</Text>
+            <Text fontColor={ColorConfig.gray4}>{placeholder}</Text>
           </View>
           {rightIcon}
           {label ? (
@@ -68,17 +72,17 @@ export function FakeTextInputButton({
 
 const styles = StyleSheet.create({
   container: {
-    height: TextInputSize.height,
+    height: ElementSizeConfig.minHeight,
     flexDirection: 'row',
   },
   borderContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: TextInputSize.borderRadius,
-    paddingHorizontal: TextInputSize.paddingHorizontal,
-    borderWidth: TextInputSize.inactiveBorderWidth,
-    borderColor: TextInputColor.inactiveBorder,
-    backgroundColor: TextInputColor.background,
+    borderRadius: BorderSizeConfig.radius,
+    paddingHorizontal: MarginSizeConfig.medium,
+    borderWidth: BorderSizeConfig.inactive,
+    borderColor: ColorConfig.gray4,
+    backgroundColor: ColorConfig.white1,
     elevation: 2.5,
   },
   textContainer: {
@@ -86,9 +90,9 @@ const styles = StyleSheet.create({
   },
   labelContainer: {
     position: 'absolute',
-    paddingHorizontal: TextInputSize.paddingHorizontal,
-    backgroundColor: TextInputColor.background,
-    bottom: TextInputSize.height * 0.8,
-    left: TextInputSize.paddingHorizontal,
+    paddingHorizontal: MarginSizeConfig.medium,
+    backgroundColor: ColorConfig.white1,
+    bottom: ElementSizeConfig.minHeight * 0.8,
+    left: MarginSizeConfig.medium,
   },
 });

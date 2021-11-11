@@ -1,4 +1,4 @@
 export const ElementSizeConfig = {
   minHeight: 48,
-  maxWidth: 90,
+  maxWidthPercentage: 90,
 };

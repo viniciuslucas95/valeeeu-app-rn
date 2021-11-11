@@ -1,7 +1,8 @@
 import React, { PropsWithChildren } from 'react';
 import { StyleProp, Text as TextNative, TextStyle } from 'react-native';
+import { ColorConfig, TextSizeConfig } from '../../configs';
 
-import { FontColor, FontFamily, FontSize } from '../constants';
+import { FontFamily } from '../constants';
 
 interface IProps {
   children: string;
@@ -10,21 +11,28 @@ interface IProps {
   fontColor?: string;
   style?: StyleProp<TextStyle>;
   numberOfLines?: number;
+  textAlign?: 'left' | 'center' | 'right';
 }
 
 export function Text({
   children,
   fontFamily = FontFamily.robotoRegular,
-  fontSize = FontSize.medium,
-  fontColor = FontColor.default,
+  fontSize = TextSizeConfig.medium,
+  fontColor = ColorConfig.black1,
   style,
   numberOfLines = 1,
+  textAlign = 'left',
 }: PropsWithChildren<IProps>) {
   return (
     <TextNative
       numberOfLines={numberOfLines}
       style={[
-        { fontFamily: fontFamily, fontSize: fontSize, color: fontColor },
+        {
+          fontFamily: fontFamily,
+          fontSize: fontSize,
+          color: fontColor,
+          textAlign: textAlign,
+        },
         style,
       ]}
     >

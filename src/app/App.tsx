@@ -10,15 +10,15 @@ import {
 import AppLoading from 'expo-app-loading';
 
 import { useFonts } from './hooks';
-import { AppColor } from './constants';
 import { AppNavigator } from './navigators';
+import { ColorConfig } from '../configs';
 
 export default function App() {
   const { hasFontsLoaded } = useFonts();
 
   useEffect(() => {
     if (Platform.OS === 'android')
-      setStatusBarBackgroundColor(AppColor.statusBar, false);
+      setStatusBarBackgroundColor(ColorConfig.blue2, false);
     setStatusBarStyle('light');
   }, []);
 

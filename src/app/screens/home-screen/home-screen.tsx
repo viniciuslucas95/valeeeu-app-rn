@@ -1,13 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { hideAsync } from 'expo-splash-screen';
 
-import { AppColor, IconColor } from '../../constants';
 import { FakeTextInputButton } from '../../components';
 import { SearchIcon } from '../../../assets/svgs';
 
+import { AreaTagList } from './area-tag-list';
+import {
+  ColorConfig,
+  IconSizeConfig,
+  MarginSizeConfig,
+} from '../../../configs';
+
+const areaTags = [
+  'Tecnologia',
+  'Beleza e Moda',
+  'Veículos',
+  'Obras e Reformas',
+  'Saúde',
+];
+
 export function HomeScreen() {
+  const [activeAreaIndex, setActiveAreaIndex] = useState(0);
+
   useEffect(() => {
     async function disableSplashScreenAsync() {
       await hideAsync();
@@ -17,11 +33,23 @@ export function HomeScreen() {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container]}>
       <FakeTextInputButton
+        style={{ marginTop: MarginSizeConfig.huge }}
         onPress={() => console.log('Search button pressed...')}
-        leftIcon={<SearchIcon height={16} color={IconColor.inactive} />}
+        leftIcon={
+          <SearchIcon
+            height={IconSizeConfig.medium}
+            color={ColorConfig.gray4}
+          />
+        }
         placeholder='Procurar serviço...'
+      />
+      <AreaTagList
+        areaTags={areaTags}
+        style={{ marginTop: MarginSizeConfig.huge }}
+        activeAreaIndex={activeAreaIndex}
+        setActiveAreaIndex={setActiveAreaIndex}
       />
     </SafeAreaView>
   );
@@ -30,8 +58,7 @@ export function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: AppColor.background,
+    backgroundColor: ColorConfig.white1,
   },
 });
