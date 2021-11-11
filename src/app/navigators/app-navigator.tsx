@@ -1,31 +1,18 @@
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
-import { AppScreen } from '../data-types/enums/screens';
-import { AccountNavigator } from './account-navigator';
+
+import { AppStack } from '../constants';
 import { MainNavigator } from './main-navigator';
+import { noHeader } from './constants';
 
 const Stack = createStackNavigator();
 
 export function AppNavigator() {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-      >
-        <Stack.Screen name={AppScreen.main}>
-          {({ navigation }) => <MainNavigator navigation={navigation} />}
-        </Stack.Screen>
-        <Stack.Screen
-          name={AppScreen.account}
-          options={{
-            presentation: 'modal',
-          }}
-        >
-          {({ navigation }) => <AccountNavigator navigation={navigation} />}
-        </Stack.Screen>
+      <Stack.Navigator screenOptions={noHeader}>
+        <Stack.Screen name={AppStack.main} component={MainNavigator} />
       </Stack.Navigator>
     </NavigationContainer>
   );

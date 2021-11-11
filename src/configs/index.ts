@@ -1,2 +1,8 @@
 export { ColorConfig } from './color-config';
-export { SizeConfig } from './size-config';
+export {
+  TextSizeConfig,
+  ElementSizeConfig,
+  MarginSizeConfig,
+  BorderSizeConfig,
+  IconSizeConfig,
+} from './size-configs';

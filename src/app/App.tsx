@@ -1,46 +1,32 @@
 import 'react-native-gesture-handler';
 import { registerRootComponent } from 'expo';
-import React from 'react';
-import {
-  useFonts,
-  Roboto_300Light,
-  Roboto_400Regular,
-  Roboto_500Medium,
-  Roboto_300Light_Italic,
-} from '@expo-google-fonts/roboto';
+import React, { useEffect } from 'react';
+import { Platform } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {
   setStatusBarBackgroundColor,
   setStatusBarStyle,
 } from 'expo-status-bar';
 import AppLoading from 'expo-app-loading';
+
+import { useFonts } from './hooks';
+import { AppColor } from './constants';
 import { AppNavigator } from './navigators';
-import { ColorConfig } from '../configs';
-import { Platform } from 'react-native';
-import { AccountProvider, AuthProvider, ModalProvider } from './contexts';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
-  const [hasFontsLoaded] = useFonts({
-    Roboto_300Light,
-    Roboto_300Light_Italic,
-    Roboto_400Regular,
-    Roboto_500Medium,
-  });
+  const { hasFontsLoaded } = useFonts();
 
-  if (Platform.OS === 'android')
-    setStatusBarBackgroundColor(ColorConfig.blue2, false);
-  setStatusBarStyle('light');
-  if (!hasFontsLoaded) return <AppLoading autoHideSplash={false} />;
+  useEffect(() => {
+    if (Platform.OS === 'android')
+      setStatusBarBackgroundColor(AppColor.statusBar, false);
+    setStatusBarStyle('light');
+  }, []);
+
+  if (!hasFontsLoaded) return <AppLoading autoHideSplash={true} />;
 
   return (
     <SafeAreaProvider>
-      <ModalProvider>
-        <AuthProvider>
-          <AccountProvider>
-            <AppNavigator />
-          </AccountProvider>
-        </AuthProvider>
-      </ModalProvider>
+      <AppNavigator />
     </SafeAreaProvider>
   );
 }

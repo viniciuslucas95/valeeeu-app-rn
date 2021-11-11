@@ -1,72 +1,94 @@
-import React, { PropsWithChildren } from 'react';
-import styled from 'styled-components/native';
-import { ColorConfig, SizeConfig } from '../../../configs';
-import { FontFamily } from '../../data-types/enums';
-import { UnitHandler } from '../../helpers';
-import { TouchableContainer } from '../auxiliaries';
-import { Text } from '../../styled-components';
-import { IStyleable } from '../../data-types/props';
-import { IHaveWidth, IPressable } from '../interfaces';
+import React from 'react';
+import {
+  StyleSheet,
+  TouchableWithoutFeedback,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 
-interface IProps extends IStyleable, Partial<IHaveWidth>, IPressable {
-  icon?: JSX.Element;
+import { ViewStyle } from '../../types';
+import { FontFamily, TextInputColor, TextInputSize } from '../../constants';
+import { Text } from '../text';
+
+interface IProps {
+  placeholder: string;
+  onPress(): void;
+  style?: ViewStyle;
+  width?: number;
   label?: string;
-  children: string;
+  leftIcon?: JSX.Element;
+  rightIcon?: JSX.Element;
 }
 
 export function FakeTextInputButton({
-  onPress,
-  icon,
-  width,
   style,
-  children,
+  width,
   label,
-}: PropsWithChildren<IProps>) {
+  leftIcon,
+  rightIcon,
+  placeholder,
+  onPress,
+}: IProps) {
+  const { width: windowWidth } = useWindowDimensions();
+  const maxWidth = windowWidth * 0.9;
+
   return (
-    <TouchableContainer onPress={onPress}>
-      <Container
-        style={[style, { elevation: 1 }]}
-        width={width ?? SizeConfig.maxElementWidth}
-      >
-        {icon ? <IconContainer>{icon}</IconContainer> : null}
-        <Text fontFamily={FontFamily.regular} color={ColorConfig.gray4}>
-          {children}
-        </Text>
-        {label ? (
-          <LabelContainer>
-            <Text fontFamily={FontFamily.medium} color={ColorConfig.black1}>
-              {label}
-            </Text>
-          </LabelContainer>
-        ) : null}
-      </Container>
-    </TouchableContainer>
+    <TouchableWithoutFeedback onPress={onPress}>
+      <View style={[styles.container, style]}>
+        <View
+          style={[
+            styles.borderContainer,
+            width ? { width: width } : { flex: 1 },
+            { maxWidth: maxWidth },
+          ]}
+        >
+          {leftIcon}
+          <View
+            style={[
+              leftIcon ? { marginLeft: TextInputSize.paddingHorizontal } : null,
+              rightIcon
+                ? { marginRight: TextInputSize.paddingHorizontal }
+                : null,
+              styles.textContainer,
+            ]}
+          >
+            <Text fontColor={TextInputColor.placeholder}>{placeholder}</Text>
+          </View>
+          {rightIcon}
+          {label ? (
+            <View style={styles.labelContainer}>
+              <Text fontFamily={FontFamily.robotoMedium}>{label}</Text>
+            </View>
+          ) : null}
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }
 
-const Container = styled.View<IHaveWidth>`
-  margin: ${SizeConfig.mediumMargin + 'px'} 0;
-  width: ${({ width }) => width + 'px'};
-  height: ${SizeConfig.buttonPressableArea + UnitHandler.rem(1) + 'px'};
-  align-self: center;
-  flex-direction: row;
-  align-items: center;
-  padding: 0 ${SizeConfig.mediumMargin + 'px'};
-  background-color: ${ColorConfig.white1};
-  border-radius: ${SizeConfig.borderRadius + 'px'};
-  border-width: ${SizeConfig.thinBorderWidth + 'px'};
-  border-color: ${ColorConfig.gray3};
-`;
-
-const IconContainer = styled.View`
-  margin-right: ${SizeConfig.mediumMargin + 'px'};
-  top: 1px;
-`;
-
-const LabelContainer = styled.View`
-  background-color: ${ColorConfig.white1};
-  position: absolute;
-  padding: 0 ${SizeConfig.mediumMargin + 'px'};
-  left: ${SizeConfig.mediumMargin + 'px'};
-  top: -${SizeConfig.inputLabelPositionAdjust + 'px'};
-`;
+const styles = StyleSheet.create({
+  container: {
+    height: TextInputSize.height,
+    flexDirection: 'row',
+  },
+  borderContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: TextInputSize.borderRadius,
+    paddingHorizontal: TextInputSize.paddingHorizontal,
+    borderWidth: TextInputSize.inactiveBorderWidth,
+    borderColor: TextInputColor.inactiveBorder,
+    backgroundColor: TextInputColor.background,
+    elevation: 2.5,
+  },
+  textContainer: {
+    flex: 1,
+  },
+  labelContainer: {
+    position: 'absolute',
+    paddingHorizontal: TextInputSize.paddingHorizontal,
+    backgroundColor: TextInputColor.background,
+    bottom: TextInputSize.height * 0.8,
+    left: TextInputSize.paddingHorizontal,
+  },
+});

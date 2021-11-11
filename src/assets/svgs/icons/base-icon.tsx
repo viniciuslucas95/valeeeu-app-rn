@@ -1,54 +1,58 @@
-import React, { PropsWithChildren, useContext, useLayoutEffect } from 'react';
+import React, { PropsWithChildren } from 'react';
 import Svg from 'react-native-svg';
-import { SizeContext as sizeContext } from '../../../app/components/buttons/icon-button';
-import { IStyleable } from '../../../app/data-types/props';
-import { SizeConfig } from '../../../configs';
-import { ISvgProps } from '../base-svg';
 
-type Size = 'big' | 'medium' | 'small' | 'tiny';
+import { ViewStyle } from '../../../app/types';
 
-interface IHaveSize {
-  size?: Size;
+interface ISize {
+  width: number;
+  height: number;
 }
 
-export interface IIcon extends IStyleable, IHaveSize {
+interface IMarginFromBorder {
+  borderSide: 'left' | 'right';
+  areaWidth: number;
+}
+
+export interface ISvgIcon {
   color?: string;
+  style?: ViewStyle;
+  height?: number;
+  marginFromBorder?: IMarginFromBorder;
+}
+
+interface IProps extends Omit<ISvgIcon, 'color'> {
+  baseSize: ISize;
+  children: JSX.Element;
+}
+
+function getNewMargin(
+  marginFromBorder: IMarginFromBorder,
+  width: number
+): ViewStyle {
+  const { areaWidth, borderSide } = marginFromBorder;
+  const marginValue = -(areaWidth - width) / 2;
+  return borderSide === 'left'
+    ? {
+        marginLeft: marginValue,
+      }
+    : {
+        marginRight: marginValue,
+      };
 }
 
 export function BaseIcon({
-  baseSize: { width, height },
+  baseSize: { width: baseWidth, height: baseHeight },
   style,
   children,
-  size = 'medium',
-}: PropsWithChildren<ISvgProps & IHaveSize>) {
-  const { setSize } = useContext(sizeContext);
-  const viewBox = `0 0 ${width} ${height}`;
-  const widthDifference = width / height;
-  const newHeight = height * changeSize(size);
+  height: newHeight = baseHeight,
+  marginFromBorder,
+}: PropsWithChildren<IProps>) {
+  const viewBox = `0 0 ${baseWidth} ${baseHeight}`;
+  const widthDifference = baseWidth / baseHeight;
   const newWidth = newHeight * widthDifference;
-
-  useLayoutEffect(() => {
-    if (setSize)
-      setSize({
-        width: newWidth,
-        height: newHeight,
-      });
-  }, []);
-
-  function changeSize(size?: Size) {
-    switch (size) {
-      case 'big':
-        return SizeConfig.bigIcon;
-      case 'medium':
-        return SizeConfig.mediumIcon;
-      case 'small':
-        return SizeConfig.smallIcon;
-      case 'tiny':
-        return SizeConfig.tinyIcon;
-      case undefined:
-        return SizeConfig.mediumIcon;
-    }
-  }
+  const newMargin = marginFromBorder
+    ? getNewMargin(marginFromBorder, newWidth)
+    : null;
 
   return (
     <Svg
@@ -56,7 +60,7 @@ export function BaseIcon({
       height={newHeight}
       viewBox={viewBox}
       fill='none'
-      style={style}
+      style={[newMargin, style]}
     >
       {children}
     </Svg>

@@ -1,87 +1,23 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HomeScreen, MessageScreen, SearchScreen } from '../screens';
-import { HomeIcon, MessageIcon, SearchIcon } from '../../assets/svgs/icons';
-import { INavigate } from '../data-types/props';
-import {
-  AccountScreen,
-  AppScreen,
-  MainScreen,
-} from '../data-types/enums/screens';
-import { ColorConfig } from '../../configs';
-import { ProfileIconButton } from '../components/buttons';
-import { authContext } from '../contexts';
-import { ProfileNavigator } from './profile-navigator';
+
+import { MainStack } from '../constants';
+import { HomeScreen } from '../screens';
+import { noHeader } from './constants';
+import { HomeIcon } from '../../assets/svgs';
 
 const Tab = createBottomTabNavigator();
 
-export function MainNavigator({ navigation }: INavigate) {
-  const { accessToken } = useContext(authContext);
-
+export function MainNavigator() {
   return (
-    <Tab.Navigator
-      screenOptions={{
-        tabBarShowLabel: false,
-        headerShown: false,
-      }}
-    >
+    <Tab.Navigator screenOptions={{ tabBarLabel: () => null }}>
       <Tab.Screen
-        name={MainScreen.home}
+        name={MainStack.home}
         component={HomeScreen}
         options={{
-          tabBarIcon: ({ focused }) => (
-            <HomeIcon
-              size='big'
-              color={focused ? ColorConfig.blue2 : ColorConfig.gray4}
-            />
-          ),
+          tabBarIcon: () => <HomeIcon />,
+          ...noHeader,
         }}
-      />
-      <Tab.Screen
-        name={MainScreen.search}
-        component={SearchScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <SearchIcon
-              size='big'
-              color={focused ? ColorConfig.blue2 : ColorConfig.gray4}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name={MainScreen.message}
-        component={MessageScreen}
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <MessageIcon
-              size='big'
-              color={focused ? ColorConfig.blue2 : ColorConfig.gray4}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name={MainScreen.profile}
-        component={ProfileNavigator}
-        options={({ navigation }) => ({
-          tabBarButton: () => (
-            <ProfileIconButton
-              navigation={navigation}
-              onPress={
-                accessToken && accessToken.length > 0
-                  ? () =>
-                      navigation.navigate(AppScreen.main, {
-                        screen: MainScreen.profile,
-                      })
-                  : () =>
-                      navigation.navigate(AppScreen.account, {
-                        screen: AccountScreen.login,
-                      })
-              }
-            />
-          ),
-        })}
       />
     </Tab.Navigator>
   );
