@@ -6,4 +6,5 @@ export {
   HeartIcon,
   LaptopIcon,
   ToolsIcon,
+  MoreIcon,
 } from './icons';

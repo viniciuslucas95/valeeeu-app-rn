@@ -5,3 +5,4 @@ export { CarIcon } from './car-icon';
 export { HeartIcon } from './heart-icon';
 export { GlassesAndMustacheIcon } from './glasses-and-mustache-icon';
 export { LaptopIcon } from './laptop-icon';
+export { MoreIcon } from './more-icon';

@@ -6,6 +6,7 @@ import {
   GlassesAndMustacheIcon,
   HeartIcon,
   LaptopIcon,
+  MoreIcon,
   ToolsIcon,
 } from '../../../assets/svgs';
 import { ColorConfig, MarginSizeConfig } from '../../../configs';
@@ -48,9 +49,11 @@ function getIcon(icon: string) {
       return <HeartIcon color={ColorConfig.white1} />;
     case 'Obras e Reformas':
       return <ToolsIcon color={ColorConfig.white1} />;
+    case 'Outros':
+      return <MoreIcon color={ColorConfig.white1} />;
   }
-  console.error('Area tag not found');
-  return <ToolsIcon color={ColorConfig.white1} />;
+  console.warn('Area tag not found');
+  return <MoreIcon color={ColorConfig.white1} />;
 }
 
 export function AreaTagList({

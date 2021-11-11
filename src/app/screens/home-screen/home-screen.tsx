@@ -19,6 +19,7 @@ const areaTags = [
   'Veículos',
   'Obras e Reformas',
   'Saúde',
+  'Outros',
 ];
 
 export function HomeScreen() {

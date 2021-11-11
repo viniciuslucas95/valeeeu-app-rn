@@ -22,7 +22,7 @@ export interface ISvgIcon {
 
 interface IProps extends Omit<ISvgIcon, 'color'> {
   baseSize: ISize;
-  children: JSX.Element;
+  children: JSX.Element | JSX.Element[];
 }
 
 function getNewMargin(
