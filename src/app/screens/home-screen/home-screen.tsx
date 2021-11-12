@@ -1,19 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { FlatList, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { hideAsync } from 'expo-splash-screen';
 
-import { FakeTextInputButton } from '../../components';
-import { SearchIcon } from '../../../assets/svgs';
+import { ColorConfig, MarginSizeConfig } from '../../../configs';
 
 import { AreaTagList } from './area-tag-list';
-import {
-  ColorConfig,
-  IconSizeConfig,
-  MarginSizeConfig,
-} from '../../../configs';
+import { CardSection } from './card-section';
+import { AreaTag } from '../../constants';
 
-const areaTags = [
+const areaTags: AreaTag[] = [
   'Tecnologia',
   'Beleza e Moda',
   'Veículos',
@@ -24,6 +20,7 @@ const areaTags = [
 
 export function HomeScreen() {
   const [activeAreaIndex, setActiveAreaIndex] = useState(0);
+  const flatListRef = useRef<FlatList>(null);
 
   useEffect(() => {
     async function disableSplashScreenAsync() {
@@ -33,24 +30,24 @@ export function HomeScreen() {
     disableSplashScreenAsync();
   }, []);
 
+  const components = [
+    <AreaTagList
+      style={{ marginTop: MarginSizeConfig.huge }}
+      activeAreaIndex={activeAreaIndex}
+      setActiveAreaIndex={setActiveAreaIndex}
+      areaTags={areaTags}
+    />,
+    <CardSection tag={{ area: areaTags[activeAreaIndex] }} />,
+  ];
+
   return (
     <SafeAreaView style={[styles.container]}>
-      <FakeTextInputButton
-        style={{ marginTop: MarginSizeConfig.huge }}
-        onPress={() => console.log('Search button pressed...')}
-        leftIcon={
-          <SearchIcon
-            height={IconSizeConfig.medium}
-            color={ColorConfig.gray4}
-          />
-        }
-        placeholder='Procurar serviço...'
-      />
-      <AreaTagList
-        areaTags={areaTags}
-        style={{ marginTop: MarginSizeConfig.huge }}
-        activeAreaIndex={activeAreaIndex}
-        setActiveAreaIndex={setActiveAreaIndex}
+      <FlatList
+        ref={flatListRef}
+        data={components}
+        renderItem={({ item }) => item}
+        keyExtractor={(_, index) => index.toString()}
+        bounces={false}
       />
     </SafeAreaView>
   );

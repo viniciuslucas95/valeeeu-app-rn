@@ -15,6 +15,7 @@ import {
   ElementSizeConfig,
   MarginSizeConfig,
 } from '../../../configs';
+import { ShadowSizeConfig } from '../../../configs/size-configs/shadow-size-config';
 
 interface IProps {
   placeholder: string;
@@ -83,7 +84,7 @@ const styles = StyleSheet.create({
     borderWidth: BorderSizeConfig.inactive,
     borderColor: ColorConfig.gray4,
     backgroundColor: ColorConfig.white1,
-    elevation: 2.5,
+    elevation: ShadowSizeConfig.elevation,
   },
   textContainer: {
     flex: 1,

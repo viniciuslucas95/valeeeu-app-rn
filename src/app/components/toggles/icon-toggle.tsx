@@ -1,6 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ColorConfig, ElementSizeConfig } from '../../../configs';
+import { ShadowSizeConfig } from '../../../configs/size-configs/shadow-size-config';
 
 import { ViewStyle } from '../../types';
 
@@ -37,6 +38,6 @@ const styles = StyleSheet.create({
     borderRadius: ElementSizeConfig.minHeight / 2,
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 2.5,
+    elevation: ShadowSizeConfig.elevation,
   },
 });

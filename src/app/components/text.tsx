@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import { StyleProp, Text as TextNative, TextStyle } from 'react-native';
-import { ColorConfig, TextSizeConfig } from '../../configs';
 
+import { ColorConfig, TextSizeConfig } from '../../configs';
 import { FontFamily } from '../constants';
 
 interface IProps {

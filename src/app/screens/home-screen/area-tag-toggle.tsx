@@ -1,16 +1,11 @@
 import React, { PropsWithChildren } from 'react';
-import {
-  PixelRatio,
-  StyleSheet,
-  TouchableWithoutFeedback,
-  View,
-} from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+
 import {
   ColorConfig,
   ElementSizeConfig,
   MarginSizeConfig,
 } from '../../../configs';
-
 import { IconToggle, Text } from '../../components';
 import { FontFamily } from '../../constants';
 import { ViewStyle } from '../../types';
@@ -41,7 +36,7 @@ export function AreaTagToggle({
             isToggled ? FontFamily.robotoRegular : FontFamily.robotoLight
           }
           fontColor={isToggled ? ColorConfig.blue2 : ColorConfig.gray5}
-          numberOfLines={label.length > 10 ? 2 : 1}
+          numberOfLines={2}
           textAlign='center'
         >
           {label}

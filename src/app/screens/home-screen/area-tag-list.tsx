@@ -9,51 +9,40 @@ import {
   MoreIcon,
   ToolsIcon,
 } from '../../../assets/svgs';
-import { ColorConfig, MarginSizeConfig } from '../../../configs';
+import { ColorConfig } from '../../../configs';
 import { ViewStyle } from '../../types';
+import { getListMargin } from './helpers';
+import { AreaTag } from '../../constants';
 
 import { AreaTagToggle } from './area-tag-toggle';
+
+function getIcon(icon: AreaTag) {
+  switch (icon) {
+    case 'Tecnologia':
+      return <LaptopIcon color={ColorConfig.white1} />;
+
+    case 'Beleza e Moda':
+      return <GlassesAndMustacheIcon color={ColorConfig.white1} />;
+
+    case 'Veículos':
+      return <CarIcon color={ColorConfig.white1} />;
+
+    case 'Saúde':
+      return <HeartIcon color={ColorConfig.white1} />;
+
+    case 'Obras e Reformas':
+      return <ToolsIcon color={ColorConfig.white1} />;
+
+    case 'Outros':
+      return <MoreIcon color={ColorConfig.white1} />;
+  }
+}
 
 interface IProps {
   style?: ViewStyle;
   activeAreaIndex: number;
   setActiveAreaIndex: React.Dispatch<React.SetStateAction<number>>;
-  areaTags: string[];
-}
-
-function getListMargin(index: number, listLength: number): ViewStyle {
-  return index === 0
-    ? {
-        marginLeft: MarginSizeConfig.big,
-        marginRight: MarginSizeConfig.small,
-      }
-    : index === listLength - 1
-    ? {
-        marginLeft: MarginSizeConfig.small,
-        marginRight: MarginSizeConfig.big,
-      }
-    : {
-        marginHorizontal: MarginSizeConfig.small,
-      };
-}
-
-function getIcon(icon: string) {
-  switch (icon) {
-    case 'Tecnologia':
-      return <LaptopIcon color={ColorConfig.white1} />;
-    case 'Beleza e Moda':
-      return <GlassesAndMustacheIcon color={ColorConfig.white1} />;
-    case 'Veículos':
-      return <CarIcon color={ColorConfig.white1} />;
-    case 'Saúde':
-      return <HeartIcon color={ColorConfig.white1} />;
-    case 'Obras e Reformas':
-      return <ToolsIcon color={ColorConfig.white1} />;
-    case 'Outros':
-      return <MoreIcon color={ColorConfig.white1} />;
-  }
-  console.warn('Area tag not found');
-  return <MoreIcon color={ColorConfig.white1} />;
+  areaTags: AreaTag[];
 }
 
 export function AreaTagList({
@@ -68,6 +57,7 @@ export function AreaTagList({
         horizontal
         data={areaTags}
         showsHorizontalScrollIndicator={false}
+        bounces={false}
         renderItem={({ item, index }) => (
           <AreaTagToggle
             style={getListMargin(index, areaTags.length)}
