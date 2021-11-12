@@ -5,7 +5,7 @@ import { ColorConfig, TextSizeConfig } from '../../configs';
 import { FontFamily } from '../constants';
 
 interface IProps {
-  children: string;
+  children: (string & React.ReactNode) | (string & React.ReactNode)[];
   fontFamily?: string;
   fontSize?: number;
   fontColor?: string;

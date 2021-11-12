@@ -1,3 +1,4 @@
 export const ShadowSizeConfig = {
-  elevation: 2.5,
+  smallElevation: 2.5,
+  bigElevation: 5,
 };

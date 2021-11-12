@@ -1,7 +1,10 @@
 import React, { PropsWithChildren } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ColorConfig, ElementSizeConfig } from '../../../configs';
-import { ShadowSizeConfig } from '../../../configs/size-configs/shadow-size-config';
+import {
+  ColorConfig,
+  ElementSizeConfig,
+  ShadowSizeConfig,
+} from '../../../configs';
 
 import { ViewStyle } from '../../types';
 
@@ -21,7 +24,7 @@ export function IconToggle({
       style={[
         styles.container,
         {
-          backgroundColor: isToggled ? ColorConfig.blue2 : ColorConfig.gray4,
+          backgroundColor: isToggled ? ColorConfig.blue2 : ColorConfig.gray3,
         },
         style,
       ]}
@@ -33,11 +36,11 @@ export function IconToggle({
 
 const styles = StyleSheet.create({
   container: {
-    height: ElementSizeConfig.minHeight,
-    width: ElementSizeConfig.minHeight,
-    borderRadius: ElementSizeConfig.minHeight / 2,
+    height: ElementSizeConfig.minPressableArea,
+    width: ElementSizeConfig.minPressableArea,
+    borderRadius: ElementSizeConfig.minPressableArea / 2,
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: ShadowSizeConfig.elevation,
+    elevation: ShadowSizeConfig.smallElevation,
   },
 });

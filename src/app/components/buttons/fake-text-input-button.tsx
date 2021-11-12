@@ -14,8 +14,8 @@ import {
   ColorConfig,
   ElementSizeConfig,
   MarginSizeConfig,
+  ShadowSizeConfig,
 } from '../../../configs';
-import { ShadowSizeConfig } from '../../../configs/size-configs/shadow-size-config';
 
 interface IProps {
   placeholder: string;
@@ -37,7 +37,7 @@ export function FakeTextInputButton({
   onPress,
 }: IProps) {
   const { width: windowWidth } = useWindowDimensions();
-  const maxWidth = windowWidth * 0.9;
+  const maxWidth = windowWidth - MarginSizeConfig.big * 2;
 
   return (
     <TouchableWithoutFeedback onPress={onPress}>
@@ -73,18 +73,18 @@ export function FakeTextInputButton({
 
 const styles = StyleSheet.create({
   container: {
-    height: ElementSizeConfig.minHeight,
+    height: ElementSizeConfig.minPressableArea,
     flexDirection: 'row',
   },
   borderContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderRadius: BorderSizeConfig.radius,
+    borderRadius: BorderSizeConfig.smallRadius,
     paddingHorizontal: MarginSizeConfig.medium,
     borderWidth: BorderSizeConfig.inactive,
     borderColor: ColorConfig.gray4,
     backgroundColor: ColorConfig.white1,
-    elevation: ShadowSizeConfig.elevation,
+    elevation: ShadowSizeConfig.smallElevation,
   },
   textContainer: {
     flex: 1,
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     paddingHorizontal: MarginSizeConfig.medium,
     backgroundColor: ColorConfig.white1,
-    bottom: ElementSizeConfig.minHeight * 0.8,
+    bottom: ElementSizeConfig.minPressableArea * 0.8,
     left: MarginSizeConfig.medium,
   },
 });

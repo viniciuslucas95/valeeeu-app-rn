@@ -5,4 +5,6 @@ export {
   MarginSizeConfig,
   BorderSizeConfig,
   IconSizeConfig,
+  PictureSizeConfig,
+  ShadowSizeConfig,
 } from './size-configs';

@@ -49,7 +49,7 @@ export function AreaTagToggle({
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    width: ElementSizeConfig.minHeight + MarginSizeConfig.medium * 2,
+    width: ElementSizeConfig.minPressableArea + MarginSizeConfig.medium * 2,
   },
   icon: {
     marginBottom: MarginSizeConfig.small,

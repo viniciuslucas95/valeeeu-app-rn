@@ -37,7 +37,7 @@ export function HomeScreen() {
       setActiveAreaIndex={setActiveAreaIndex}
       areaTags={areaTags}
     />,
-    <CardSection tag={{ area: areaTags[activeAreaIndex] }} />,
+    <CardSection tag={{ area: areaTags[activeAreaIndex] }} title='test' />,
   ];
 
   return (
