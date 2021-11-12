@@ -6,3 +6,5 @@ export { HeartIcon } from './heart-icon';
 export { GlassesAndMustacheIcon } from './glasses-and-mustache-icon';
 export { LaptopIcon } from './laptop-icon';
 export { MoreIcon } from './more-icon';
+export { StarIcon } from './star-icon';
+export { LocationIcon } from './location-icon';

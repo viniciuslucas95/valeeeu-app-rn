@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, useWindowDimensions } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 
-import { MarginSizeConfig, TextSizeConfig } from '../../../configs';
+import {
+  MarginSizeConfig,
+  PictureSizeConfig,
+  TextSizeConfig,
+} from '../../../configs';
 import { Text } from '../../components';
 import { FontFamily } from '../../constants';
-import { IAreaTagDto, IFilterDto, IOrderByDto } from '../../dtos';
+import {
+  IAreaTagDto,
+  IFilterDto,
+  IOrderByDto,
+  ISearchResultItemDto,
+} from '../../dtos';
 import { useSearchResultApi } from '../../hooks';
 import { getListMargin } from './helpers';
 
@@ -15,13 +24,35 @@ interface IProps {
   tag: IAreaTagDto;
   filter?: IFilterDto;
   orderBy?: IOrderByDto;
-  title: string;
 }
 
-export function CardSection({ tag, filter, orderBy, title }: IProps) {
-  const { searchResult, error } = useSearchResultApi({ desiredQuantity: 1 });
+export function CardSection({ tag, filter, orderBy }: IProps) {
   const { width: windowWidth } = useWindowDimensions();
   const width = windowWidth - MarginSizeConfig.big * 2;
+  const startingDesiredQuantity = Math.ceil(width / PictureSizeConfig.size);
+  const [desiredQuantity, setDesiredQuantity] = useState(
+    startingDesiredQuantity
+  );
+  const [wireframes, setWireframes] = useState(startingDesiredQuantity);
+  const { searchResult, error } = useSearchResultApi({ desiredQuantity });
+
+  useEffect(() => {
+    if (desiredQuantity < searchResult.results.length) return;
+    setWireframes(desiredQuantity - searchResult.results.length);
+  }, [desiredQuantity]);
+
+  useEffect(() => {
+    if (searchResult.results.length === desiredQuantity) setWireframes(0);
+  }, [searchResult]);
+
+  function getFlatListData() {
+    if (wireframes === 0) return searchResult.results;
+    let data: (ISearchResultItemDto | undefined)[] = [...searchResult.results];
+    for (let i = 0; i < wireframes; i++) {
+      data.push(undefined);
+    }
+    return data;
+  }
 
   return (
     <View style={styles.container}>
@@ -38,7 +69,7 @@ export function CardSection({ tag, filter, orderBy, title }: IProps) {
             fontFamily={FontFamily.robotoMedium}
             fontSize={TextSizeConfig.big}
           >
-            {title}
+            {'test'}
           </Text>
           <Text>total tags</Text>
         </View>
@@ -48,14 +79,14 @@ export function CardSection({ tag, filter, orderBy, title }: IProps) {
         showsHorizontalScrollIndicator={false}
         bounces={false}
         horizontal
-        data={searchResult.results}
+        data={getFlatListData()}
         renderItem={({ item, index }) => (
           <CardItem
             style={getListMargin(index, searchResult.results.length)}
             data={item}
           />
         )}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item, index) => (item ? item.id : index.toString())}
       />
     </View>
   );

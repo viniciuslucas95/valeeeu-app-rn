@@ -12,7 +12,7 @@ import {
 } from '../../../configs';
 import { ISearchResultItemDto } from '../../dtos';
 import { ViewStyle } from '../../types';
-import { Text } from '../../components';
+import { ProfileDistance, ProfileRating, Text } from '../../components';
 import { FontFamily } from '../../constants';
 
 interface IProps {
@@ -21,7 +21,85 @@ interface IProps {
 }
 
 export function CardItem({ data, style }: IProps) {
-  if (!data) return null;
+  if (!data)
+    return (
+      <View style={[style, styles.container]}>
+        <View style={styles.pictureContainer}>
+          <View style={styles.pictureContainer}>
+            <View
+              style={{
+                position: 'absolute',
+                right: MarginSizeConfig.tiny,
+                bottom: MarginSizeConfig.tiny,
+                width: PictureSizeConfig.size * 0.7,
+                height: TextSizeConfig.medium - MarginSizeConfig.tiny,
+                backgroundColor: ColorConfig.gray2,
+                borderRadius: BorderSizeConfig.smallRadius / 2,
+              }}
+            />
+          </View>
+        </View>
+        <View
+          style={[styles.infoContainer, { backgroundColor: ColorConfig.gray2 }]}
+        >
+          <View
+            style={{
+              width: '60%',
+              height: TextSizeConfig.medium - MarginSizeConfig.tiny,
+              marginVertical: MarginSizeConfig.tiny / 2,
+              backgroundColor: ColorConfig.gray1,
+              borderRadius: BorderSizeConfig.smallRadius / 2,
+            }}
+          />
+          <View
+            style={{
+              width: '100%',
+              height: TextSizeConfig.small - MarginSizeConfig.tiny,
+              marginVertical: MarginSizeConfig.tiny / 2,
+              backgroundColor: ColorConfig.gray1,
+              borderRadius: BorderSizeConfig.smallRadius / 2,
+            }}
+          />
+          <View
+            style={{
+              width: '100%',
+              height: TextSizeConfig.small - MarginSizeConfig.tiny,
+              marginVertical: MarginSizeConfig.tiny / 2,
+              backgroundColor: ColorConfig.gray1,
+              borderRadius: BorderSizeConfig.smallRadius / 2,
+            }}
+          />
+          <View
+            style={{
+              width: '100%',
+              height: TextSizeConfig.small - MarginSizeConfig.tiny,
+              marginVertical: MarginSizeConfig.tiny / 2,
+              backgroundColor: ColorConfig.gray1,
+              borderRadius: BorderSizeConfig.smallRadius / 2,
+            }}
+          />
+
+          <View style={styles.distanceAndRatingContainer}>
+            <View
+              style={{
+                width: '20%',
+                height: TextSizeConfig.small - MarginSizeConfig.tiny,
+                backgroundColor: ColorConfig.gray1,
+                borderRadius: BorderSizeConfig.smallRadius / 2,
+              }}
+            />
+            <View
+              style={{
+                width: '30%',
+                height: TextSizeConfig.small - MarginSizeConfig.tiny,
+                backgroundColor: ColorConfig.gray1,
+                borderRadius: BorderSizeConfig.smallRadius / 2,
+              }}
+            />
+          </View>
+        </View>
+      </View>
+    );
 
   const { lowestPrice, name, description, distance, picture, rating } = data;
   const validPicture = isBase64(picture);
@@ -53,7 +131,6 @@ export function CardItem({ data, style }: IProps) {
             fontFamily={FontFamily.robotoMedium}
             fontSize={TextSizeConfig.small}
           >
-            {' '}
             R$ {lowestPrice.toFixed(2).replace('.', ',')}
           </Text>
         </View>
@@ -74,8 +151,8 @@ export function CardItem({ data, style }: IProps) {
           {description}
         </Text>
         <View style={styles.distanceAndRatingContainer}>
-          <Text>distance</Text>
-          <Text>rating</Text>
+          <ProfileDistance>{distance}</ProfileDistance>
+          <ProfileRating total={rating.total}>{rating.average}</ProfileRating>
         </View>
       </View>
     </View>
@@ -94,6 +171,7 @@ const styles = StyleSheet.create({
     height: PictureSizeConfig.size,
     borderTopLeftRadius: BorderSizeConfig.bigRadius,
     borderTopRightRadius: BorderSizeConfig.bigRadius,
+    backgroundColor: ColorConfig.gray4,
   },
   priceContainer: {
     position: 'absolute',
@@ -112,7 +190,8 @@ const styles = StyleSheet.create({
   },
   distanceAndRatingContainer: {
     flexDirection: 'row',
-    alignItems: 'flex-end',
+    alignItems: 'center',
     justifyContent: 'space-between',
+    marginTop: MarginSizeConfig.tiny,
   },
 });

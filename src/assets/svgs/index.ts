@@ -7,4 +7,6 @@ export {
   LaptopIcon,
   ToolsIcon,
   MoreIcon,
+  LocationIcon,
+  StarIcon,
 } from './icons';
