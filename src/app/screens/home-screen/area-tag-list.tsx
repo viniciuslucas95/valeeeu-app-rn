@@ -14,7 +14,7 @@ import { ViewStyle } from '../../types';
 import { getListMargin } from './helpers';
 import { AreaTag } from '../../constants';
 
-import { AreaTagToggle } from './area-tag-toggle';
+import { AreaTagItem } from './area-tag-item';
 
 function getIcon(icon: AreaTag) {
   switch (icon) {
@@ -59,7 +59,7 @@ export function AreaTagList({
         showsHorizontalScrollIndicator={false}
         bounces={false}
         renderItem={({ item, index }) => (
-          <AreaTagToggle
+          <AreaTagItem
             style={getListMargin(index, areaTags.length)}
             onPress={() => setActiveAreaIndex(index)}
             icon={getIcon(item)}

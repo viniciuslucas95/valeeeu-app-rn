@@ -2,13 +2,13 @@ import { name, lorem, internet, datatype } from 'faker';
 import { Buffer } from 'buffer';
 import axios from 'axios';
 
-import { IQuery, IReadSearchResultApiService } from './read-search-result-api';
-import { ISearchResultDto, ISearchResultItemDto } from '../../../dtos';
+import { IQuery, IProfileApiService } from './profile-api-service';
+import { ISmallProfileDto } from '../../../dtos';
 
 const pictureApiUrl = 'https://picsum.photos/150/150';
 const fakeFetchDelay = 0;
 
-async function getSearchResultItemAsync(): Promise<ISearchResultItemDto> {
+async function getSmallProfileAsync(): Promise<ISmallProfileDto> {
   const { data: imageData } = await axios.get(pictureApiUrl, {
     responseType: 'arraybuffer',
   });
@@ -29,23 +29,12 @@ async function getSearchResultItemAsync(): Promise<ISearchResultItemDto> {
   };
 }
 
-export class FakeSearchResultApiService implements IReadSearchResultApiService {
+export class FakeProfileApiService implements IProfileApiService {
   constructor(readonly url: string) {}
 
-  async getAsync(query: IQuery): Promise<ISearchResultDto> {
-    const { range, filter, orderBy, tag } = query;
-
+  async getSmallAsync(query: IQuery): Promise<ISmallProfileDto> {
     return await new Promise(async (resolve) => {
-      const rangeQuantity = range.to - range.from;
-      const quantity = rangeQuantity > 0 ? rangeQuantity : 1;
-      const data: ISearchResultItemDto[] = [];
-      for (let i = 0; i < quantity; i++) {
-        data.push(await getSearchResultItemAsync());
-      }
-      const result: ISearchResultDto = {
-        dataRetrieved: data,
-        totalResults: Math.random() * 50000,
-      };
+      const result = await getSmallProfileAsync();
       setTimeout(resolve, fakeFetchDelay, result);
     });
   }

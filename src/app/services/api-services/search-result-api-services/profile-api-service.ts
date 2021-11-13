@@ -2,22 +2,17 @@ import {
   IAreaTagDto,
   IFilterDto,
   IOrderByDto,
-  ISearchResultDto,
+  ISmallProfileDto,
 } from '../../../dtos';
 
-interface IRange {
-  from: number;
-  to: number;
-}
-
 export interface IQuery {
-  range: IRange;
+  offset: number;
   filter?: IFilterDto;
   orderBy?: IOrderByDto;
   tag?: IAreaTagDto;
 }
 
-export interface IReadSearchResultApiService {
+export interface IProfileApiService {
   url: string;
-  getAsync(query: IQuery): Promise<ISearchResultDto>;
+  getSmallAsync(query: IQuery): Promise<ISmallProfileDto>;
 }

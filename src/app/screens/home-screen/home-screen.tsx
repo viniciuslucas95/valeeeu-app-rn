@@ -1,13 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { hideAsync } from 'expo-splash-screen';
 
 import { ColorConfig, MarginSizeConfig } from '../../../configs';
 import { AreaTag } from '../../constants';
+import { ISmallProfileDto } from '../../dtos';
 
 import { AreaTagList } from './area-tag-list';
-import { CardSection } from './card-section';
+import { CardList } from './card-list';
 
 const areaTags: AreaTag[] = [
   'Tecnologia',
@@ -30,6 +31,10 @@ export function HomeScreen() {
     disableSplashScreenAsync();
   }, []);
 
+  const openProfile = useCallback((profile: ISmallProfileDto) => {
+    console.log(`Open profile ${profile.id} button pressed...`);
+  }, []);
+
   const components = [
     <AreaTagList
       style={{ marginTop: MarginSizeConfig.huge }}
@@ -37,7 +42,10 @@ export function HomeScreen() {
       setActiveAreaIndex={setActiveAreaIndex}
       areaTags={areaTags}
     />,
-    <CardSection tag={{ area: areaTags[activeAreaIndex] }} />,
+    <CardList
+      openProfile={openProfile}
+      tag={{ area: areaTags[activeAreaIndex] }}
+    />,
   ];
 
   return (

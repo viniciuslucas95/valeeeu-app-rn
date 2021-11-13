@@ -1,34 +1,82 @@
-import React, { memo, useCallback } from 'react';
-import { FlatList as FlatListNative } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, useWindowDimensions, FlatList } from 'react-native';
 
-import { ISearchResultItemDto } from '../../dtos';
+import {
+  MarginSizeConfig,
+  PictureSizeConfig,
+  TextSizeConfig,
+} from '../../../configs';
+import { Text } from '../../components';
+import { FontFamily } from '../../constants';
+import {
+  IAreaTagDto,
+  IFilterDto,
+  IOrderByDto,
+  ISmallProfileDto,
+} from '../../dtos';
 
 import { CardItem } from './card-item';
 
 interface IProps {
-  onEndReached(): void;
-  data: (ISearchResultItemDto | undefined)[];
+  tag: IAreaTagDto;
+  filter?: IFilterDto;
+  orderBy?: IOrderByDto;
+  openProfile(profile: ISmallProfileDto): void;
 }
 
-const CardListComponent = ({ onEndReached, data }: IProps) => {
-  const renderItem = useCallback(({ item }) => <CardItem item={item} />, []);
-  const keyExtractor = useCallback(
-    (item, index) => (item ? item.id : index.toString()),
-    []
-  );
+export function CardList({ tag, filter, orderBy, openProfile }: IProps) {
+  const { width: windowWidth } = useWindowDimensions();
+  const width = windowWidth - MarginSizeConfig.big * 2;
+  const resultsPerFetch = Math.ceil(width / PictureSizeConfig.size);
+  const [data, setData] = useState<undefined[]>([...getMoreData()]);
+
+  function getMoreData() {
+    const newData = [];
+    for (let i = 0; i < resultsPerFetch; i++) {
+      newData.push(undefined);
+    }
+    return newData;
+  }
 
   return (
-    <FlatListNative
-      showsHorizontalScrollIndicator={false}
-      bounces={false}
-      horizontal
-      data={data}
-      renderItem={renderItem}
-      keyExtractor={keyExtractor}
-      onEndReached={onEndReached}
-      onEndReachedThreshold={0.5}
-    />
+    <View>
+      <View
+        style={[
+          styles.sectionHeaderContainer,
+          {
+            width: width,
+          },
+        ]}
+      >
+        <Text
+          fontFamily={FontFamily.robotoMedium}
+          fontSize={TextSizeConfig.big}
+        >
+          {'test'}
+        </Text>
+        <Text>Ver mais botao</Text>
+      </View>
+      <FlatList
+        showsHorizontalScrollIndicator={false}
+        bounces={false}
+        horizontal
+        data={data}
+        renderItem={({ index }) => (
+          <CardItem openProfile={openProfile} index={index} />
+        )}
+        keyExtractor={(_, index) => index.toString()}
+        onEndReached={() => setData([...data, ...getMoreData()])}
+        onEndReachedThreshold={0.5}
+      />
+    </View>
   );
-};
+}
 
-export const CardList = memo(CardListComponent);
+const styles = StyleSheet.create({
+  sectionHeaderContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginLeft: MarginSizeConfig.big,
+  },
+});

@@ -3,7 +3,7 @@ interface IRating {
   total: number;
 }
 
-export interface ISearchResultItemDto {
+export interface ISmallProfileDto {
   id: string;
   picture: string;
   name: string;

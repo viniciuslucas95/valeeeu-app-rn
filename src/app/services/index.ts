@@ -1,4 +1,1 @@
-export {
-  IReadSearchResultApiService,
-  FakeSearchResultApiService,
-} from './api-services';
+export { FakeProfileApiService, IProfileApiService } from './api-services';

@@ -1,4 +1,4 @@
 export {
-  FakeSearchResultApiService,
-  IReadSearchResultApiService,
+  FakeProfileApiService,
+  IProfileApiService,
 } from './search-result-api-services';

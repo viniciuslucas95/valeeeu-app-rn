@@ -1,1 +1,1 @@
-export { SearchResultApiServiceFactory } from './search-result-api-service-factory';
+export { ProfileApiServiceFactory } from './profile-api-service-factory';

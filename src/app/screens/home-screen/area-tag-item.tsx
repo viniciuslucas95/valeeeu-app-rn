@@ -18,7 +18,7 @@ interface IProps {
   isToggled?: boolean;
 }
 
-export function AreaTagToggle({
+export function AreaTagItem({
   style,
   onPress,
   icon,

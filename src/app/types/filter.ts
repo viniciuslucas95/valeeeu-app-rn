@@ -1,1 +1,5 @@
-export type Filter = 'maxDistance' | 'minRating' | 'lowestPrice';
+export type Filter =
+  | 'maxDistance'
+  | 'minRating'
+  | 'lowestPrice'
+  | 'tagQuantity';
