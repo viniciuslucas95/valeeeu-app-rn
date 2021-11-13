@@ -4,10 +4,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { hideAsync } from 'expo-splash-screen';
 
 import { ColorConfig, MarginSizeConfig } from '../../../configs';
+import { AreaTag } from '../../constants';
 
 import { AreaTagList } from './area-tag-list';
 import { CardSection } from './card-section';
-import { AreaTag } from '../../constants';
 
 const areaTags: AreaTag[] = [
   'Tecnologia',

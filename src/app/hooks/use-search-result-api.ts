@@ -9,7 +9,7 @@ import {
 import { SearchResultApiServiceFactory } from '../factories';
 
 interface IProps {
-  desiredQuantity: number;
+  resultQuantity: number;
   tag?: IAreaTagDto;
   filter?: IFilterDto;
   orderBy?: IOrderByDto;
@@ -18,35 +18,34 @@ interface IProps {
 const searchResultApiService = SearchResultApiServiceFactory.create();
 
 export function useSearchResultApi({
-  desiredQuantity,
+  resultQuantity,
   tag,
   filter,
   orderBy,
 }: IProps) {
-  const [searchResult, setSearchResult] = useState<ISearchResultDto>({
-    results: [],
+  const [searchResult, setResult] = useState<ISearchResultDto>({
+    dataRetrieved: [],
     totalResults: 0,
   });
   const [error, setError] = useState('');
 
   useEffect(() => {
-    if (desiredQuantity <= searchResult.results.length) return;
+    if (resultQuantity <= searchResult.dataRetrieved.length) return;
 
     async function fetchAsync() {
       try {
-        const { results, totalResults } = await searchResultApiService.getAsync(
-          {
+        const { dataRetrieved: moreData, totalResults } =
+          await searchResultApiService.getAsync({
             range: {
-              from: searchResult.results.length,
-              to: desiredQuantity,
+              from: searchResult.dataRetrieved.length,
+              to: resultQuantity,
             },
             filter,
             orderBy,
             tag,
-          }
-        );
-        setSearchResult({
-          results: [...searchResult.results, ...results],
+          });
+        setResult({
+          dataRetrieved: [...searchResult.dataRetrieved, ...moreData],
           totalResults,
         });
       } catch (err) {
@@ -55,7 +54,7 @@ export function useSearchResultApi({
     }
 
     fetchAsync();
-  }, [desiredQuantity]);
+  }, [resultQuantity]);
 
   return { searchResult, error };
 }

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { View, StyleSheet, useWindowDimensions } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
 
 import {
   MarginSizeConfig,
@@ -13,12 +12,14 @@ import {
   IAreaTagDto,
   IFilterDto,
   IOrderByDto,
+  ISearchResultDto,
   ISearchResultItemDto,
 } from '../../dtos';
 import { useSearchResultApi } from '../../hooks';
 import { getListMargin } from './helpers';
 
 import { CardItem } from './card-item';
+import { CardList } from './card-list';
 
 interface IProps {
   tag: IAreaTagDto;
@@ -29,30 +30,36 @@ interface IProps {
 export function CardSection({ tag, filter, orderBy }: IProps) {
   const { width: windowWidth } = useWindowDimensions();
   const width = windowWidth - MarginSizeConfig.big * 2;
-  const startingDesiredQuantity = Math.ceil(width / PictureSizeConfig.size);
-  const [desiredQuantity, setDesiredQuantity] = useState(
-    startingDesiredQuantity
-  );
-  const [wireframes, setWireframes] = useState(startingDesiredQuantity);
-  const { searchResult, error } = useSearchResultApi({ desiredQuantity });
+  const resultsPerFetch = Math.ceil(width / PictureSizeConfig.size);
+  const [resultQuantity, setResultQuantity] = useState(resultsPerFetch * 2);
+  const [wireframes, setWireframes] = useState(resultsPerFetch * 2);
+  const { searchResult, error } = useSearchResultApi({ resultQuantity });
+  const [data, setData] = useState<(ISearchResultItemDto | undefined)[]>([]);
 
   useEffect(() => {
-    if (desiredQuantity < searchResult.results.length) return;
-    setWireframes(desiredQuantity - searchResult.results.length);
-  }, [desiredQuantity]);
+    if (resultQuantity <= searchResult.dataRetrieved.length) return;
+    setWireframes(resultQuantity - searchResult.dataRetrieved.length);
+  }, [resultQuantity]);
 
   useEffect(() => {
-    if (searchResult.results.length === desiredQuantity) setWireframes(0);
+    setData(getListData());
+  }, [wireframes]);
+
+  useEffect(() => {
+    if (searchResult.dataRetrieved.length >= resultQuantity) setWireframes(0);
   }, [searchResult]);
 
-  function getFlatListData() {
-    if (wireframes === 0) return searchResult.results;
-    let data: (ISearchResultItemDto | undefined)[] = [...searchResult.results];
+  function getListData() {
+    const data: undefined[] = [];
     for (let i = 0; i < wireframes; i++) {
       data.push(undefined);
     }
-    return data;
+    return [...searchResult.dataRetrieved, ...data];
   }
+
+  const fetchMore = useCallback(() => {
+    setResultQuantity(resultQuantity + resultsPerFetch);
+  }, [resultQuantity]);
 
   return (
     <View style={styles.container}>
@@ -75,19 +82,7 @@ export function CardSection({ tag, filter, orderBy }: IProps) {
         </View>
         <Text>Ver mais botao</Text>
       </View>
-      <FlatList
-        showsHorizontalScrollIndicator={false}
-        bounces={false}
-        horizontal
-        data={getFlatListData()}
-        renderItem={({ item, index }) => (
-          <CardItem
-            style={getListMargin(index, searchResult.results.length)}
-            data={item}
-          />
-        )}
-        keyExtractor={(item, index) => (item ? item.id : index.toString())}
-      />
+      <CardList onEndReached={fetchMore} data={data} />
     </View>
   );
 }

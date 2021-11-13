@@ -1,6 +1,6 @@
 import { ISearchResultItemDto } from './search-result-item-dto';
 
 export interface ISearchResultDto {
-  results: ISearchResultItemDto[];
+  dataRetrieved: ISearchResultItemDto[];
   totalResults: number;
 }

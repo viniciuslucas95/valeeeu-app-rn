@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import isBase64 from 'is-base64';
 
@@ -17,11 +17,11 @@ import { FontFamily } from '../../constants';
 
 interface IProps {
   style?: ViewStyle;
-  data?: ISearchResultItemDto;
+  item?: ISearchResultItemDto;
 }
 
-export function CardItem({ data, style }: IProps) {
-  if (!data)
+const CardItemComponent = ({ item, style }: IProps) => {
+  if (!item)
     return (
       <View style={[style, styles.container]}>
         <View style={styles.pictureContainer}>
@@ -29,8 +29,8 @@ export function CardItem({ data, style }: IProps) {
             <View
               style={{
                 position: 'absolute',
-                right: MarginSizeConfig.tiny,
-                bottom: MarginSizeConfig.tiny,
+                right: MarginSizeConfig.small,
+                bottom: MarginSizeConfig.small,
                 width: PictureSizeConfig.size * 0.7,
                 height: TextSizeConfig.medium - MarginSizeConfig.tiny,
                 backgroundColor: ColorConfig.gray2,
@@ -40,7 +40,16 @@ export function CardItem({ data, style }: IProps) {
           </View>
         </View>
         <View
-          style={[styles.infoContainer, { backgroundColor: ColorConfig.gray2 }]}
+          style={[
+            styles.infoContainer,
+            {
+              backgroundColor: ColorConfig.gray2,
+              justifyContent: 'space-between',
+              flex: 1,
+              borderBottomLeftRadius: BorderSizeConfig.bigRadius,
+              borderBottomRightRadius: BorderSizeConfig.bigRadius,
+            },
+          ]}
         >
           <View
             style={{
@@ -101,13 +110,12 @@ export function CardItem({ data, style }: IProps) {
       </View>
     );
 
-  const { lowestPrice, name, description, distance, picture, rating } = data;
-  const validPicture = isBase64(picture);
+  const { picture, name, description, distance, rating, lowestPrice } = item;
 
   return (
     <View style={[style, styles.container]}>
       <View style={styles.pictureContainer}>
-        {validPicture ? (
+        {isBase64(picture) ? (
           <Image
             style={styles.pictureContainer}
             source={{ uri: `data:image/jpeg;base64,${picture}` }}
@@ -157,7 +165,9 @@ export function CardItem({ data, style }: IProps) {
       </View>
     </View>
   );
-}
+};
+
+export const CardItem = memo(CardItemComponent);
 
 const styles = StyleSheet.create({
   container: {
@@ -171,7 +181,7 @@ const styles = StyleSheet.create({
     height: PictureSizeConfig.size,
     borderTopLeftRadius: BorderSizeConfig.bigRadius,
     borderTopRightRadius: BorderSizeConfig.bigRadius,
-    backgroundColor: ColorConfig.gray4,
+    backgroundColor: ColorConfig.gray3,
   },
   priceContainer: {
     position: 'absolute',
