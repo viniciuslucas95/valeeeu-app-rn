@@ -1,4 +1,5 @@
 export {
   FakeProfileApiService,
   IProfileApiService,
-} from './search-result-api-services';
+} from './profile-api-services';
+export { FakeTagApiService, ITagApiService } from './tag-api-services';

@@ -14,23 +14,38 @@ import {
   PictureSizeConfig,
   ColorConfig,
   TextSizeConfig,
-} from '../../../configs';
-import { ViewStyle } from '../../types';
-import { ProfileDistance, ProfileRating, Text } from '../../components';
-import { FontFamily } from '../../constants';
-import { ISmallProfileDto } from '../../dtos';
-import { useProfileSearchApi } from '../../hooks';
+} from '../../../../configs';
+import { ViewStyle } from '../../../types';
+import { ProfileDistance, ProfileRating, Text } from '../../../components';
+import { FontFamily } from '../../../constants';
+import { IFilterDto, IOrderByDto, ISmallProfileDto } from '../../../dtos';
+import { useProfileSearchApi } from '../../../hooks';
 
 interface IProps {
   style?: ViewStyle;
   index: number;
+  tag?: string;
   openProfile(profile: ISmallProfileDto): void;
+  orderBy?: IOrderByDto;
+  filter?: IFilterDto;
 }
 
-const CardItemComponent = ({ index, style, openProfile }: IProps) => {
-  const { result, error } = useProfileSearchApi({ index });
+const CardItemComponent = ({
+  index,
+  style,
+  openProfile,
+  filter,
+  orderBy,
+  tag,
+}: IProps) => {
+  const { result, error } = useProfileSearchApi({
+    index,
+    filter,
+    orderBy,
+    tag,
+  });
 
-  if (!result)
+  if (!result || !tag)
     return (
       <TouchableWithoutFeedback onPress={() => null}>
         <View style={[style, styles.container]}>
@@ -135,7 +150,7 @@ const CardItemComponent = ({ index, style, openProfile }: IProps) => {
           ) : (
             <Image
               style={styles.pictureContainer}
-              source={require('../../../assets/images/no-picture.png')}
+              source={require('../../../../assets/images/no-picture.png')}
             />
           )}
 
@@ -188,7 +203,7 @@ const styles = StyleSheet.create({
     borderRadius: BorderSizeConfig.bigRadius,
     elevation: ShadowSizeConfig.smallElevation,
     backgroundColor: ColorConfig.white1,
-    margin: MarginSizeConfig.small,
+    marginVertical: MarginSizeConfig.tiny,
   },
   pictureContainer: {
     height: PictureSizeConfig.size,

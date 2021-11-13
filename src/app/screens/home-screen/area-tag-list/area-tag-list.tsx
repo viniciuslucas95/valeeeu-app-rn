@@ -8,11 +8,10 @@ import {
   LaptopIcon,
   MoreIcon,
   ToolsIcon,
-} from '../../../assets/svgs';
-import { ColorConfig } from '../../../configs';
-import { ViewStyle } from '../../types';
-import { getListMargin } from './helpers';
-import { AreaTag } from '../../constants';
+} from '../../../../assets/svgs';
+import { ColorConfig, MarginSizeConfig } from '../../../../configs';
+import { ViewStyle } from '../../../types';
+import { AreaTag } from '../../../constants';
 
 import { AreaTagItem } from './area-tag-item';
 
@@ -36,6 +35,22 @@ function getIcon(icon: AreaTag) {
     case 'Outros':
       return <MoreIcon color={ColorConfig.white1} />;
   }
+}
+
+function getListMargin(index: number, listLength: number): ViewStyle {
+  return index === 0
+    ? {
+        marginLeft: MarginSizeConfig.big,
+        marginRight: MarginSizeConfig.small,
+      }
+    : index === listLength - 1
+    ? {
+        marginLeft: MarginSizeConfig.small,
+        marginRight: MarginSizeConfig.big,
+      }
+    : {
+        marginHorizontal: MarginSizeConfig.small,
+      };
 }
 
 interface IProps {

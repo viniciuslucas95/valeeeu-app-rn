@@ -1,6 +1,4 @@
-import { Filter } from '../types';
-
 export interface IOrderByDto {
-  filter: Filter;
+  orderBy: 'distance' | 'rating' | 'price' | 'workersQuantity';
   descending?: boolean;
 }

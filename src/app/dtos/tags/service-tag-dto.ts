@@ -1,3 +1,3 @@
 export interface IServiceTagDto {
-  service: string;
+  serviceTag: string;
 }

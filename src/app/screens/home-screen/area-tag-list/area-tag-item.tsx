@@ -5,10 +5,10 @@ import {
   ColorConfig,
   ElementSizeConfig,
   MarginSizeConfig,
-} from '../../../configs';
-import { IconToggle, Text } from '../../components';
-import { FontFamily } from '../../constants';
-import { ViewStyle } from '../../types';
+} from '../../../../configs';
+import { IconToggle, Text } from '../../../components';
+import { FontFamily } from '../../../constants';
+import { ViewStyle } from '../../../types';
 
 interface IProps {
   style?: ViewStyle;

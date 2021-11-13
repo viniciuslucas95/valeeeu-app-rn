@@ -1,15 +1,10 @@
-import {
-  IAreaTagDto,
-  IFilterDto,
-  IOrderByDto,
-  ISmallProfileDto,
-} from '../../../dtos';
+import { IFilterDto, IOrderByDto, ISmallProfileDto } from '../../../dtos';
 
 export interface IQuery {
   offset: number;
+  tag: string;
   filter?: IFilterDto;
   orderBy?: IOrderByDto;
-  tag?: IAreaTagDto;
 }
 
 export interface IProfileApiService {

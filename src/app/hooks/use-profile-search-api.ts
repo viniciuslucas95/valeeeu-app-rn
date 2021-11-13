@@ -1,23 +1,18 @@
 import { useEffect, useState } from 'react';
 
-import {
-  IAreaTagDto,
-  IFilterDto,
-  IOrderByDto,
-  ISmallProfileDto,
-} from '../dtos';
+import { IFilterDto, IOrderByDto, ISmallProfileDto } from '../dtos';
 import { ProfileApiServiceFactory } from '../factories';
 
 interface IProps {
-  tag?: IAreaTagDto;
   filter?: IFilterDto;
   orderBy?: IOrderByDto;
   index: number;
+  tag?: string;
 }
 
 const profileApiService = ProfileApiServiceFactory.create();
 
-export function useProfileSearchApi({ index, tag, filter, orderBy }: IProps) {
+export function useProfileSearchApi({ index, filter, orderBy, tag }: IProps) {
   const [result, setResult] = useState<ISmallProfileDto>();
   const [error, setError] = useState(false);
 
@@ -29,12 +24,17 @@ export function useProfileSearchApi({ index, tag, filter, orderBy }: IProps) {
 
   useEffect(() => {
     fetchProfileAsync();
-  }, []);
+    return () => {
+      setResult(undefined);
+    };
+  }, [tag, filter, orderBy]);
 
   async function fetchProfileAsync() {
+    if (!tag) return;
     try {
       const result = await profileApiService.getSmallAsync({
         offset: index,
+        tag,
       });
       setResult(result);
     } catch (_) {

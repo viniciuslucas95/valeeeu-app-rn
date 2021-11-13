@@ -1,1 +1,6 @@
-export { FakeProfileApiService, IProfileApiService } from './api-services';
+export {
+  FakeProfileApiService,
+  IProfileApiService,
+  ITagApiService,
+  FakeTagApiService,
+} from './api-services';
