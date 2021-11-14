@@ -9,6 +9,7 @@ import {
   TextSizeConfig,
 } from '../../../configs';
 import { FontFamily } from '../../constants';
+import { rem } from '../../helpers';
 import { ViewStyle } from '../../types';
 import { Text } from '../text';
 
@@ -33,7 +34,7 @@ export function ProfileRating({
 }: PropsWithChildren<IProps>) {
   return (
     <View style={[styles.container, style]}>
-      <StarIcon color={ColorConfig.yellow1} height={IconSizeConfig.tiny} />
+      <StarIcon color={ColorConfig.yellow1} height={rem(IconSizeConfig.tiny)} />
       <Text
         style={{ marginLeft: MarginSizeConfig.tiny }}
         fontSize={TextSizeConfig.small}

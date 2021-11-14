@@ -8,6 +8,7 @@ import {
   MarginSizeConfig,
   TextSizeConfig,
 } from '../../../configs';
+import { rem } from '../../helpers';
 import { ViewStyle } from '../../types';
 import { Text } from '../text';
 
@@ -28,7 +29,10 @@ export function ProfileDistance({
 }: PropsWithChildren<IProps>) {
   return (
     <View style={[styles.container, style]}>
-      <LocationIcon color={ColorConfig.gray4} height={IconSizeConfig.tiny} />
+      <LocationIcon
+        color={ColorConfig.gray4}
+        height={rem(IconSizeConfig.tiny)}
+      />
       <Text
         style={{ marginLeft: MarginSizeConfig.tiny }}
         fontSize={TextSizeConfig.tiny}

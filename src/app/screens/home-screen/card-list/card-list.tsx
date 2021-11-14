@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, useWindowDimensions, FlatList } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  useWindowDimensions,
+  FlatList,
+  PixelRatio,
+} from 'react-native';
 
 import {
   BorderSizeConfig,
@@ -30,7 +36,7 @@ interface IProps {
 export function CardList({ tag, filter, orderBy, openProfile }: IProps) {
   const { width: windowWidth } = useWindowDimensions();
   const elementMaxWidth = windowWidth - MarginSizeConfig.big * 2;
-  const resultsPerFetch = Math.ceil(windowWidth / PictureSizeConfig.size);
+  const resultsPerFetch = Math.ceil(windowWidth / rem(PictureSizeConfig.size));
   const [data, setData] = useState<undefined[]>([...getMoreData()]);
 
   function getMoreData() {
@@ -68,7 +74,7 @@ export function CardList({ tag, filter, orderBy, openProfile }: IProps) {
             <Text
               style={{
                 marginLeft:
-                  MarginSizeConfig.big + rem(MarginSizeConfig.big) * 2,
+                  MarginSizeConfig.big * 1.5 + rem(MarginSizeConfig.big) * 1.5,
               }}
               fontColor={ColorConfig.blue2}
               fontFamily={FontFamily.robotoLight}

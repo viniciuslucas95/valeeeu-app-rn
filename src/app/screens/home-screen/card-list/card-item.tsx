@@ -18,13 +18,9 @@ import {
 import { ViewStyle } from '../../../types';
 import { ProfileDistance, ProfileRating, Text } from '../../../components';
 import { FontFamily } from '../../../constants';
-import {
-  IFilterDto,
-  IOrderByDto,
-  ISmallProfileDto,
-  ITagDto,
-} from '../../../dtos';
+import { IFilterDto, IOrderByDto, ISmallProfileDto } from '../../../dtos';
 import { useProfileApi } from '../../../hooks';
+import { rem } from '../../../helpers';
 
 interface IProps {
   style?: ViewStyle;
@@ -203,32 +199,32 @@ export const CardItem = memo(CardItemComponent);
 
 const styles = StyleSheet.create({
   container: {
-    width: PictureSizeConfig.size,
+    width: rem(PictureSizeConfig.size),
     borderRadius: BorderSizeConfig.bigRadius,
     elevation: ShadowSizeConfig.smallElevation,
     backgroundColor: ColorConfig.white1,
-    marginVertical: MarginSizeConfig.tiny,
+    marginVertical: rem(MarginSizeConfig.tiny),
   },
   pictureContainer: {
-    height: PictureSizeConfig.size,
+    height: rem(PictureSizeConfig.size),
     borderTopLeftRadius: BorderSizeConfig.bigRadius,
     borderTopRightRadius: BorderSizeConfig.bigRadius,
     backgroundColor: ColorConfig.gray3,
   },
   priceContainer: {
     position: 'absolute',
-    right: MarginSizeConfig.tiny,
-    bottom: MarginSizeConfig.tiny,
+    right: rem(MarginSizeConfig.tiny),
+    bottom: rem(MarginSizeConfig.tiny),
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: MarginSizeConfig.tiny / 2,
-    paddingHorizontal: MarginSizeConfig.tiny,
+    paddingVertical: rem(MarginSizeConfig.tiny / 2),
+    paddingHorizontal: rem(MarginSizeConfig.tiny),
     backgroundColor: ColorConfig.white1,
-    borderRadius: BorderSizeConfig.smallRadius,
+    borderRadius: rem(BorderSizeConfig.smallRadius),
   },
   infoContainer: {
-    paddingHorizontal: MarginSizeConfig.small,
-    paddingVertical: MarginSizeConfig.tiny,
+    paddingHorizontal: rem(MarginSizeConfig.small),
+    paddingVertical: rem(MarginSizeConfig.tiny),
   },
   distanceAndRatingContainer: {
     flexDirection: 'row',

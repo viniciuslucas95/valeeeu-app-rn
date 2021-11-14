@@ -12,6 +12,7 @@ import { AreaTag } from '../../constants';
 import { ISmallProfileDto, IAreaTagDto, IFilterDto, ITagDto } from '../../dtos';
 import { useTagApi } from '../../hooks';
 import { ActivityIndicator } from '../../components';
+import { rem } from '../../helpers';
 
 import { AreaTagList } from './area-tag-list';
 import { CardList } from './card-list';
@@ -33,7 +34,9 @@ interface IData {
 export function HomeScreen() {
   const [activeAreaIndex, setActiveAreaIndex] = useState(0);
   const { height: screenHeight } = useWindowDimensions();
-  const resultsPerFetch = Math.ceil(screenHeight / PictureSizeConfig.size / 2);
+  const resultsPerFetch = Math.ceil(
+    screenHeight / rem(PictureSizeConfig.size / 2)
+  );
   const [data, setData] = useState<IData[]>([{}, ...getMoreData(true, true)]);
   const areaTag: IAreaTagDto = useMemo(() => {
     return {

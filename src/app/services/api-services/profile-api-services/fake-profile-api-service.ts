@@ -4,8 +4,9 @@ import axios from 'axios';
 
 import { IQuery, IProfileApiService } from './profile-api-service';
 import { ISmallProfileDto } from '../../../dtos';
+import { rem } from '../../../helpers';
 
-const pictureApiUrl = 'https://picsum.photos/150/150';
+const pictureApiUrl = `https://picsum.photos/${rem(150)}/${rem(150)}`;
 const fakeFetchDelay = 0;
 
 async function getSmallProfileAsync(): Promise<ISmallProfileDto> {
