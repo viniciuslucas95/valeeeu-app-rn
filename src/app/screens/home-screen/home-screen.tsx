@@ -59,15 +59,6 @@ export function HomeScreen() {
     disableSplashScreenAsync();
   }, []);
 
-  useEffect(() => {
-    if (data.length < 2) return;
-    // data.forEach((data, index) => {
-    //   if (index === 0) return;
-    //   console.log(data.tag?.tag);
-    // });
-    // console.log('------');
-  }, [data]);
-
   function getMoreData(resetData?: boolean, forceWireframe?: boolean) {
     const moreData: IData[] = [];
     for (let i = 0; i < resultsPerFetch; i++) {
