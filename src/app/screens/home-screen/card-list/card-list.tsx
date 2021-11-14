@@ -23,7 +23,7 @@ interface IProps {
 
 const CardListComponent = ({ tag, filter, orderBy, openProfile }: IProps) => {
   const { width: windowWidth } = useWindowDimensions();
-  const resultsPerFetch = Math.ceil((windowWidth / PictureSizeConfig.size) * 2);
+  const resultsPerFetch = Math.ceil(windowWidth / PictureSizeConfig.size);
   const [data, setData] = useState<undefined[]>([...getMoreData()]);
 
   function getMoreData() {

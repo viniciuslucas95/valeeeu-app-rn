@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { FlatList, useWindowDimensions, View, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { hideAsync } from 'expo-splash-screen';
@@ -39,19 +33,14 @@ interface IData {
 export function HomeScreen() {
   const [activeAreaIndex, setActiveAreaIndex] = useState(0);
   const { height: screenHeight } = useWindowDimensions();
-  const resultsPerFetch = Math.ceil(screenHeight / PictureSizeConfig.size);
-  const [data, setData] = useState<IData[]>([{}]);
+  const resultsPerFetch = Math.ceil(screenHeight / PictureSizeConfig.size / 2);
+  const [data, setData] = useState<IData[]>([{}, ...getMoreData(true)]);
   const areaTag: IAreaTagDto = useMemo(() => {
-    setData([{}]);
     return {
       areaTag: areaTags[activeAreaIndex],
     };
   }, [activeAreaIndex]);
   const { results } = useTagSearchApi(areaTag);
-
-  const wireframe = useMemo(() => {
-    return [{}, ...getMoreData(true)];
-  }, []);
 
   useEffect(() => {
     if (results.length === 0) return;
@@ -59,7 +48,7 @@ export function HomeScreen() {
   }, [results]);
 
   useEffect(() => {
-    setData(wireframe);
+    setData([{}, ...getMoreData(true)]);
   }, [activeAreaIndex]);
 
   useEffect(() => {
@@ -73,13 +62,17 @@ export function HomeScreen() {
   function getMoreData(forceWireframe?: boolean) {
     const newData: IData[] = [];
     for (let i = 0; i < resultsPerFetch; i++) {
+      if (forceWireframe) {
+        newData.push({});
+        continue;
+      }
       const data: IData = results[i]
         ? {
             filter: { areaTag },
             tag: results[i],
           }
         : {};
-      newData.push(forceWireframe ? {} : data);
+      newData.push(data);
     }
     return newData;
   }
@@ -119,10 +112,10 @@ export function HomeScreen() {
         ItemSeparatorComponent={() => (
           <View style={{ marginVertical: MarginSizeConfig.huge / 2 }} />
         )}
-        keyExtractor={(_, index) => index.toString()}
+        keyExtractor={(item, index) => item.tag ?? index.toString()}
         bounces={false}
         onEndReached={onEndReached}
-        onEndReachedThreshold={0.75}
+        onEndReachedThreshold={0.5}
         ListFooterComponent={<ActivityIndicator />}
       />
     </SafeAreaView>

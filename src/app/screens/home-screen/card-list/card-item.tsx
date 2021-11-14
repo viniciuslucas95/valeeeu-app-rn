@@ -30,6 +30,8 @@ interface IProps {
   filter?: IFilterDto;
 }
 
+const noPicture = require('../../../../assets/images/no-picture.png');
+
 const CardItemComponent = ({
   index,
   style,
@@ -148,10 +150,7 @@ const CardItemComponent = ({
               source={{ uri: `data:image/jpeg;base64,${picture}` }}
             />
           ) : (
-            <Image
-              style={styles.pictureContainer}
-              source={require('../../../../assets/images/no-picture.png')}
-            />
+            <Image style={styles.pictureContainer} source={noPicture} />
           )}
 
           <View style={styles.priceContainer}>
