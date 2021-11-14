@@ -182,7 +182,7 @@ const CardItemComponent = ({
             {name}
           </Text>
           <Text
-            fontSize={TextSizeConfig.tiny}
+            fontSize={TextSizeConfig.small}
             fontFamily={FontFamily.robotoLight}
             fontColor={ColorConfig.gray5}
             numberOfLines={3}

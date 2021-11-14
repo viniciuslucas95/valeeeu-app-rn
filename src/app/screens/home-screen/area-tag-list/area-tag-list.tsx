@@ -15,6 +15,12 @@ import { AreaTag } from '../../../constants';
 
 import { AreaTagItem } from './area-tag-item';
 
+interface IIconData {
+  icon: JSX.Element;
+  firstLine: string;
+  secondLine?: string;
+}
+
 interface IProps {
   style?: ViewStyle;
   activeAreaIndex: number;
@@ -28,25 +34,42 @@ const AreaTagListComponent = ({
   setActiveAreaIndex,
   areaTags,
 }: IProps) => {
-  const getIcon = useCallback((icon: AreaTag) => {
-    switch (icon) {
+  const getIconData = useCallback((tag: AreaTag): IIconData => {
+    switch (tag) {
       case 'Tecnologia':
-        return <LaptopIcon color={ColorConfig.white1} />;
+        return {
+          icon: <LaptopIcon color={ColorConfig.white1} />,
+          firstLine: tag,
+        };
 
       case 'Beleza e Moda':
-        return <GlassesAndMustacheIcon color={ColorConfig.white1} />;
+        return {
+          icon: <GlassesAndMustacheIcon color={ColorConfig.white1} />,
+          firstLine: 'Moda e',
+          secondLine: 'Beleza',
+        };
 
       case 'Veículos':
-        return <CarIcon color={ColorConfig.white1} />;
+        return { icon: <CarIcon color={ColorConfig.white1} />, firstLine: tag };
 
       case 'Saúde':
-        return <HeartIcon color={ColorConfig.white1} />;
+        return {
+          icon: <HeartIcon color={ColorConfig.white1} />,
+          firstLine: tag,
+        };
 
       case 'Obras e Reformas':
-        return <ToolsIcon color={ColorConfig.white1} />;
+        return {
+          icon: <ToolsIcon color={ColorConfig.white1} />,
+          firstLine: 'Obras e',
+          secondLine: 'Reformas',
+        };
 
       case 'Outros':
-        return <MoreIcon color={ColorConfig.white1} />;
+        return {
+          icon: <MoreIcon color={ColorConfig.white1} />,
+          firstLine: tag,
+        };
     }
   }, []);
 
@@ -62,14 +85,18 @@ const AreaTagListComponent = ({
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         ListFooterComponent={<View style={styles.separator} />}
         bounces={false}
-        renderItem={({ item, index }) => (
-          <AreaTagItem
-            onPress={() => setActiveAreaIndex(index)}
-            icon={getIcon(item)}
-            label={item}
-            isToggled={index === activeAreaIndex ? true : false}
-          />
-        )}
+        renderItem={({ item, index }) => {
+          const { icon, firstLine, secondLine } = getIconData(item);
+          return (
+            <AreaTagItem
+              onPress={() => setActiveAreaIndex(index)}
+              icon={icon}
+              firstLine={firstLine}
+              secondLine={secondLine}
+              isToggled={index === activeAreaIndex ? true : false}
+            />
+          );
+        }}
         keyExtractor={(item) => item}
       />
     </View>

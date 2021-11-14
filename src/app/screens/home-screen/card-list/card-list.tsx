@@ -8,7 +8,7 @@ import {
   PictureSizeConfig,
   TextSizeConfig,
 } from '../../../../configs';
-import { ActivityIndicator, Text } from '../../../components';
+import { ActivityIndicator, TagQuantity, Text } from '../../../components';
 import { FontFamily } from '../../../constants';
 import {
   IFilterDto,
@@ -16,6 +16,7 @@ import {
   ISmallProfileDto,
   ITagDto,
 } from '../../../dtos';
+import { rem } from '../../../helpers';
 
 import { CardItem } from './card-item';
 
@@ -28,6 +29,7 @@ interface IProps {
 
 export function CardList({ tag, filter, orderBy, openProfile }: IProps) {
   const { width: windowWidth } = useWindowDimensions();
+  const elementMaxWidth = windowWidth - MarginSizeConfig.big * 2;
   const resultsPerFetch = Math.ceil(windowWidth / PictureSizeConfig.size);
   const [data, setData] = useState<undefined[]>([...getMoreData()]);
 
@@ -45,22 +47,31 @@ export function CardList({ tag, filter, orderBy, openProfile }: IProps) {
         style={[
           styles.sectionHeaderContainer,
           {
-            width: windowWidth,
+            width: elementMaxWidth,
           },
         ]}
       >
         {tag ? (
           <>
+            <View style={styles.titleAndTagContainer}>
+              <Text
+                fontFamily={FontFamily.robotoMedium}
+                fontSize={TextSizeConfig.big}
+              >
+                {tag.tag}
+              </Text>
+              <TagQuantity
+                style={styles.tagContainer}
+                quantity={tag.quantity}
+              />
+            </View>
             <Text
-              fontFamily={FontFamily.robotoMedium}
-              fontSize={TextSizeConfig.big}
-            >
-              {tag.tag}
-            </Text>
-            <Text
+              style={{
+                marginLeft:
+                  MarginSizeConfig.big + rem(MarginSizeConfig.big) * 2,
+              }}
               fontColor={ColorConfig.blue2}
               fontFamily={FontFamily.robotoLight}
-              style={{ paddingRight: MarginSizeConfig.big }}
             >
               Ver mais
             </Text>
@@ -121,7 +132,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginLeft: MarginSizeConfig.big,
-    paddingRight: MarginSizeConfig.big,
-    marginBottom: MarginSizeConfig.big,
+    marginBottom: MarginSizeConfig.medium,
+  },
+  titleAndTagContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  tagContainer: {
+    top: rem(MarginSizeConfig.tiny * 0.25),
+    marginLeft: rem(MarginSizeConfig.small),
   },
 });

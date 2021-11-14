@@ -25,6 +25,8 @@ export function Text({
 }: PropsWithChildren<IProps>) {
   return (
     <TextNative
+      ellipsizeMode='tail'
+      textBreakStrategy='simple'
       numberOfLines={numberOfLines}
       style={[
         {
