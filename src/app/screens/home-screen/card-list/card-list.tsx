@@ -1,20 +1,15 @@
 import React, { useState } from 'react';
-import {
-  View,
-  StyleSheet,
-  useWindowDimensions,
-  FlatList,
-  PixelRatio,
-} from 'react-native';
+import { View, StyleSheet, useWindowDimensions, FlatList } from 'react-native';
 
 import {
   BorderSizeConfig,
   ColorConfig,
   MarginSizeConfig,
   PictureSizeConfig,
+  ShadowSizeConfig,
   TextSizeConfig,
 } from '../../../../configs';
-import { ActivityIndicator, TagQuantity, Text } from '../../../components';
+import { ActivityIndicator, Ad, TagQuantity, Text } from '../../../components';
 import { FontFamily } from '../../../constants';
 import {
   IFilterDto,
@@ -31,9 +26,16 @@ interface IProps {
   filter?: IFilterDto;
   orderBy?: IOrderByDto;
   openProfile(profile: ISmallProfileDto): void;
+  showAd?: boolean;
 }
 
-export function CardList({ tag, filter, orderBy, openProfile }: IProps) {
+export function CardList({
+  tag,
+  filter,
+  orderBy,
+  openProfile,
+  showAd = false,
+}: IProps) {
   const { width: windowWidth } = useWindowDimensions();
   const elementMaxWidth = windowWidth - MarginSizeConfig.big * 2;
   const resultsPerFetch = Math.ceil(windowWidth / PictureSizeConfig.size);
@@ -111,6 +113,13 @@ export function CardList({ tag, filter, orderBy, openProfile }: IProps) {
         onEndReachedThreshold={0.5}
         ListFooterComponent={<ActivityIndicator horizontal />}
       />
+      {showAd ? (
+        tag ? (
+          <Ad style={styles.ad} />
+        ) : (
+          <View style={styles.adWireframe} />
+        )
+      ) : null}
     </View>
   );
 }
@@ -131,5 +140,17 @@ const styles = StyleSheet.create({
   tagContainer: {
     top: rem(MarginSizeConfig.tiny * 0.25),
     marginLeft: rem(MarginSizeConfig.small),
+  },
+  ad: {
+    marginTop: MarginSizeConfig.huge,
+  },
+  adWireframe: {
+    marginTop: MarginSizeConfig.huge,
+    width: 330,
+    height: 110 + rem(TextSizeConfig.small * 1.75),
+    alignSelf: 'center',
+    borderRadius: BorderSizeConfig.smallRadius,
+    backgroundColor: ColorConfig.gray1,
+    elevation: ShadowSizeConfig.smallElevation,
   },
 });

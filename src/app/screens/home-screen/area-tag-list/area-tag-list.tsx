@@ -1,5 +1,5 @@
 import React, { memo, useCallback } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
 import {
   CarIcon,
@@ -10,7 +10,6 @@ import {
   ToolsIcon,
 } from '../../../../assets/svgs';
 import { ColorConfig, MarginSizeConfig } from '../../../../configs';
-import { ViewStyle } from '../../../types';
 import { AreaTag } from '../../../constants';
 
 import { AreaTagItem } from './area-tag-item';
@@ -22,7 +21,7 @@ interface IIconData {
 }
 
 interface IProps {
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   activeAreaIndex: number;
   setActiveAreaIndex: React.Dispatch<React.SetStateAction<number>>;
   areaTags: AreaTag[];

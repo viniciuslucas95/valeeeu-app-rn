@@ -1,11 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import {
-  FlatList,
-  useWindowDimensions,
-  View,
-  StyleSheet,
-  PixelRatio,
-} from 'react-native';
+import { FlatList, useWindowDimensions, View, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { hideAsync } from 'expo-splash-screen';
 
@@ -18,10 +12,10 @@ import { AreaTag } from '../../constants';
 import { ISmallProfileDto, IAreaTagDto, IFilterDto, ITagDto } from '../../dtos';
 import { useTagApi } from '../../hooks';
 import { ActivityIndicator } from '../../components';
-import { rem } from '../../helpers';
 
 import { AreaTagList } from './area-tag-list';
 import { CardList } from './card-list';
+import { getPermissionsAsync, isAvailableAsync } from 'expo-ads-admob';
 
 const areaTags: AreaTag[] = [
   'Tecnologia',
@@ -48,6 +42,7 @@ export function HomeScreen() {
     };
   }, [activeAreaIndex]);
   const { results } = useTagApi(areaTag);
+  const [isAdAvaiable, setIsAdAvaiable] = useState(false);
 
   useEffect(() => {
     if (results.length === 0) return;
@@ -59,11 +54,14 @@ export function HomeScreen() {
   }, [activeAreaIndex]);
 
   useEffect(() => {
-    async function disableSplashScreenAsync() {
+    async function initialSetupAsync() {
+      await getPermissionsAsync();
+      const result = await isAvailableAsync();
+      setIsAdAvaiable(result);
       await hideAsync();
     }
 
-    disableSplashScreenAsync();
+    initialSetupAsync();
   }, []);
 
   function getMoreData(resetData?: boolean, forceWireframe?: boolean) {
@@ -104,11 +102,13 @@ export function HomeScreen() {
               />
             );
           }
+
           return (
             <CardList
               openProfile={openProfile}
               filter={item.filter}
               tag={item.tag}
+              showAd={isAdAvaiable ? Number.isInteger((index + 2) / 3) : false}
             />
           );
         }}

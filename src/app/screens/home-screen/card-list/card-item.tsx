@@ -4,6 +4,8 @@ import {
   StyleSheet,
   Image,
   TouchableWithoutFeedback,
+  StyleProp,
+  ViewStyle,
 } from 'react-native';
 import isBase64 from 'is-base64';
 
@@ -15,7 +17,6 @@ import {
   ColorConfig,
   TextSizeConfig,
 } from '../../../../configs';
-import { ViewStyle } from '../../../types';
 import { ProfileDistance, ProfileRating, Text } from '../../../components';
 import { FontFamily } from '../../../constants';
 import { IFilterDto, IOrderByDto, ISmallProfileDto } from '../../../dtos';
@@ -23,7 +24,7 @@ import { useProfileApi } from '../../../hooks';
 import { rem } from '../../../helpers';
 
 interface IProps {
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   index: number;
   tag?: string;
   openProfile(profile: ISmallProfileDto): void;

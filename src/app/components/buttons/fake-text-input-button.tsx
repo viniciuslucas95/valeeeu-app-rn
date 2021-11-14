@@ -1,12 +1,13 @@
 import React from 'react';
 import {
+  StyleProp,
   StyleSheet,
   TouchableWithoutFeedback,
   useWindowDimensions,
   View,
+  ViewStyle,
 } from 'react-native';
 
-import { ViewStyle } from '../../types';
 import { FontFamily } from '../../constants';
 import { Text } from '../text';
 import {
@@ -20,7 +21,7 @@ import {
 interface IProps {
   placeholder: string;
   onPress(): void;
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   width?: number;
   label?: string;
   leftIcon?: JSX.Element;

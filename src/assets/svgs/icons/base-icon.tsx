@@ -1,7 +1,6 @@
 import React, { PropsWithChildren } from 'react';
+import { StyleProp, ViewStyle } from 'react-native';
 import Svg from 'react-native-svg';
-
-import { ViewStyle } from '../../../app/types';
 
 interface ISize {
   width: number;
@@ -15,7 +14,7 @@ interface IMarginFromBorder {
 
 export interface ISvgIcon {
   color?: string;
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   height?: number;
   marginFromBorder?: IMarginFromBorder;
 }

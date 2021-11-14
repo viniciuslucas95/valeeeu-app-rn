@@ -1,5 +1,11 @@
 import React, { PropsWithChildren } from 'react';
-import { StyleSheet, TouchableWithoutFeedback, View } from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 import {
   ColorConfig,
@@ -9,10 +15,9 @@ import {
 import { IconToggle, Text } from '../../../components';
 import { FontFamily } from '../../../constants';
 import { rem } from '../../../helpers';
-import { ViewStyle } from '../../../types';
 
 interface IProps {
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   onPress(): void;
   icon: JSX.Element;
   firstLine: string;

@@ -1,16 +1,15 @@
 import React, { PropsWithChildren } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
+
 import {
   ColorConfig,
   ElementSizeConfig,
   ShadowSizeConfig,
 } from '../../../configs';
 
-import { ViewStyle } from '../../types';
-
 interface IProps {
   children: JSX.Element;
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   isToggled?: boolean;
 }
 

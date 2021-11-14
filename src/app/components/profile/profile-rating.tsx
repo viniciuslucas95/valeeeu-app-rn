@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
-import { LocationIcon, StarIcon } from '../../../assets/svgs';
+import { StarIcon } from '../../../assets/svgs';
 import {
   ColorConfig,
   IconSizeConfig,
@@ -10,11 +10,10 @@ import {
 } from '../../../configs';
 import { FontFamily } from '../../constants';
 import { rem } from '../../helpers';
-import { ViewStyle } from '../../types';
 import { Text } from '../text';
 
 interface IProps {
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   total?: number;
   children: number;
 }

@@ -1,8 +1,13 @@
 import React from 'react';
-import { StyleProp, StyleSheet, TextStyle, View } from 'react-native';
+import {
+  StyleProp,
+  StyleSheet,
+  TextStyle,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 import { Text } from './text';
-import { ViewStyle } from '../types';
 import {
   BorderSizeConfig,
   ColorConfig,
@@ -13,7 +18,7 @@ import { FontFamily } from '../constants';
 import { rem } from '../helpers';
 
 interface IProps {
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<TextStyle>;
   quantity: number;
 }
