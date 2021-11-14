@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleProp, StyleSheet, TextStyle, View } from 'react-native';
 
 import { Text } from './text';
 import { ViewStyle } from '../types';
@@ -14,13 +14,18 @@ import { rem } from '../helpers';
 
 interface IProps {
   style?: ViewStyle;
+  textStyle?: StyleProp<TextStyle>;
   quantity: number;
 }
 
-export function TagQuantity({ quantity, style }: IProps) {
+export function TagQuantity({ quantity, style, textStyle }: IProps) {
   return (
     <View style={[styles.container, style]}>
-      <Text fontFamily={FontFamily.robotoLight} fontSize={TextSizeConfig.tiny}>
+      <Text
+        style={textStyle}
+        fontFamily={FontFamily.robotoLight}
+        fontSize={TextSizeConfig.tiny}
+      >
         {quantity.toFixed(0)}
       </Text>
     </View>

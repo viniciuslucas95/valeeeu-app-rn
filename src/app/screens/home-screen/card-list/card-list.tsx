@@ -36,7 +36,7 @@ interface IProps {
 export function CardList({ tag, filter, orderBy, openProfile }: IProps) {
   const { width: windowWidth } = useWindowDimensions();
   const elementMaxWidth = windowWidth - MarginSizeConfig.big * 2;
-  const resultsPerFetch = Math.ceil(windowWidth / rem(PictureSizeConfig.size));
+  const resultsPerFetch = Math.ceil(windowWidth / PictureSizeConfig.size);
   const [data, setData] = useState<undefined[]>([...getMoreData()]);
 
   function getMoreData() {
@@ -57,51 +57,34 @@ export function CardList({ tag, filter, orderBy, openProfile }: IProps) {
           },
         ]}
       >
-        {tag ? (
-          <>
-            <View style={styles.titleAndTagContainer}>
-              <Text
-                fontFamily={FontFamily.robotoMedium}
-                fontSize={TextSizeConfig.big}
-              >
-                {tag.tag}
-              </Text>
-              <TagQuantity
-                style={styles.tagContainer}
-                quantity={tag.quantity}
-              />
-            </View>
-            <Text
-              style={{
-                marginLeft:
-                  MarginSizeConfig.big * 1.5 + rem(MarginSizeConfig.big) * 1.5,
-              }}
-              fontColor={ColorConfig.blue2}
-              fontFamily={FontFamily.robotoLight}
-            >
-              Ver mais
-            </Text>
-          </>
-        ) : (
-          <>
-            <View
-              style={{
-                width: PictureSizeConfig.size,
-                height: TextSizeConfig.big,
-                backgroundColor: ColorConfig.gray2,
-                borderRadius: BorderSizeConfig.smallRadius / 2,
-              }}
-            />
-            <View
-              style={{
-                width: PictureSizeConfig.size * 0.5,
-                height: TextSizeConfig.medium,
-                backgroundColor: ColorConfig.gray2,
-                borderRadius: BorderSizeConfig.smallRadius / 2,
-              }}
-            />
-          </>
-        )}
+        <View style={styles.titleAndTagContainer}>
+          <Text
+            style={{
+              backgroundColor: tag ? 'transparent' : ColorConfig.gray1,
+              borderRadius: rem(BorderSizeConfig.bigRadius),
+            }}
+            fontFamily={FontFamily.robotoMedium}
+            fontSize={TextSizeConfig.big}
+            fontColor={tag ? ColorConfig.black1 : ColorConfig.gray1}
+          >
+            {tag ? tag.tag : 'Wireframe Text Shippuden'}
+          </Text>
+          <TagQuantity
+            style={[styles.tagContainer]}
+            textStyle={tag ? {} : { color: ColorConfig.gray2 }}
+            quantity={tag ? tag.quantity : 123}
+          />
+        </View>
+        <Text
+          style={{
+            marginLeft:
+              MarginSizeConfig.big * 1.5 + rem(MarginSizeConfig.big) * 1.5,
+          }}
+          fontColor={tag ? ColorConfig.blue2 : ColorConfig.gray3}
+          fontFamily={FontFamily.robotoLight}
+        >
+          Ver mais
+        </Text>
       </View>
       <FlatList
         showsHorizontalScrollIndicator={false}

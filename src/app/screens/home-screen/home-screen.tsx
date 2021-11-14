@@ -1,5 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { FlatList, useWindowDimensions, View, StyleSheet } from 'react-native';
+import {
+  FlatList,
+  useWindowDimensions,
+  View,
+  StyleSheet,
+  PixelRatio,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { hideAsync } from 'expo-splash-screen';
 
@@ -34,9 +40,7 @@ interface IData {
 export function HomeScreen() {
   const [activeAreaIndex, setActiveAreaIndex] = useState(0);
   const { height: screenHeight } = useWindowDimensions();
-  const resultsPerFetch = Math.ceil(
-    screenHeight / rem(PictureSizeConfig.size / 2)
-  );
+  const resultsPerFetch = Math.ceil(screenHeight / PictureSizeConfig.size / 2);
   const [data, setData] = useState<IData[]>([{}, ...getMoreData(true, true)]);
   const areaTag: IAreaTagDto = useMemo(() => {
     return {

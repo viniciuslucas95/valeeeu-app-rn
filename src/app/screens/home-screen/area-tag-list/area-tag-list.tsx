@@ -80,10 +80,10 @@ const AreaTagListComponent = ({
         data={areaTags}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{
-          paddingHorizontal: MarginSizeConfig.big,
+          paddingLeft: MarginSizeConfig.big,
+          paddingRight: MarginSizeConfig.tiny,
         }}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
-        ListFooterComponent={<View style={styles.separator} />}
         bounces={false}
         renderItem={({ item, index }) => {
           const { icon, firstLine, secondLine } = getIconData(item);
