@@ -18,8 +18,13 @@ import {
 import { ViewStyle } from '../../../types';
 import { ProfileDistance, ProfileRating, Text } from '../../../components';
 import { FontFamily } from '../../../constants';
-import { IFilterDto, IOrderByDto, ISmallProfileDto } from '../../../dtos';
-import { useProfileSearchApi } from '../../../hooks';
+import {
+  IFilterDto,
+  IOrderByDto,
+  ISmallProfileDto,
+  ITagDto,
+} from '../../../dtos';
+import { useProfileApi } from '../../../hooks';
 
 interface IProps {
   style?: ViewStyle;
@@ -40,7 +45,7 @@ const CardItemComponent = ({
   orderBy,
   tag,
 }: IProps) => {
-  const { result, error } = useProfileSearchApi({
+  const { result, error } = useProfileApi({
     index,
     filter,
     orderBy,

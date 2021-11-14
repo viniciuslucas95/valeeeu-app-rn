@@ -1,3 +1,3 @@
 export { useFonts } from './use-fonts';
-export { useProfileSearchApi } from './use-profile-search-api';
-export { useTagSearchApi } from './use-tag-search-api';
+export { useProfileApi } from './use-profile-api';
+export { useTagApi } from './use-tag-api';

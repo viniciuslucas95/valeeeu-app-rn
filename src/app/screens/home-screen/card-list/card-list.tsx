@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, useWindowDimensions, FlatList } from 'react-native';
 
 import {
@@ -10,18 +10,23 @@ import {
 } from '../../../../configs';
 import { ActivityIndicator, Text } from '../../../components';
 import { FontFamily } from '../../../constants';
-import { IFilterDto, IOrderByDto, ISmallProfileDto } from '../../../dtos';
+import {
+  IFilterDto,
+  IOrderByDto,
+  ISmallProfileDto,
+  ITagDto,
+} from '../../../dtos';
 
 import { CardItem } from './card-item';
 
 interface IProps {
-  tag?: string;
+  tag?: ITagDto;
   filter?: IFilterDto;
   orderBy?: IOrderByDto;
   openProfile(profile: ISmallProfileDto): void;
 }
 
-const CardListComponent = ({ tag, filter, orderBy, openProfile }: IProps) => {
+export function CardList({ tag, filter, orderBy, openProfile }: IProps) {
   const { width: windowWidth } = useWindowDimensions();
   const resultsPerFetch = Math.ceil(windowWidth / PictureSizeConfig.size);
   const [data, setData] = useState<undefined[]>([...getMoreData()]);
@@ -50,7 +55,7 @@ const CardListComponent = ({ tag, filter, orderBy, openProfile }: IProps) => {
               fontFamily={FontFamily.robotoMedium}
               fontSize={TextSizeConfig.big}
             >
-              {tag}
+              {tag.tag}
             </Text>
             <Text
               fontColor={ColorConfig.blue2}
@@ -98,7 +103,7 @@ const CardListComponent = ({ tag, filter, orderBy, openProfile }: IProps) => {
             index={index}
             filter={filter}
             orderBy={orderBy}
-            tag={tag}
+            tag={tag?.tag}
           />
         )}
         keyExtractor={(_, index) => index.toString()}
@@ -108,9 +113,7 @@ const CardListComponent = ({ tag, filter, orderBy, openProfile }: IProps) => {
       />
     </View>
   );
-};
-
-export const CardList = memo(CardListComponent);
+}
 
 const styles = StyleSheet.create({
   sectionHeaderContainer: {

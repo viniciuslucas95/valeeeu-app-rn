@@ -9,8 +9,8 @@ import {
   PictureSizeConfig,
 } from '../../../configs';
 import { AreaTag } from '../../constants';
-import { ISmallProfileDto, IAreaTagDto, IFilterDto } from '../../dtos';
-import { useTagSearchApi } from '../../hooks';
+import { ISmallProfileDto, IAreaTagDto, IFilterDto, ITagDto } from '../../dtos';
+import { useTagApi } from '../../hooks';
 import { ActivityIndicator } from '../../components';
 
 import { AreaTagList } from './area-tag-list';
@@ -26,7 +26,7 @@ const areaTags: AreaTag[] = [
 ];
 
 interface IData {
-  tag?: string;
+  tag?: ITagDto;
   filter?: IFilterDto;
 }
 
@@ -34,21 +34,21 @@ export function HomeScreen() {
   const [activeAreaIndex, setActiveAreaIndex] = useState(0);
   const { height: screenHeight } = useWindowDimensions();
   const resultsPerFetch = Math.ceil(screenHeight / PictureSizeConfig.size / 2);
-  const [data, setData] = useState<IData[]>([{}, ...getMoreData(true)]);
+  const [data, setData] = useState<IData[]>([{}, ...getMoreData(true, true)]);
   const areaTag: IAreaTagDto = useMemo(() => {
     return {
       areaTag: areaTags[activeAreaIndex],
     };
   }, [activeAreaIndex]);
-  const { results } = useTagSearchApi(areaTag);
+  const { results } = useTagApi(areaTag);
 
   useEffect(() => {
     if (results.length === 0) return;
-    setData([{}, ...getMoreData()]);
+    setData([{}, ...getMoreData(true)]);
   }, [results]);
 
   useEffect(() => {
-    setData([{}, ...getMoreData(true)]);
+    setData([{}, ...getMoreData(true, true)]);
   }, [activeAreaIndex]);
 
   useEffect(() => {
@@ -59,32 +59,37 @@ export function HomeScreen() {
     disableSplashScreenAsync();
   }, []);
 
-  function getMoreData(forceWireframe?: boolean) {
-    const newData: IData[] = [];
+  useEffect(() => {
+    if (data.length < 2) return;
+    // data.forEach((data, index) => {
+    //   if (index === 0) return;
+    //   console.log(data.tag?.tag);
+    // });
+    // console.log('------');
+  }, [data]);
+
+  function getMoreData(resetData?: boolean, forceWireframe?: boolean) {
+    const moreData: IData[] = [];
     for (let i = 0; i < resultsPerFetch; i++) {
       if (forceWireframe) {
-        newData.push({});
+        moreData.push({});
         continue;
       }
-      const data: IData = results[i]
+      const nextDataIndex = resetData ? i : data.length + i;
+      const newData: IData = results[nextDataIndex]
         ? {
             filter: { areaTag },
-            tag: results[i],
+            tag: results[nextDataIndex],
           }
         : {};
-      newData.push(data);
+      moreData.push(newData);
     }
-    return newData;
+    return moreData;
   }
 
   const openProfile = useCallback((profile: ISmallProfileDto) => {
     console.log(`Open profile ${profile.id} button pressed...`);
   }, []);
-
-  const onEndReached = useCallback(() => {
-    if (data.length < 2) return;
-    setData([...data, ...getMoreData()]);
-  }, [data]);
 
   return (
     <SafeAreaView style={[styles.container]}>
@@ -112,9 +117,14 @@ export function HomeScreen() {
         ItemSeparatorComponent={() => (
           <View style={{ marginVertical: MarginSizeConfig.huge / 2 }} />
         )}
-        keyExtractor={(item, index) => item.tag ?? index.toString()}
+        keyExtractor={(item, index) =>
+          item.tag ? `${item.tag.id}-${item.tag.tag}` : index.toString()
+        }
         bounces={false}
-        onEndReached={onEndReached}
+        onEndReached={() => {
+          if (data.length < 2) return;
+          setData([...data, ...getMoreData()]);
+        }}
         onEndReachedThreshold={0.5}
         ListFooterComponent={<ActivityIndicator />}
       />
