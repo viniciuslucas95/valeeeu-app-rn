@@ -34,7 +34,6 @@ export function Ad({ style }: IProps) {
         adUnitID={Platform.OS === 'ios' ? iosBannerTestId : androidBannerTestId}
         bannerSize='largeBanner'
         servePersonalizedAds
-        onDidFailToReceiveAdWithError={() => console.error('Ad error')}
       />
     </View>
   );

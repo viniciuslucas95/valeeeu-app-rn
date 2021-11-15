@@ -9,4 +9,5 @@ export {
   MoreIcon,
   LocationIcon,
   StarIcon,
+  ExpandIcon,
 } from './icons';

@@ -2,6 +2,7 @@ import React from 'react';
 import { Path } from 'react-native-svg';
 
 import { ColorConfig } from '../../../configs';
+
 import { BaseIcon, ISvgIcon } from './base-icon';
 
 export function SearchIcon(props: ISvgIcon) {

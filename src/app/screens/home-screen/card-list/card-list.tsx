@@ -39,10 +39,10 @@ export function CardList({
   const { width: windowWidth } = useWindowDimensions();
   const elementMaxWidth = windowWidth - MarginSizeConfig.big * 2;
   const resultsPerFetch = Math.ceil(windowWidth / PictureSizeConfig.size);
-  const [data, setData] = useState<undefined[]>([...getMoreData()]);
+  const [data, setData] = useState<undefined[]>(getData(true));
 
-  function getMoreData() {
-    const newData = [];
+  function getData(resetData?: boolean) {
+    const newData: undefined[] = resetData ? [] : [...data];
     for (let i = 0; i < resultsPerFetch; i++) {
       newData.push(undefined);
     }
@@ -69,7 +69,7 @@ export function CardList({
             fontSize={TextSizeConfig.big}
             fontColor={tag ? ColorConfig.black1 : ColorConfig.gray1}
           >
-            {tag ? tag.tag : 'Wireframe Text Shippuden'}
+            {tag ? tag.tag : 'Wireframe Text Testttttt'}
           </Text>
           <TagQuantity
             style={[styles.tagContainer]}
@@ -109,7 +109,7 @@ export function CardList({
           />
         )}
         keyExtractor={(_, index) => index.toString()}
-        onEndReached={() => setData([...data, ...getMoreData()])}
+        onEndReached={() => setData(getData())}
         onEndReachedThreshold={0.5}
         ListFooterComponent={<ActivityIndicator horizontal />}
       />

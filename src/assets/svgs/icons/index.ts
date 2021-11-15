@@ -8,3 +8,4 @@ export { LaptopIcon } from './laptop-icon';
 export { MoreIcon } from './more-icon';
 export { StarIcon } from './star-icon';
 export { LocationIcon } from './location-icon';
+export { ExpandIcon } from './expand-icon';

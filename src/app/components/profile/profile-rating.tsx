@@ -9,17 +9,13 @@ import {
   TextSizeConfig,
 } from '../../../configs';
 import { FontFamily } from '../../constants';
-import { rem } from '../../helpers';
+import { formatRating, rem } from '../../helpers';
 import { Text } from '../text';
 
 interface IProps {
   style?: StyleProp<ViewStyle>;
   total?: number;
   children: number;
-}
-
-function formatAverage(rating: number) {
-  return rating.toFixed(1).replace('.', ',');
 }
 
 function formatTotal(total: number) {
@@ -40,7 +36,7 @@ export function ProfileRating({
         fontColor={ColorConfig.yellow1}
         fontFamily={FontFamily.robotoMedium}
       >
-        {formatAverage(children)}
+        {formatRating(children)}
       </Text>
       {total ? (
         <Text

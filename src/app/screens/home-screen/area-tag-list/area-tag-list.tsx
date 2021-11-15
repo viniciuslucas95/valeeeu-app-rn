@@ -11,6 +11,7 @@ import {
 } from '../../../../assets/svgs';
 import { ColorConfig, MarginSizeConfig } from '../../../../configs';
 import { AreaTag } from '../../../constants';
+import { IAreaTagDto } from '../../../dtos';
 
 import { AreaTagItem } from './area-tag-item';
 
@@ -23,14 +24,14 @@ interface IIconData {
 interface IProps {
   style?: StyleProp<ViewStyle>;
   activeAreaIndex: number;
-  setActiveAreaIndex: React.Dispatch<React.SetStateAction<number>>;
+  setTag: (areaTag: IAreaTagDto) => void;
   areaTags: AreaTag[];
 }
 
 const AreaTagListComponent = ({
   style,
   activeAreaIndex,
-  setActiveAreaIndex,
+  setTag,
   areaTags,
 }: IProps) => {
   const getIconData = useCallback((tag: AreaTag): IIconData => {
@@ -78,17 +79,14 @@ const AreaTagListComponent = ({
         horizontal
         data={areaTags}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{
-          paddingLeft: MarginSizeConfig.big,
-          paddingRight: MarginSizeConfig.tiny,
-        }}
+        contentContainerStyle={styles.flatList}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         bounces={false}
         renderItem={({ item, index }) => {
           const { icon, firstLine, secondLine } = getIconData(item);
           return (
             <AreaTagItem
-              onPress={() => setActiveAreaIndex(index)}
+              onPress={() => setTag({ areaTag: item })}
               icon={icon}
               firstLine={firstLine}
               secondLine={secondLine}
@@ -107,6 +105,10 @@ export const AreaTagList = memo(AreaTagListComponent);
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
+  },
+  flatList: {
+    paddingLeft: MarginSizeConfig.big,
+    paddingRight: MarginSizeConfig.tiny,
   },
   separator: {
     marginHorizontal: MarginSizeConfig.tiny,
