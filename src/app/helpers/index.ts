@@ -1,2 +1,2 @@
 export { rem } from './unit-handler';
-export { formatDistance, formatRating } from './text-formatter';
+export { formatDistance, formatRating, formatPrice } from './text-formatter';

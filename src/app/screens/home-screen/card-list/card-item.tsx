@@ -16,12 +16,14 @@ import {
   PictureSizeConfig,
   ColorConfig,
   TextSizeConfig,
+  IconSizeConfig,
 } from '../../../../configs';
 import { ProfileDistance, ProfileRating, Text } from '../../../components';
 import { FontFamily } from '../../../constants';
 import { IFilterDto, IOrderByDto, ISmallProfileDto } from '../../../dtos';
 import { useProfileApi } from '../../../hooks';
-import { rem } from '../../../helpers';
+import { formatPrice, rem } from '../../../helpers';
+import { StatusIcon } from '../../../../assets';
 
 interface IProps {
   style?: StyleProp<ViewStyle>;
@@ -49,97 +51,6 @@ const CardItemComponent = ({
     tag,
   });
 
-  // if (!result || !tag)
-  //   return (
-  //     <TouchableWithoutFeedback onPress={() => null}>
-  //       <View style={[style, styles.container]}>
-  //         <View style={styles.pictureContainer}>
-  //           <View style={styles.pictureContainer}>
-  //             <View
-  //               style={{
-  //                 position: 'absolute',
-  //                 right: MarginSizeConfig.small,
-  //                 bottom: MarginSizeConfig.small,
-  //                 width: PictureSizeConfig.size * 0.7,
-  //                 height: TextSizeConfig.medium - MarginSizeConfig.tiny,
-  //                 backgroundColor: ColorConfig.gray2,
-  //                 borderRadius: BorderSizeConfig.smallRadius / 2,
-  //               }}
-  //             />
-  //           </View>
-  //         </View>
-  //         <View
-  //           style={[
-  //             styles.infoContainer,
-  //             {
-  //               backgroundColor: ColorConfig.gray2,
-  //               justifyContent: 'space-between',
-  //               flex: 1,
-  //               borderBottomLeftRadius: BorderSizeConfig.bigRadius,
-  //               borderBottomRightRadius: BorderSizeConfig.bigRadius,
-  //             },
-  //           ]}
-  //         >
-  //           <View
-  //             style={{
-  //               width: '60%',
-  //               height: TextSizeConfig.medium - MarginSizeConfig.tiny,
-  //               marginVertical: MarginSizeConfig.tiny / 2,
-  //               backgroundColor: ColorConfig.gray1,
-  //               borderRadius: BorderSizeConfig.smallRadius / 2,
-  //             }}
-  //           />
-  //           <View
-  //             style={{
-  //               width: '100%',
-  //               height: TextSizeConfig.small - MarginSizeConfig.tiny,
-  //               marginVertical: MarginSizeConfig.tiny / 2,
-  //               backgroundColor: ColorConfig.gray1,
-  //               borderRadius: BorderSizeConfig.smallRadius / 2,
-  //             }}
-  //           />
-  //           <View
-  //             style={{
-  //               width: '100%',
-  //               height: TextSizeConfig.small - MarginSizeConfig.tiny,
-  //               marginVertical: MarginSizeConfig.tiny / 2,
-  //               backgroundColor: ColorConfig.gray1,
-  //               borderRadius: BorderSizeConfig.smallRadius / 2,
-  //             }}
-  //           />
-  //           <View
-  //             style={{
-  //               width: '100%',
-  //               height: TextSizeConfig.small - MarginSizeConfig.tiny,
-  //               marginVertical: MarginSizeConfig.tiny / 2,
-  //               backgroundColor: ColorConfig.gray1,
-  //               borderRadius: BorderSizeConfig.smallRadius / 2,
-  //             }}
-  //           />
-
-  //           <View style={styles.distanceAndRatingContainer}>
-  //             <View
-  //               style={{
-  //                 width: '20%',
-  //                 height: TextSizeConfig.small - MarginSizeConfig.tiny,
-  //                 backgroundColor: ColorConfig.gray1,
-  //                 borderRadius: BorderSizeConfig.smallRadius / 2,
-  //               }}
-  //             />
-  //             <View
-  //               style={{
-  //                 width: '30%',
-  //                 height: TextSizeConfig.small - MarginSizeConfig.tiny,
-  //                 backgroundColor: ColorConfig.gray1,
-  //                 borderRadius: BorderSizeConfig.smallRadius / 2,
-  //               }}
-  //             />
-  //           </View>
-  //         </View>
-  //       </View>
-  //     </TouchableWithoutFeedback>
-  //   );
-
   return (
     <TouchableWithoutFeedback
       onPress={result ? () => openProfile(result) : () => null}
@@ -158,6 +69,19 @@ const CardItemComponent = ({
               )}
             </>
           ) : null}
+          <View style={styles.status}>
+            {result ? (
+              result.isOnline ? (
+                <StatusIcon height={IconSizeConfig.medium * 0.9} />
+              ) : null
+            ) : (
+              <StatusIcon
+                color={ColorConfig.gray1}
+                borderColor={ColorConfig.gray1}
+                height={IconSizeConfig.medium * 0.9}
+              />
+            )}
+          </View>
           <View
             style={[
               styles.priceContainer,
@@ -169,7 +93,7 @@ const CardItemComponent = ({
             ]}
           >
             <Text
-              fontColor={result ? ColorConfig.gray5 : ColorConfig.gray1}
+              fontColor={result ? ColorConfig.gray6 : ColorConfig.gray1}
               fontSize={TextSizeConfig.tiny}
               fontFamily={FontFamily.robotoLight}
             >
@@ -180,10 +104,7 @@ const CardItemComponent = ({
               fontSize={TextSizeConfig.small}
               fontColor={result ? ColorConfig.black1 : ColorConfig.gray1}
             >
-              R${' '}
-              {result
-                ? result.lowestPrice.toFixed(2).replace('.', ',')
-                : '99,90'}
+              R$ {result ? formatPrice(result.lowestPrice) : '99,90'}
             </Text>
           </View>
         </View>
@@ -206,7 +127,7 @@ const CardItemComponent = ({
               <Text
                 fontSize={TextSizeConfig.small}
                 fontFamily={FontFamily.robotoLight}
-                fontColor={ColorConfig.gray5}
+                fontColor={ColorConfig.gray6}
                 numberOfLines={3}
               >
                 {result.description}
@@ -300,6 +221,11 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: BorderSizeConfig.bigRadius,
     borderTopRightRadius: BorderSizeConfig.bigRadius,
     backgroundColor: ColorConfig.gray2,
+  },
+  status: {
+    position: 'absolute',
+    left: rem(MarginSizeConfig.tiny * 1.5),
+    top: rem(MarginSizeConfig.tiny * 1.5),
   },
   priceContainer: {
     position: 'absolute',

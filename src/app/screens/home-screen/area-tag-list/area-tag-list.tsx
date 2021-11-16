@@ -8,7 +8,7 @@ import {
   LaptopIcon,
   MoreIcon,
   ToolsIcon,
-} from '../../../../assets/svgs';
+} from '../../../../assets';
 import { ColorConfig, MarginSizeConfig } from '../../../../configs';
 import { AreaTag } from '../../../constants';
 import { IAreaTagDto } from '../../../dtos';

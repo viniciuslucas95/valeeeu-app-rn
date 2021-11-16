@@ -12,4 +12,5 @@ export interface ISmallProfileDto {
   lowestPrice: number;
   rating: IRating;
   distance: number;
+  isOnline?: boolean;
 }

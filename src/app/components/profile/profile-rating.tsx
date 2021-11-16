@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
-import { StarIcon } from '../../../assets/svgs';
+import { StarIcon } from '../../../assets';
 import {
   ColorConfig,
   IconSizeConfig,
@@ -41,7 +41,7 @@ export function ProfileRating({
       {total ? (
         <Text
           fontSize={TextSizeConfig.tiny}
-          fontColor={ColorConfig.gray5}
+          fontColor={ColorConfig.gray6}
           fontFamily={FontFamily.robotoLight}
         >
           {` (${formatTotal(total)})`}

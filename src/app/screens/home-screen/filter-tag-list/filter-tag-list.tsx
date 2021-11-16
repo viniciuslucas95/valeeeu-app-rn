@@ -1,9 +1,9 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback } from 'react';
 import { StyleProp, View, ViewStyle, StyleSheet, FlatList } from 'react-native';
 
 import { MarginSizeConfig } from '../../../../configs';
 import { IFilterDto } from '../../../dtos';
-import { formatDistance, formatRating } from '../../../helpers';
+import { formatDistance, formatPrice, formatRating } from '../../../helpers';
 
 import { FilterTagItem } from './filter-tag-item';
 
@@ -14,22 +14,36 @@ interface IProps {
 
 const FilterTagListComponent = ({ style, filter }: IProps) => {
   const maxDistance = filter?.maxDistance
-    ? formatDistance(filter?.maxDistance)
+    ? `Até ${formatDistance(filter?.maxDistance)}`
     : undefined;
   const minRating = filter?.minRating
-    ? formatRating(filter.minRating)
+    ? `Ao menos ${formatRating(filter.minRating)} estrelas`
     : undefined;
+  const maxPrice = filter?.maxPrice
+    ? `Abaixo de R$ ${formatPrice(filter.maxPrice)}`
+    : undefined;
+  const jobTag = filter?.areaTag.jobTag?.jobTag;
+  const serviceTag = filter?.areaTag.jobTag?.serviceTag?.serviceTag;
 
   const filterTagItems: JSX.Element[] = [
     <FilterTagItem
       placeholder={'Profissão'}
-      text={filter?.areaTag.jobTag?.jobTag}
+      text={jobTag}
       onPress={() => console.log('Job filter tag pressed...')}
     />,
     <FilterTagItem
       placeholder={'Serviço'}
-      text={filter?.areaTag.jobTag?.serviceTag?.serviceTag}
-      onPress={() => console.log('Service filter tag pressed...')}
+      text={serviceTag}
+      onPress={
+        serviceTag
+          ? () => console.log('Service filter tag pressed...')
+          : undefined
+      }
+    />,
+    <FilterTagItem
+      placeholder={'Preço'}
+      text={maxPrice}
+      onPress={() => console.log('Price filter tag pressed...')}
     />,
     <FilterTagItem
       placeholder={'Distância'}
@@ -43,6 +57,15 @@ const FilterTagListComponent = ({ style, filter }: IProps) => {
     />,
   ];
 
+  const renderItem = useCallback(({ item }) => item, []);
+
+  const keyExtractor = useCallback((_, index) => index.toString(), []);
+
+  const itemSeparatorComponent = useCallback(
+    () => <View style={styles.separator} />,
+    []
+  );
+
   return (
     <View style={[styles.container, style]}>
       <FlatList
@@ -50,10 +73,10 @@ const FilterTagListComponent = ({ style, filter }: IProps) => {
         data={filterTagItems}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.flatList}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        ItemSeparatorComponent={itemSeparatorComponent}
         bounces={false}
-        renderItem={({ item }) => item}
-        keyExtractor={(_, index) => index.toString()}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
       />
     </View>
   );

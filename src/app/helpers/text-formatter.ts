@@ -7,3 +7,7 @@ export function formatDistance(distance: number) {
 export function formatRating(rating: number) {
   return rating.toFixed(1).replace('.', ',');
 }
+
+export function formatPrice(price: number) {
+  return price.toFixed(2).replace('.', ',');
+}

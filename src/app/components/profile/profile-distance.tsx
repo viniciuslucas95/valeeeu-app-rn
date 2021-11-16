@@ -1,7 +1,7 @@
 import React, { PropsWithChildren } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 
-import { LocationIcon } from '../../../assets/svgs';
+import { LocationIcon } from '../../../assets';
 import {
   ColorConfig,
   IconSizeConfig,
@@ -23,13 +23,13 @@ export function ProfileDistance({
   return (
     <View style={[styles.container, style]}>
       <LocationIcon
-        color={ColorConfig.gray4}
+        color={ColorConfig.gray5}
         height={rem(IconSizeConfig.tiny)}
       />
       <Text
         style={{ marginLeft: MarginSizeConfig.tiny }}
         fontSize={TextSizeConfig.tiny}
-        fontColor={ColorConfig.gray5}
+        fontColor={ColorConfig.gray6}
       >
         {formatDistance(children)}
       </Text>

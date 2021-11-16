@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MainStack } from '../constants';
 import { HomeScreen } from '../screens';
 import { noHeader } from './constants';
-import { HomeIcon } from '../../assets/svgs';
+import { HomeIcon } from '../../assets';
 
 const Tab = createBottomTabNavigator();
 

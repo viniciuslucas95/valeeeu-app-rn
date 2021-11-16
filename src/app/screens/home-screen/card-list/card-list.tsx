@@ -38,7 +38,8 @@ export function CardList({
 }: IProps) {
   const { width: windowWidth } = useWindowDimensions();
   const elementMaxWidth = windowWidth - MarginSizeConfig.big * 2;
-  const resultsPerFetch = Math.ceil(windowWidth / PictureSizeConfig.size);
+  const maxCardsOnScreen = Math.ceil(windowWidth / PictureSizeConfig.size);
+  const resultsPerFetch = maxCardsOnScreen + Math.ceil(maxCardsOnScreen / 2);
   const [data, setData] = useState<undefined[]>(getData(true));
 
   function getData(resetData?: boolean) {
@@ -82,13 +83,15 @@ export function CardList({
             marginLeft:
               MarginSizeConfig.big * 1.5 + rem(MarginSizeConfig.big) * 1.5,
           }}
-          fontColor={tag ? ColorConfig.blue2 : ColorConfig.gray3}
+          fontColor={tag ? ColorConfig.blue2 : ColorConfig.gray4}
           fontFamily={FontFamily.robotoLight}
         >
           Ver mais
         </Text>
       </View>
       <FlatList
+        maxToRenderPerBatch={resultsPerFetch}
+        updateCellsBatchingPeriod={500}
         showsHorizontalScrollIndicator={false}
         bounces={false}
         horizontal

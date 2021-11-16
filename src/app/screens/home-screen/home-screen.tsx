@@ -6,6 +6,7 @@ import { getPermissionsAsync, isAvailableAsync } from 'expo-ads-admob';
 
 import {
   ColorConfig,
+  ElementSizeConfig,
   MarginSizeConfig,
   PictureSizeConfig,
 } from '../../../configs';
@@ -73,7 +74,7 @@ export function HomeScreen() {
       const nextDataIndex = resetData ? i : data.length + i;
       const newData: IData = tagFilterChildren[nextDataIndex]
         ? {
-            filter: { areaTag: { areaTag: filter.areaTag?.areaTag } },
+            filter,
             tag: tagFilterChildren[nextDataIndex],
           }
         : {};
@@ -96,39 +97,57 @@ export function HomeScreen() {
     console.log(`Open profile ${profile.id} button pressed...`);
   }, []);
 
+  const keyExtractor = useCallback(
+    (item, index) =>
+      item.tag ? `${item.tag.id}-${item.tag.tag}` : index.toString(),
+    []
+  );
+
+  const onEndReached = useCallback(() => setData(getData()), [getData]);
+
+  const itemSeparatorComponent = useCallback(
+    () => <View style={styles.separator} />,
+    []
+  );
+
+  const renderItem = useCallback(
+    ({ item, index }) => {
+      if (index === 0) {
+        return (
+          <AreaTagList
+            activeAreaIndex={areaTags.indexOf(filter.areaTag.areaTag)}
+            setTag={setTag}
+            areaTags={areaTags}
+          />
+        );
+      }
+      if (index === 1) {
+        return <FilterTagList filter={filter} style={styles.filterTagList} />;
+      }
+      return (
+        <CardList
+          openProfile={openProfile}
+          filter={item.filter}
+          tag={item.tag}
+          showAd={isAdAvaiable ? Number.isInteger((index + 1) / 3) : false}
+        />
+      );
+    },
+    [filter]
+  );
+
   return (
     <SafeAreaView style={[styles.container]}>
       <FlatList
+        maxToRenderPerBatch={resultsPerFetch}
+        updateCellsBatchingPeriod={500}
         style={styles.flatList}
         data={data}
-        renderItem={({ item, index }) => {
-          if (index === 0) {
-            return (
-              <AreaTagList
-                activeAreaIndex={areaTags.indexOf(filter.areaTag.areaTag)}
-                setTag={setTag}
-                areaTags={areaTags}
-              />
-            );
-          }
-          if (index === 1) {
-            return <FilterTagList style={styles.filterTagList} />;
-          }
-          return (
-            <CardList
-              openProfile={openProfile}
-              filter={item.filter}
-              tag={item.tag}
-              showAd={isAdAvaiable ? Number.isInteger((index + 1) / 3) : false}
-            />
-          );
-        }}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
-        keyExtractor={(item, index) =>
-          item.tag ? `${item.tag.id}-${item.tag.tag}` : index.toString()
-        }
+        renderItem={renderItem}
+        ItemSeparatorComponent={itemSeparatorComponent}
+        keyExtractor={keyExtractor}
         bounces={false}
-        onEndReached={() => setData(getData())}
+        onEndReached={onEndReached}
         onEndReachedThreshold={0.5}
         ListFooterComponent={<ActivityIndicator />}
       />
@@ -149,6 +168,7 @@ const styles = StyleSheet.create({
     marginVertical: MarginSizeConfig.huge / 2,
   },
   filterTagList: {
-    marginTop: -MarginSizeConfig.small,
+    marginTop: -MarginSizeConfig.small - ElementSizeConfig.minPressableArea / 4,
+    marginBottom: -ElementSizeConfig.minPressableArea / 4,
   },
 });

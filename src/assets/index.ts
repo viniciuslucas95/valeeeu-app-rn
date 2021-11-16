@@ -1,14 +1,14 @@
 export {
-  HomeIcon,
-  SearchIcon,
+  StatusIcon,
+  ExpandIcon,
   CarIcon,
   GlassesAndMustacheIcon,
   HeartIcon,
+  HomeIcon,
   LaptopIcon,
-  ToolsIcon,
-  MoreIcon,
   LocationIcon,
-  StatusIcon,
+  MoreIcon,
+  SearchIcon,
   StarIcon,
-  ExpandIcon,
-} from './icons';
+  ToolsIcon,
+} from './svgs';

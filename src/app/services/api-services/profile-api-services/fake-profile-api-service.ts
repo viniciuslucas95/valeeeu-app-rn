@@ -27,6 +27,7 @@ async function getSmallProfileAsync(): Promise<ISmallProfileDto> {
       total: Math.random() * 100,
     },
     username: internet.userName(),
+    isOnline: datatype.boolean(),
   };
 }
 

@@ -43,7 +43,7 @@ export function AreaTagItem({
           fontFamily={
             isToggled ? FontFamily.robotoRegular : FontFamily.robotoLight
           }
-          fontColor={isToggled ? ColorConfig.blue2 : ColorConfig.gray5}
+          fontColor={isToggled ? ColorConfig.blue2 : ColorConfig.gray6}
           textAlign='center'
         >
           {firstLine}
@@ -53,7 +53,7 @@ export function AreaTagItem({
             fontFamily={
               isToggled ? FontFamily.robotoRegular : FontFamily.robotoLight
             }
-            fontColor={isToggled ? ColorConfig.blue2 : ColorConfig.gray5}
+            fontColor={isToggled ? ColorConfig.blue2 : ColorConfig.gray6}
             textAlign='center'
           >
             {secondLine}

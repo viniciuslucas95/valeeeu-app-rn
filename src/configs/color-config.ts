@@ -1,8 +1,9 @@
 export const ColorConfig = {
   black1: '#151515',
-  gray5: '#808080',
-  gray4: '#AAAAAA',
-  gray3: '#C0C0C0',
+  gray6: '#808080',
+  gray5: '#AAAAAA',
+  gray4: '#C0C0C0',
+  gray3: '#D0D0D0',
   gray2: '#E0E0E0',
   gray1: '#F3F3F3',
   white1: '#FFFFFF',

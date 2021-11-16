@@ -23,7 +23,7 @@ export function IconToggle({
       style={[
         styles.container,
         {
-          backgroundColor: isToggled ? ColorConfig.blue2 : ColorConfig.gray3,
+          backgroundColor: isToggled ? ColorConfig.blue2 : ColorConfig.gray4,
         },
         style,
       ]}

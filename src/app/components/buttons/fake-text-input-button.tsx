@@ -58,7 +58,7 @@ export function FakeTextInputButton({
               styles.textContainer,
             ]}
           >
-            <Text fontColor={ColorConfig.gray4}>{placeholder}</Text>
+            <Text fontColor={ColorConfig.gray5}>{placeholder}</Text>
           </View>
           {rightIcon}
           {label ? (
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     borderRadius: BorderSizeConfig.smallRadius,
     paddingHorizontal: MarginSizeConfig.medium,
     borderWidth: BorderSizeConfig.inactive,
-    borderColor: ColorConfig.gray4,
+    borderColor: ColorConfig.gray5,
     backgroundColor: ColorConfig.white1,
     elevation: ShadowSizeConfig.smallElevation,
   },
