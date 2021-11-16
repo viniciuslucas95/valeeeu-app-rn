@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, useWindowDimensions, FlatList } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import {
+  View,
+  StyleSheet,
+  useWindowDimensions,
+  FlatList,
+  Dimensions,
+} from 'react-native';
 
 import {
   BorderSizeConfig,
@@ -50,6 +56,37 @@ export function CardList({
     return newData;
   }
 
+  const renderItem = useCallback(
+    ({ index }) => (
+      <CardItem
+        openProfile={openProfile}
+        index={index}
+        filter={filter}
+        orderBy={orderBy}
+        tag={tag?.tag}
+      />
+    ),
+    [filter, orderBy, tag]
+  );
+
+  const getItemLayout = useCallback((_, index) => {
+    const width = rem(PictureSizeConfig.size) + MarginSizeConfig.tiny * 1.5 * 2;
+    return {
+      index,
+      length: width,
+      offset: width * index,
+    };
+  }, []);
+
+  const keyExtractor = useCallback((_, index) => index.toString(), []);
+
+  const itemSeparatorComponent = useCallback(
+    () => <View style={styles.separator} />,
+    []
+  );
+
+  const onEndReached = useCallback(() => setData(getData()), [getData]);
+
   return (
     <View>
       <View
@@ -90,8 +127,12 @@ export function CardList({
         </Text>
       </View>
       <FlatList
+        initialNumToRender={Math.ceil(
+          Dimensions.get('window').width / PictureSizeConfig.size
+        )}
+        getItemLayout={getItemLayout}
         maxToRenderPerBatch={resultsPerFetch}
-        updateCellsBatchingPeriod={500}
+        updateCellsBatchingPeriod={150}
         showsHorizontalScrollIndicator={false}
         bounces={false}
         horizontal
@@ -99,20 +140,10 @@ export function CardList({
         contentContainerStyle={{
           paddingHorizontal: MarginSizeConfig.big,
         }}
-        ItemSeparatorComponent={() => (
-          <View style={{ marginHorizontal: MarginSizeConfig.tiny * 1.5 }} />
-        )}
-        renderItem={({ index }) => (
-          <CardItem
-            openProfile={openProfile}
-            index={index}
-            filter={filter}
-            orderBy={orderBy}
-            tag={tag?.tag}
-          />
-        )}
-        keyExtractor={(_, index) => index.toString()}
-        onEndReached={() => setData(getData())}
+        ItemSeparatorComponent={itemSeparatorComponent}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
+        onEndReached={onEndReached}
         onEndReachedThreshold={0.5}
         ListFooterComponent={<ActivityIndicator horizontal />}
       />
@@ -134,6 +165,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: MarginSizeConfig.big,
     marginBottom: MarginSizeConfig.medium,
+    height: rem(TextSizeConfig.big * 1.35),
+  },
+  separator: {
+    marginHorizontal: MarginSizeConfig.tiny * 1.5,
   },
   titleAndTagContainer: {
     flex: 1,
@@ -154,6 +189,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: BorderSizeConfig.smallRadius,
     backgroundColor: ColorConfig.gray1,
-    elevation: ShadowSizeConfig.smallElevation,
+    elevation: ShadowSizeConfig.elevation,
+    shadowOffset: {
+      width: ShadowSizeConfig.offsetX,
+      height: ShadowSizeConfig.offsetY,
+    },
+    shadowRadius: ShadowSizeConfig.radius,
+    shadowColor: ColorConfig.black1,
+    shadowOpacity: ShadowSizeConfig.opacity,
   },
 });

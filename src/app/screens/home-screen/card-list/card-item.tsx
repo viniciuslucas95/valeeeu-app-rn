@@ -72,7 +72,7 @@ const CardItemComponent = ({
           <View style={styles.status}>
             {result ? (
               result.isOnline ? (
-                <StatusIcon height={IconSizeConfig.medium * 0.9} />
+                <StatusIcon height={rem(IconSizeConfig.medium * 0.9)} />
               ) : null
             ) : (
               <StatusIcon
@@ -212,7 +212,14 @@ const styles = StyleSheet.create({
   container: {
     width: rem(PictureSizeConfig.size),
     borderRadius: BorderSizeConfig.bigRadius,
-    elevation: ShadowSizeConfig.smallElevation,
+    elevation: ShadowSizeConfig.elevation,
+    shadowOffset: {
+      width: ShadowSizeConfig.offsetX,
+      height: ShadowSizeConfig.offsetY,
+    },
+    shadowRadius: ShadowSizeConfig.radius,
+    shadowColor: ColorConfig.black1,
+    shadowOpacity: ShadowSizeConfig.opacity,
     backgroundColor: ColorConfig.white1,
     marginVertical: rem(MarginSizeConfig.tiny),
   },

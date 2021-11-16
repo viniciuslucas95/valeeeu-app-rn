@@ -73,6 +73,29 @@ const AreaTagListComponent = ({
     }
   }, []);
 
+  const itemSeparatorComponent = useCallback(
+    () => <View style={styles.separator} />,
+    []
+  );
+
+  const renderItem = useCallback(
+    ({ item, index }) => {
+      const { icon, firstLine, secondLine } = getIconData(item);
+      return (
+        <AreaTagItem
+          onPress={() => setTag({ areaTag: item })}
+          icon={icon}
+          firstLine={firstLine}
+          secondLine={secondLine}
+          isToggled={index === activeAreaIndex ? true : false}
+        />
+      );
+    },
+    [setTag]
+  );
+
+  const keyExtractor = useCallback((item) => item, []);
+
   return (
     <View style={[style, styles.container]}>
       <FlatList
@@ -80,21 +103,10 @@ const AreaTagListComponent = ({
         data={areaTags}
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={styles.flatList}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
+        ItemSeparatorComponent={itemSeparatorComponent}
         bounces={false}
-        renderItem={({ item, index }) => {
-          const { icon, firstLine, secondLine } = getIconData(item);
-          return (
-            <AreaTagItem
-              onPress={() => setTag({ areaTag: item })}
-              icon={icon}
-              firstLine={firstLine}
-              secondLine={secondLine}
-              isToggled={index === activeAreaIndex ? true : false}
-            />
-          );
-        }}
-        keyExtractor={(item) => item}
+        renderItem={renderItem}
+        keyExtractor={keyExtractor}
       />
     </View>
   );

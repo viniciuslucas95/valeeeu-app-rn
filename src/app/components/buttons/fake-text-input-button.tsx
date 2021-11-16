@@ -85,7 +85,14 @@ const styles = StyleSheet.create({
     borderWidth: BorderSizeConfig.inactive,
     borderColor: ColorConfig.gray5,
     backgroundColor: ColorConfig.white1,
-    elevation: ShadowSizeConfig.smallElevation,
+    elevation: ShadowSizeConfig.elevation,
+    shadowOffset: {
+      width: ShadowSizeConfig.offsetX,
+      height: ShadowSizeConfig.offsetY,
+    },
+    shadowRadius: ShadowSizeConfig.radius,
+    shadowColor: ColorConfig.black1,
+    shadowOpacity: ShadowSizeConfig.opacity,
   },
   textContainer: {
     flex: 1,

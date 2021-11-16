@@ -1,5 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, useWindowDimensions, View, StyleSheet } from 'react-native';
+import {
+  FlatList,
+  useWindowDimensions,
+  View,
+  StyleSheet,
+  Dimensions,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { hideAsync } from 'expo-splash-screen';
 import { getPermissionsAsync, isAvailableAsync } from 'expo-ads-admob';
@@ -9,6 +15,7 @@ import {
   ElementSizeConfig,
   MarginSizeConfig,
   PictureSizeConfig,
+  TextSizeConfig,
 } from '../../../configs';
 import { AreaTag } from '../../constants';
 import { ISmallProfileDto, IFilterDto, ITagDto, IAreaTagDto } from '../../dtos';
@@ -18,6 +25,7 @@ import { ActivityIndicator } from '../../components';
 import { AreaTagList } from './area-tag-list';
 import { CardList } from './card-list';
 import { FilterTagList } from './filter-tag-list';
+import { rem } from '../../helpers';
 
 export interface IData {
   tag?: ITagDto;
@@ -136,11 +144,63 @@ export function HomeScreen() {
     [filter]
   );
 
+  const getItemLayout = useCallback(
+    (_, index) => {
+      const separatorHeight = MarginSizeConfig.huge / 2;
+      if (index === 0) {
+        const height =
+          ElementSizeConfig.minPressableArea +
+          rem(ElementSizeConfig.minPressableArea) +
+          separatorHeight;
+        return {
+          index,
+          length: height,
+          offset: height * index,
+        };
+      }
+      if (index === 1) {
+        const height =
+          ElementSizeConfig.minPressableArea +
+          rem(TextSizeConfig.tiny * 0.5) +
+          separatorHeight;
+        return {
+          index,
+          length: height,
+          offset: height * index,
+        };
+      }
+      const titleHeight =
+        MarginSizeConfig.medium + rem(TextSizeConfig.big * 1.35);
+      const adHeight =
+        MarginSizeConfig.huge + 110 + rem(TextSizeConfig.small * 1.75);
+      const cardHeight =
+        rem(PictureSizeConfig.size) +
+        rem(PictureSizeConfig.size * 0.675) +
+        rem(MarginSizeConfig.tiny);
+      const width =
+        titleHeight +
+        cardHeight +
+        separatorHeight +
+        (isAdAvaiable ? (Number.isInteger((index + 1) / 3) ? adHeight : 0) : 0);
+      return {
+        index,
+        length: width,
+        offset: width * index,
+      };
+    },
+    [isAdAvaiable]
+  );
+
   return (
     <SafeAreaView style={[styles.container]}>
       <FlatList
+        initialNumToRender={
+          Math.ceil(
+            Dimensions.get('screen').height / PictureSizeConfig.size / 2
+          ) + 1
+        }
         maxToRenderPerBatch={resultsPerFetch}
-        updateCellsBatchingPeriod={500}
+        updateCellsBatchingPeriod={150}
         style={styles.flatList}
         data={data}
         renderItem={renderItem}

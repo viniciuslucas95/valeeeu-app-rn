@@ -48,7 +48,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: BorderSizeConfig.smallRadius,
     backgroundColor: ColorConfig.white1,
-    elevation: ShadowSizeConfig.smallElevation,
+    elevation: ShadowSizeConfig.elevation,
+    shadowOffset: {
+      width: ShadowSizeConfig.offsetX,
+      height: ShadowSizeConfig.offsetY,
+    },
+    shadowRadius: ShadowSizeConfig.radius,
+    shadowColor: ColorConfig.black1,
+    shadowOpacity: ShadowSizeConfig.opacity,
   },
   text: {
     alignSelf: 'flex-start',

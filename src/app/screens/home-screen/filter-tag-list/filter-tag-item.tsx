@@ -9,6 +9,7 @@ import {
   ElementSizeConfig,
   IconSizeConfig,
   MarginSizeConfig,
+  TextSizeConfig,
 } from '../../../../configs';
 import { Text } from '../../../components';
 import { FontFamily } from '../../../constants';
@@ -39,7 +40,7 @@ export function FilterTagItem({ style, placeholder, text, onPress }: IProps) {
           </Text>
           <ExpandIcon
             style={styles.icon}
-            height={IconSizeConfig.tiny * 0.75}
+            height={rem(IconSizeConfig.tiny * 0.75)}
             color={onPress ? ColorConfig.gray5 : ColorConfig.gray3}
           />
         </View>
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
   pressableArea: {
     justifyContent: 'center',
     alignItems: 'center',
-    minHeight: ElementSizeConfig.minPressableArea,
+    height: ElementSizeConfig.minPressableArea + rem(TextSizeConfig.tiny * 0.5),
     borderRadius: rem(BorderSizeConfig.bigRadius),
   },
   container: {

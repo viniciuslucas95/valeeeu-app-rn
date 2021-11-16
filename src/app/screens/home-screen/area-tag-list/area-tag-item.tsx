@@ -11,6 +11,7 @@ import {
   ColorConfig,
   ElementSizeConfig,
   MarginSizeConfig,
+  TextSizeConfig,
 } from '../../../../configs';
 import { IconToggle, Text } from '../../../components';
 import { FontFamily } from '../../../constants';
@@ -69,6 +70,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width:
       ElementSizeConfig.minPressableArea + rem(MarginSizeConfig.medium * 3),
+    height:
+      ElementSizeConfig.minPressableArea +
+      rem(ElementSizeConfig.minPressableArea),
   },
   icon: {
     marginBottom: MarginSizeConfig.small,

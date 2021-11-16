@@ -40,6 +40,13 @@ const styles = StyleSheet.create({
     borderRadius: ElementSizeConfig.minPressableArea / 2,
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: ShadowSizeConfig.smallElevation,
+    elevation: ShadowSizeConfig.elevation,
+    shadowOffset: {
+      width: ShadowSizeConfig.offsetX,
+      height: ShadowSizeConfig.offsetY,
+    },
+    shadowRadius: ShadowSizeConfig.radius,
+    shadowColor: ColorConfig.black1,
+    shadowOpacity: ShadowSizeConfig.opacity,
   },
 });
